@@ -1,0 +1,7 @@
+activity命名： 功能名称Activity
+activity布局文件命名xml文件:    Activity类前缀_activity
+Button命名:     功能Btn
+TextView命名：  功能Tv
+Butto效果命令： button名字_handler
+list_item命名： 名字_item
+
