@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="lib" path="/home/ybw/Desktop/poi-3.9/poi-3.9-20121203.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/ybw/Desktop/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

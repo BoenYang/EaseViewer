@@ -24,10 +24,18 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080000;
+        public static final int action_settings=0x7f080006;
+        public static final int getExcelData=0x7f080005;
+        public static final int getPptData=0x7f080004;
+        public static final int getWorldData=0x7f080003;
+        public static final int testPoi=0x7f080001;
+        public static final int textView1=0x7f080000;
+        public static final int wordWeb=0x7f080002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int showcontent_activity=0x7f030001;
+        public static final int testcontent_activity=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -51,7 +59,6 @@ public final class R {
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
- API 11 theme customizations can go here. 
 
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
