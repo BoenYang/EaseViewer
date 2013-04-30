@@ -260,7 +260,7 @@ public class WordToHtml {
 		} catch (Exception e) {
 			System.out.println("outputPicture Exception");
 		}
-		String imageString = "<img src=\"" + picturePath + "\"";
+		String imageString = "<img src=\"" + picture.suggestFullFileName() + "\"";
 		if (bitmap.getWidth() > 640) {
 			imageString = imageString + " " + "width=\"" + 640 + "\"";
 		}
