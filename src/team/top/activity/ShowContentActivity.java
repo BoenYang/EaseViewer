@@ -1,11 +1,14 @@
 package team.top.activity;
 
+import java.lang.reflect.Field;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ZoomButtonsController;
 
 public class ShowContentActivity extends Activity {
 
@@ -15,39 +18,39 @@ public class ShowContentActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.showcontent_activity);
-		webView = (WebView) findViewById(R.id.wordWeb);
+		webView = new WebView(this);
+		setContentView(webView);
+		webView.getSettings().setJavaScriptEnabled(true);
+		webView.getSettings().setSupportZoom(true);
+		webView.getSettings().setBuiltInZoomControls(true);
+		webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);  
 		Intent intent = getIntent();
 		String url = intent.getStringExtra("path");
-		webView.getSettings().setJavaScriptEnabled(true);
-		webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-		webView.requestFocus();
-		webView.setWebViewClient(new WebViewClient() {
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				// TODO Auto-generated method stub
-				view.loadUrl(url);
-				return true;
-			}
-		});
-		System.out.println("content://com.android.htmlfileprovider" + url);
-		webView.loadUrl("content://com.android.htmlfileprovider" + url);
-		// File file = new File(url);
-		//
-		// byte[] data = null;
-		// try {
-		// data = new byte[(int)file.length()];
-		// FileInputStream fileInputStream = new FileInputStream(file);
-		// fileInputStream.read(data);
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		// String string = new String(data);
-		// webView.loadData(string, "text/html", "UTF-8");
-		// System.out.println(string);
+		webView.loadUrl("file://" + url);
+	}
 
+	public void setZoomControlGone(View view) {
+		Class classType;
+		Field field;
+		try {
+			classType = WebView.class;
+			field = classType.getDeclaredField("mZoomButtonsController");
+			field.setAccessible(true);
+			ZoomButtonsController mZoomButtonsController = new ZoomButtonsController(
+					view);
+			mZoomButtonsController.getZoomControls().setVisibility(View.INVISIBLE);
+			try {
+				field.set(view, mZoomButtonsController);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
