@@ -47,42 +47,47 @@ public final class R {
         public static final int solid_divider_fff=0x7f02000d;
     }
     public static final class id {
-        public static final int action_settings=0x7f090023;
-        public static final int apkFile=0x7f09001a;
-        public static final int appInfo=0x7f09000a;
-        public static final int appLogo=0x7f09000b;
-        public static final int appName=0x7f09000c;
-        public static final int appVersion=0x7f09000d;
+        public static final int action_settings=0x7f090028;
+        public static final int apkFile=0x7f09001b;
+        public static final int appInfo=0x7f09000b;
+        public static final int appLogo=0x7f09000c;
+        public static final int appName=0x7f09000d;
+        public static final int appVersion=0x7f09000e;
         public static final int btn1=0x7f090002;
         public static final int btn2=0x7f090003;
         public static final int btn3=0x7f090004;
         public static final int btn4=0x7f090005;
-        public static final int category_apkicon=0x7f090019;
-        public static final int category_musicicon=0x7f090015;
-        public static final int category_officeicon=0x7f090011;
-        public static final int category_pictureicon=0x7f090013;
-        public static final int category_videoicon=0x7f090017;
-        public static final int category_zipicon=0x7f09001b;
-        public static final int center_frame=0x7f090006;
-        public static final int fileinfo=0x7f090008;
-        public static final int filelistview=0x7f090009;
-        public static final int filetext=0x7f090007;
-        public static final int head_layout=0x7f09001d;
-        public static final int left_frame=0x7f090021;
-        public static final int mlist=0x7f090010;
-        public static final int musicFile=0x7f090016;
-        public static final int officeFile=0x7f090012;
-        public static final int pager=0x7f090020;
-        public static final int pictureFile=0x7f090014;
-        public static final int right_frame=0x7f090022;
-        public static final int settingLayout=0x7f09000e;
-        public static final int settingicon=0x7f09000f;
-        public static final int showRight=0x7f09001e;
+        public static final int button1=0x7f090024;
+        public static final int cameraBtn=0x7f090006;
+        public static final int cancel=0x7f090025;
+        public static final int category_apkicon=0x7f09001a;
+        public static final int category_musicicon=0x7f090016;
+        public static final int category_officeicon=0x7f090012;
+        public static final int category_pictureicon=0x7f090014;
+        public static final int category_videoicon=0x7f090018;
+        public static final int category_zipicon=0x7f09001c;
+        public static final int center_frame=0x7f090007;
+        public static final int confirm=0x7f090026;
+        public static final int fileinfo=0x7f090009;
+        public static final int filelistview=0x7f09000a;
+        public static final int filetext=0x7f090008;
+        public static final int head_layout=0x7f09001e;
+        public static final int imageView=0x7f090023;
+        public static final int left_frame=0x7f090022;
+        public static final int mlist=0x7f090011;
+        public static final int musicFile=0x7f090017;
+        public static final int officeFile=0x7f090013;
+        public static final int pager=0x7f090021;
+        public static final int pictureFile=0x7f090015;
+        public static final int right_frame=0x7f090027;
+        public static final int settingLayout=0x7f09000f;
+        public static final int settingicon=0x7f090010;
+        public static final int showRight=0x7f09001f;
         public static final int slidingMenu=0x7f090000;
-        public static final int test=0x7f09001f;
-        public static final int videoFile=0x7f090018;
+        public static final int test=0x7f090020;
+        public static final int videoFile=0x7f090019;
         public static final int wordWeb=0x7f090001;
-        public static final int zipFile=0x7f09001c;
+        public static final int zipFile=0x7f09001d;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -96,7 +101,8 @@ public final class R {
         public static final int fragment_viewpager=0x7f030008;
         public static final int left_frame=0x7f030009;
         public static final int line=0x7f03000a;
-        public static final int right_frame=0x7f03000b;
+        public static final int photoconfirm=0x7f03000b;
+        public static final int right_frame=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f080000;
