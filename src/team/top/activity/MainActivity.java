@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import team.top.fragment.CenterViewPagerFragment;
 import team.top.fragment.FileListFragment;
-import team.top.fragment.RightClassifyFragment;
+import team.top.fragment.RightCategoryFragment;
 import team.top.views.SlidingMenu;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends FragmentActivity {
 
 	SlidingMenu mSlidingMenu;
-	RightClassifyFragment rightClassifyFragment;
+	RightCategoryFragment rightClassifyFragment;
 	CenterViewPagerFragment centerViewPagerFragment;
 	FragmentPagerAdapter mAdapter;
 
@@ -38,7 +38,7 @@ public class MainActivity extends FragmentActivity {
 		FragmentTransaction t = this.getSupportFragmentManager()
 				.beginTransaction();
 
-		rightClassifyFragment = new RightClassifyFragment();
+		rightClassifyFragment = new RightCategoryFragment();
 		t.replace(R.id.right_frame, rightClassifyFragment);
 
 		centerViewPagerFragment = new CenterViewPagerFragment();
