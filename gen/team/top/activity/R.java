@@ -31,37 +31,55 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int head_default=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int line_diviver=0x7f020002;
-        public static final int shade_bg=0x7f020003;
-        public static final int solid_divider_ccc=0x7f020004;
-        public static final int solid_divider_fff=0x7f020005;
+        public static final int category_icon_apk=0x7f020000;
+        public static final int category_icon_music=0x7f020001;
+        public static final int category_icon_office=0x7f020002;
+        public static final int category_icon_picture=0x7f020003;
+        public static final int category_icon_video=0x7f020004;
+        public static final int category_icon_zip=0x7f020005;
+        public static final int head_default=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int icon_test=0x7f020008;
+        public static final int line_diviver=0x7f020009;
+        public static final int settingtest=0x7f02000a;
+        public static final int shade_bg=0x7f02000b;
+        public static final int solid_divider_ccc=0x7f02000c;
+        public static final int solid_divider_fff=0x7f02000d;
     }
     public static final class id {
-        public static final int action_settings=0x7f090016;
-        public static final int apkFile=0x7f09000d;
+        public static final int action_settings=0x7f090020;
+        public static final int apkFile=0x7f090015;
+        public static final int appInfo=0x7f090005;
         public static final int appLogo=0x7f090006;
         public static final int appName=0x7f090007;
         public static final int appVersion=0x7f090008;
+        public static final int category_apkicon=0x7f090014;
+        public static final int category_musicicon=0x7f090010;
+        public static final int category_officeicon=0x7f09000c;
+        public static final int category_pictureicon=0x7f09000e;
+        public static final int category_videoicon=0x7f090012;
+        public static final int category_zipicon=0x7f090016;
         public static final int center_frame=0x7f090002;
         public static final int filelistview=0x7f090004;
         public static final int filetext=0x7f090003;
-        public static final int getExcelData=0x7f090015;
-        public static final int getPptData=0x7f090014;
-        public static final int getWorldData=0x7f090013;
-        public static final int head_layout=0x7f09000e;
-        public static final int left_frame=0x7f090011;
-        public static final int mlist=0x7f090005;
-        public static final int musicFile=0x7f09000b;
-        public static final int officeFile=0x7f090009;
-        public static final int pager=0x7f090010;
-        public static final int pictureFile=0x7f09000a;
-        public static final int right_frame=0x7f090012;
-        public static final int showRight=0x7f09000f;
+        public static final int getExcelData=0x7f09001f;
+        public static final int getPptData=0x7f09001e;
+        public static final int getWorldData=0x7f09001d;
+        public static final int head_layout=0x7f090018;
+        public static final int left_frame=0x7f09001b;
+        public static final int mlist=0x7f09000b;
+        public static final int musicFile=0x7f090011;
+        public static final int officeFile=0x7f09000d;
+        public static final int pager=0x7f09001a;
+        public static final int pictureFile=0x7f09000f;
+        public static final int right_frame=0x7f09001c;
+        public static final int settingLayout=0x7f090009;
+        public static final int settingicon=0x7f09000a;
+        public static final int showRight=0x7f090019;
         public static final int slidingMenu=0x7f090000;
-        public static final int videoFile=0x7f09000c;
+        public static final int videoFile=0x7f090013;
         public static final int wordWeb=0x7f090001;
+        public static final int zipFile=0x7f090017;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -69,7 +87,7 @@ public final class R {
         public static final int center_frame=0x7f030002;
         public static final int file_item=0x7f030003;
         public static final int fragment_filelist=0x7f030004;
-        public static final int fragment_rightclassify=0x7f030005;
+        public static final int fragment_rightcategory=0x7f030005;
         public static final int fragment_viewpager=0x7f030006;
         public static final int left_frame=0x7f030007;
         public static final int line=0x7f030008;
