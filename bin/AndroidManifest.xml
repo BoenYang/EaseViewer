@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="team.top.activity.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/NoTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
