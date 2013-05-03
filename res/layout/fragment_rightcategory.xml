@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="fill_parent"
+    android:layout_gravity="right"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="fill_parent"
+        android:background="@color/bg_color_deep" >
+
+        <RelativeLayout
+            android:id="@+id/appInfo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="10dip" >
+
+            <ImageView
+                android:id="@+id/appLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_test" />
+
+            <TextView
+                android:id="@+id/appName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/appLogo"
+                android:text="AndroidReader"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/appVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/appName"
+                android:layout_below="@+id/appName"
+                android:text="Ver 0.1 alpha"
+                android:textColor="@color/text_color"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <include
+            android:layout_width="fill_parent"
+            android:layout_height="2px"
+            layout="@layout/line" >
+        </include>
+
+        <RelativeLayout
+            android:id="@+id/settingLayout"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dip" >
+
+            <ImageView
+                android:id="@+id/settingicon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/settingtest" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/settingicon"
+                android:text="设置"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:id="@+id/mlist"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/settingLayout"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/appInfo"
+            android:background="@color/bg_color_deep" >
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@color/bg_color_deep"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
+
+                    <ImageView
+                        android:id="@+id/category_officeicon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/category_icon_office" />
+
+                    <TextView
+                        android:id="@+id/officeFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/category_officeicon"
+                        android:text="办公文档"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    layout="@layout/line" >
+                </include>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
+
+                    <ImageView
+                        android:id="@+id/category_pictureicon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/category_icon_picture" />
+
+                    <TextView
+                        android:id="@+id/pictureFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/category_pictureicon"
+                        android:text="图片"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    layout="@layout/line" >
+                </include>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
+
+                    <ImageView
+                        android:id="@+id/category_musicicon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/category_icon_music" />
+
+                    <TextView
+                        android:id="@+id/musicFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/category_musicicon"
+                        android:text="音乐"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    layout="@layout/line" >
+                </include>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
+
+                    <ImageView
+                        android:id="@+id/category_videoicon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/category_icon_video" />
+
+                    <TextView
+                        android:id="@+id/videoFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/category_videoicon"
+                        android:text="视频"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    layout="@layout/line" >
+                </include>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
+
+                    <ImageView
+                        android:id="@+id/category_apkicon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/category_icon_apk" />
+
+                    <TextView
+                        android:id="@+id/apkFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/category_apkicon"
+                        android:text="安装包"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    layout="@layout/line" >
+                </include>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
+
+                    <ImageView
+                        android:id="@+id/category_zipicon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/category_icon_zip" />
+
+                    <TextView
+                        android:id="@+id/zipFile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/category_zipicon"
+                        android:text="压缩包"
+                        android:textColor="@color/text_color"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    layout="@layout/line" >
+                </include>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</LinearLayout>
