@@ -5,11 +5,11 @@
     android:background="@color/bg_color_deep" >
 
     <RelativeLayout
+        android:id="@+id/head_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/head_layout"
-        android:padding="5dip"
-        android:background="@color/bg_color_deep" >
+        android:background="@color/bg_color_deep"
+        android:padding="5dip" >
 
         <Button
             android:id="@+id/showRight"
@@ -18,7 +18,14 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:text="ShowRight" />
-        
+
+        <Button
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="right"
+            android:text="testoffice" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

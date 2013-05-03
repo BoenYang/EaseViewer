@@ -2,12 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical" 
     android:background="@color/bg_color_deep"
-    android:orientation="vertical" >
+    >
     
     <ListView 
         android:id="@+id/filelistview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/bg_color_deep"
+        android:background="@color/bg_color_deep"
+        android:fadeScrollbars="true"
+        android:smoothScrollbar="true"
+        android:dividerHeight="1dp"/>
 
 </LinearLayout>

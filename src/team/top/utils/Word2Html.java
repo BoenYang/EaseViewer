@@ -39,6 +39,7 @@ public class Word2Html {
 		fileName = file.substring(0, file.lastIndexOf('.'));
 		FileInputStream inputStream = new FileInputStream(filepath);
 		document = new HWPFDocument(inputStream);
+		inputStream.close();
 		pictures = document.getPicturesTable().getAllPictures();
 		fileUtil = new FileSystem();
 	}
