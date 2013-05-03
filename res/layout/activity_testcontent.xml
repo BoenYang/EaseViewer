@@ -5,23 +5,27 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/getWorldData"
+        android:id="@+id/btn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="getWorldData" />
+        android:text="convertWordTohtml" />
 
     <Button
-        android:id="@+id/getPptData"
+        android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="getPptData" />
+        android:text="convertExcelTohtml" />
 
     <Button
-        android:id="@+id/getExcelData"
+        android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="getExcelData" />
-    
+        android:text="convertPptToimages" />
 
+    <Button
+        android:id="@+id/btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="convertPdfToimages" />
 
 </LinearLayout>

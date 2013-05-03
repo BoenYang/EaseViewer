@@ -1,6 +1,5 @@
 package team.top.utils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,7 +25,7 @@ import team.top.exception.SdCardNotFoud;
  * @author ybw
  *
  */
-public class ExcelToHtml {
+public class Excel2Html {
 
 	private String fileName;
 	private HSSFWorkbook hssfWorkbook;
@@ -41,11 +40,13 @@ public class ExcelToHtml {
 	 * @throws IOException				thrown if open file error
 	 * @throws SdCardNotFoud			thrown if sdcard not mounted
 	 */
-	public ExcelToHtml(String filepath) throws FileNotFoundException, IOException, SdCardNotFoud{
+	public Excel2Html(String filepath) throws FileNotFoundException, IOException, SdCardNotFoud{
 		String temp[] = filepath.split("/");
 		String file = temp[temp.length-1];
 		fileName = file.substring(0,file.lastIndexOf('.'));
-		hssfWorkbook = new HSSFWorkbook(new FileInputStream(filepath));
+		FileInputStream fileInputStream = new FileInputStream(filepath);
+		hssfWorkbook = new HSSFWorkbook(fileInputStream);
+		fileInputStream.close();
 		fileUtil = new FileSystem();
 	}
 	
@@ -183,7 +184,7 @@ public class ExcelToHtml {
 	 * @return 				the absolute path of the html file
 	 * @throws Exception	thrown if convert failed
 	 */
-	public String convertToHtml() throws Exception {
+	public String convert2Html() throws Exception {
 		StringBuffer sb = new StringBuffer();
 		sb.append(HEAD);
 		HSSFSheet sheet = hssfWorkbook.getSheetAt(0);							//get sheet

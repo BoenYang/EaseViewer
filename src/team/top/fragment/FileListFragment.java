@@ -38,8 +38,8 @@ public class FileListFragment extends Fragment {
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		fileList = GetFiles("/");
 		adapter = new SimpleAdapter(view.getContext(), fileList,
-				R.layout.file_item, new String[] { "filename" },
-				new int[] { R.id.filetext });
+				R.layout.file_item, new String[] { "filename" ,"fileinfo"},
+				new int[] { R.id.filetext,R.id.fileinfo });
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
 		return view;
@@ -49,11 +49,7 @@ public class FileListFragment extends Fragment {
 		fileList.clear();
 		File file = new File(currDirectory);
 		File parent = file.getParentFile();
-		fileList = GetFiles(parent.getAbsolutePath());
-		adapter = new SimpleAdapter(view.getContext(), fileList,
-				R.layout.file_item, new String[] { "filename" },
-				new int[] { R.id.filetext });
-		listView.setAdapter(adapter);
+		fileList.addAll(GetFiles(parent.getAbsolutePath()));
 		adapter.notifyDataSetChanged();
 	}
 
@@ -73,6 +69,7 @@ public class FileListFragment extends Fragment {
 						item.put("isDirectory", "true");
 					} else {
 						item.put("isDirectory", "false");
+						item.put("fileinfo", temp.length() + "");
 					}
 					fileNames.add(item);
 				}
@@ -102,11 +99,7 @@ public class FileListFragment extends Fragment {
 			if (isDirector.equals("true")) {
 				fileList.clear();
 				String absolutePath = map.get("absolutepath");
-				fileList = GetFiles(absolutePath);
-				adapter = new SimpleAdapter(view.getContext(), fileList,
-						R.layout.file_item, new String[] { "filename" },
-						new int[] { R.id.filetext });
-				listView.setAdapter(adapter);
+				fileList.addAll(GetFiles(absolutePath));
 				adapter.notifyDataSetChanged();
 			}
 		}
