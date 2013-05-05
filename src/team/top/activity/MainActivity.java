@@ -57,14 +57,15 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		System.out.println("mainacivity");
-		if (mSlidingMenu.isShowRight == true) {
-			mSlidingMenu.showRightView();
-		} else {
-			if(FileListFragment.currDirectory.equals("/"))
-			{
-				exitBy2Click();
-			}else{
-				centerViewPagerFragment.onKeyDown(keyCode, event);
+		if (keyCode == event.KEYCODE_BACK) {
+			if (mSlidingMenu.isShowRight == true) {
+				mSlidingMenu.showRightView();
+			} else {
+				if (FileListFragment.currDirectory.equals("/")) {
+					exitBy2Click();
+				} else {
+					centerViewPagerFragment.onKeyDown(keyCode, event);
+				}
 			}
 		}
 		return true;

@@ -92,11 +92,10 @@ public final class R {
         public static final int file_item=0x7f030004;
         public static final int fragment_filelist=0x7f030005;
         public static final int fragment_rightcategory=0x7f030006;
-        public static final int fragment_rightclassify=0x7f030007;
-        public static final int fragment_viewpager=0x7f030008;
-        public static final int left_frame=0x7f030009;
-        public static final int line=0x7f03000a;
-        public static final int right_frame=0x7f03000b;
+        public static final int fragment_viewpager=0x7f030007;
+        public static final int left_frame=0x7f030008;
+        public static final int line=0x7f030009;
+        public static final int right_frame=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f080000;
