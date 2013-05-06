@@ -1,41 +1,21 @@
 package team.top.data;
 
+/**
+ * 
+ * @author ybw
+ *
+ */
 public class FileInfo {
-	
-	private String fileName;
-	private String fileAbsolutePath;
-	private boolean isDirector;
-	
-	public FileInfo(String fileName, String fileAbsolutePath, boolean isDirector) {
-		super();
-		this.fileName = fileName;
-		this.fileAbsolutePath = fileAbsolutePath;
-		this.isDirector = isDirector;
-	}
-	
-	public String getFileName() {
-		return fileName;
-	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public String fileName;
+	public String absolutePath;
+	public boolean isDirectory;
+	public boolean isHidden;
+	public long fileSize;
+	@Override
+	public String toString() {
+		return "FileInfo [fileName=" + fileName + ", absolutePath="
+				+ absolutePath + ", isDirectory=" + isDirectory + ", isHidden="
+				+ isHidden + ", fileSize=" + fileSize + "]";
 	}
-
-	public String getFileAbsolutePath() {
-		return fileAbsolutePath;
-	}
-
-	public void setFileAbsolutePath(String fileAbsolutePath) {
-		this.fileAbsolutePath = fileAbsolutePath;
-	}
-
-	public boolean isDirector() {
-		return isDirector;
-	}
-
-	public void setDirector(boolean isDirector) {
-		this.isDirector = isDirector;
-	}
-
-	
 }

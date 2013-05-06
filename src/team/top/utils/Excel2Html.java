@@ -18,8 +18,6 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import team.top.exception.SdCardNotFoud;
-
 /**This is a class use for convert a excel document to a html file
  * 
  * @author ybw
@@ -40,7 +38,7 @@ public class Excel2Html {
 	 * @throws IOException				thrown if open file error
 	 * @throws SdCardNotFoud			thrown if sdcard not mounted
 	 */
-	public Excel2Html(String filepath) throws FileNotFoundException, IOException, SdCardNotFoud{
+	public Excel2Html(String filepath) throws FileNotFoundException, IOException{
 		String temp[] = filepath.split("/");
 		String file = temp[temp.length-1];
 		fileName = file.substring(0,file.lastIndexOf('.'));

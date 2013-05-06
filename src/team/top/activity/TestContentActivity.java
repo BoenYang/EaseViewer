@@ -6,13 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import team.top.Camera.cameraToPdf;
+import team.top.utils.FileSystem;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -34,7 +33,7 @@ public class TestContentActivity extends Activity {
 		btn4 = (Button) findViewById(R.id.btn4);
 		btn5 = (Button) findViewById(R.id.cameraBtn);
 		btn5.setOnClickListener(new BtnListener());
-		
+	
 	}
 
 	class BtnListener implements View.OnClickListener {
@@ -62,28 +61,16 @@ public class TestContentActivity extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == Activity.RESULT_OK) {
-
-            String sdStatus = Environment.getExternalStorageState();
-            if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-                Log.v("TestFile",
-                        "SD card is not avaiable/writeable right now.");
-                return;
-            }
-
             Bundle bundle = data.getExtras();
-            Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
+            Bitmap bitmap = (Bitmap) bundle.get("data");
             FileOutputStream b = null;
-            File file = new File("/sdcard/myImage/");
-            file.mkdirs();// 创建文件夹
-            String fileName = "/sdcard/myImage/111.jpg";
-
+            File file = new File(FileSystem.SDCARD_PATH + "/myImage/");
+            file.mkdirs();
+            String fileName = FileSystem.SDCARD_PATH + "/myImage/111.png";
             try {
                 b = new FileOutputStream(fileName);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, b);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } finally {
@@ -94,10 +81,10 @@ public class TestContentActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-            
             Intent intent_confirm = new Intent();
             intent_confirm.setClass(TestContentActivity.this, cameraToPdf.class);
             TestContentActivity.this.startActivity(intent_confirm);
+        	super.onActivityResult(requestCode, resultCode, data);
         }
 	}
 }

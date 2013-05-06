@@ -24,8 +24,6 @@ import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.hwpf.usermodel.PictureType;
 import org.w3c.dom.Document;
 
-import team.top.exception.SdCardNotFoud;
-
 public class Word2Html {
 	private String fileName;
 	private HWPFDocument document;
@@ -33,7 +31,7 @@ public class Word2Html {
 	private FileSystem fileUtil;
 	private String pictureName;
 
-	public Word2Html(String filepath) throws IOException, SdCardNotFoud {
+	public Word2Html(String filepath) throws IOException{
 		String temp[] = filepath.split("/");
 		String file = temp[temp.length - 1];
 		fileName = file.substring(0, file.lastIndexOf('.'));
