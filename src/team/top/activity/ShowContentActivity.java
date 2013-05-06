@@ -23,7 +23,7 @@ public class ShowContentActivity extends Activity {
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
 		webView.getSettings().setBuiltInZoomControls(true);
-		webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);  
+		webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 		Intent intent = getIntent();
 		String url = intent.getStringExtra("path");
 		webView.loadUrl("file://" + url);
@@ -38,7 +38,8 @@ public class ShowContentActivity extends Activity {
 			field.setAccessible(true);
 			ZoomButtonsController mZoomButtonsController = new ZoomButtonsController(
 					view);
-			mZoomButtonsController.getZoomControls().setVisibility(View.INVISIBLE);
+			mZoomButtonsController.getZoomControls().setVisibility(
+					View.INVISIBLE);
 			try {
 				field.set(view, mZoomButtonsController);
 			} catch (IllegalArgumentException e) {

@@ -248,16 +248,17 @@ public class SlidingMenu extends RelativeLayout {
 					if (scrollX < 0)
 						scrollX = 0;
 				}
-				if (deltaX < 0 && oldScrollX < 0) { // left view
-					final float leftBound = 0;
-					// final float rightBound = -getMenuViewWidth();
-					if (scrollX > leftBound) {
-						scrollX = leftBound;
-					}
-					// else if (scrollX < rightBound) {
-					// scrollX = rightBound;
-					// }
-				} else if (deltaX > 0 && oldScrollX > 0) { // right view
+				// if (deltaX < 0 && oldScrollX < 0) { // left view
+				// final float leftBound = 0;
+				// final float rightBound = -getMenuViewWidth();
+				// if (scrollX > leftBound) {
+				// scrollX = leftBound;
+				// }
+				// else if (scrollX < rightBound) {
+				// scrollX = rightBound;
+				// }
+				// } else
+				if (deltaX > 0 && oldScrollX > 0) { // right view
 					final float rightBound = getDetailViewWidth();
 					final float leftBound = 0;
 					if (scrollX < leftBound) {
@@ -287,27 +288,27 @@ public class SlidingMenu extends RelativeLayout {
 				float xVelocity = velocityTracker.getXVelocity();// 滑动的速度
 				int oldScrollX = mSlidingView.getScrollX();
 				int dx = 0;
-				if (oldScrollX <= 0 && canSlideLeft) {// left view
-					if (xVelocity > VELOCITY) {
-						// dx = -getMenuViewWidth() - oldScrollX;
-					} else if (xVelocity < -VELOCITY) {
-						dx = -oldScrollX;
-						if (hasClickLeft) {
-							hasClickLeft = false;
-							setCanSliding(tCanSlideLeft, tCanSlideRight);
-						}
-					}
-					// else if (oldScrollX < -getMenuViewWidth() / 2) {
-					// dx = -getMenuViewWidth() - oldScrollX;
-					// } else if (oldScrollX >= -getMenuViewWidth() / 2) {
-					// dx = -oldScrollX;
-					// if (hasClickLeft) {
-					// hasClickLeft = false;
-					// setCanSliding(tCanSlideLeft, tCanSlideRight);
-					// }
-					// }
-
-				}
+//				if (oldScrollX <= 0 && canSlideLeft) {// left view
+//					if (xVelocity > VELOCITY) {
+//						// dx = -getMenuViewWidth() - oldScrollX;
+//					} else if (xVelocity < -VELOCITY) {
+//						dx = -oldScrollX;
+//						if (hasClickLeft) {
+//							hasClickLeft = false;
+//							setCanSliding(tCanSlideLeft, tCanSlideRight);
+//						}
+//					}
+//					// else if (oldScrollX < -getMenuViewWidth() / 2) {
+//					// dx = -getMenuViewWidth() - oldScrollX;
+//					// } else if (oldScrollX >= -getMenuViewWidth() / 2) {
+//					// dx = -oldScrollX;
+//					// if (hasClickLeft) {
+//					// hasClickLeft = false;
+//					// setCanSliding(tCanSlideLeft, tCanSlideRight);
+//					// }
+//					// }
+//
+//				}
 				if (oldScrollX >= 0 && canSlideRight) {
 					if (xVelocity < -VELOCITY) {
 						dx = getDetailViewWidth() - oldScrollX;
