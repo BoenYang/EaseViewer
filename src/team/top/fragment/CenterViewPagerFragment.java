@@ -2,12 +2,9 @@ package team.top.fragment;
 
 import java.util.ArrayList;
 
-import team.top.activity.R;
 import team.top.activity.MainActivity;
+import team.top.activity.R;
 import team.top.activity.TestContentActivity;
-
-import android.R.bool;
-import android.R.integer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,8 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 public class CenterViewPagerFragment extends Fragment {

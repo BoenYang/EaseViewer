@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import team.top.constant.Constant;
-import team.top.exception.SdCardNotFoud;
 import android.os.Environment;
 
 /**This is a class use for write file in sdcard , application directory or file in another path
@@ -18,19 +17,17 @@ public class FileSystem {
 
 	public static String SDCARD_PATH;
 	public static String APP_DIR;
+	
+	static{
+		SDCARD_PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
+		APP_DIR = SDCARD_PATH + File.separator + Constant.APP_NAME;
+	}
 
 	/**
 	 * 
 	 * @throws SdCardNotFoud	thrown if sdcard not mounted
 	 */
-	public FileSystem() throws SdCardNotFoud {
-		String sdState = Environment.getExternalStorageState();
-		if (sdState.equals(Environment.MEDIA_UNMOUNTED)) {
-			throw new SdCardNotFoud();
-		}
-		SDCARD_PATH = Environment.getExternalStorageDirectory()
-				.getAbsolutePath();
-		APP_DIR = SDCARD_PATH + File.separator + Constant.APP_NAME;
+	public FileSystem(){
 	}
 
 	/**write files to application directory

@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import team.top.fragment.CenterViewPagerFragment;
 import team.top.fragment.FileListFragment;
 import team.top.fragment.RightCategoryFragment;
+import team.top.utils.FileSystem;
 import team.top.views.SlidingMenu;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends FragmentActivity {
 			if (mSlidingMenu.isShowRight == true) {
 				mSlidingMenu.showRightView();
 			} else {
-				if (FileListFragment.currDirectory.equals("/")) {
+				if (FileListFragment.currDirectory.equals(FileSystem.SDCARD_PATH)) {
 					exitBy2Click();
 				} else {
 					centerViewPagerFragment.onKeyDown(keyCode, event);

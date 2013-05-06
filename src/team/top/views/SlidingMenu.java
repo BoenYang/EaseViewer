@@ -30,7 +30,6 @@ public class SlidingMenu extends RelativeLayout {
 	private boolean mIsBeingDragged = true;
 	private boolean tCanSlideLeft = true;
 	private boolean tCanSlideRight = false;
-	private boolean hasClickLeft = false;
 	private boolean hasClickRight = false;
 	public boolean isShowRight;
 
@@ -288,27 +287,6 @@ public class SlidingMenu extends RelativeLayout {
 				float xVelocity = velocityTracker.getXVelocity();// 滑动的速度
 				int oldScrollX = mSlidingView.getScrollX();
 				int dx = 0;
-//				if (oldScrollX <= 0 && canSlideLeft) {// left view
-//					if (xVelocity > VELOCITY) {
-//						// dx = -getMenuViewWidth() - oldScrollX;
-//					} else if (xVelocity < -VELOCITY) {
-//						dx = -oldScrollX;
-//						if (hasClickLeft) {
-//							hasClickLeft = false;
-//							setCanSliding(tCanSlideLeft, tCanSlideRight);
-//						}
-//					}
-//					// else if (oldScrollX < -getMenuViewWidth() / 2) {
-//					// dx = -getMenuViewWidth() - oldScrollX;
-//					// } else if (oldScrollX >= -getMenuViewWidth() / 2) {
-//					// dx = -oldScrollX;
-//					// if (hasClickLeft) {
-//					// hasClickLeft = false;
-//					// setCanSliding(tCanSlideLeft, tCanSlideRight);
-//					// }
-//					// }
-//
-//				}
 				if (oldScrollX >= 0 && canSlideRight) {
 					if (xVelocity < -VELOCITY) {
 						dx = getDetailViewWidth() - oldScrollX;
@@ -336,13 +314,6 @@ public class SlidingMenu extends RelativeLayout {
 		return true;
 	}
 
-	// private int getMenuViewWidth() {
-	// if (mMenuView == null) {
-	// return 0;
-	// }
-	// return mMenuView.getWidth();
-	// }
-
 	private int getDetailViewWidth() {
 		if (mDetailView == null) {
 			return 0;
@@ -365,35 +336,11 @@ public class SlidingMenu extends RelativeLayout {
 		invalidate();
 	}
 
-	/*
-	 * 显示左侧边的view
-	 */
-	// public void showLeftView() {
-	// int menuWidth = mMenuView.getWidth();
-	// int oldScrollX = mSlidingView.getScrollX();
-	// if (oldScrollX == 0) {
-	// mMenuView.setVisibility(View.VISIBLE);
-	// mDetailView.setVisibility(View.INVISIBLE);
-	// smoothScrollTo(-menuWidth);
-	// tCanSlideLeft = canSlideLeft;
-	// tCanSlideRight = canSlideRight;
-	// hasClickLeft = true;
-	// setCanSliding(true, false);
-	// } else if (oldScrollX == -menuWidth) {
-	// smoothScrollTo(menuWidth);
-	// if (hasClickLeft) {
-	// hasClickLeft = false;
-	// setCanSliding(tCanSlideLeft, tCanSlideRight);
-	// }
-	// }
-	// }
-
 	/* 显示右侧边的view */
 	public void showRightView() {
 		int menuWidth = mDetailView.getWidth();
 		int oldScrollX = mSlidingView.getScrollX();
 		if (oldScrollX == 0) {
-			// mMenuView.setVisibility(View.INVISIBLE);
 			mDetailView.setVisibility(View.VISIBLE);
 			smoothScrollTo(menuWidth);
 			tCanSlideLeft = canSlideLeft;
