@@ -1,19 +1,17 @@
 package team.top.fragment;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import team.top.activity.FileListAdapter;
 import team.top.activity.R;
 import team.top.constant.Constant;
 import team.top.data.FileInfo;
+import team.top.utils.FileListHelper;
 import team.top.utils.FileSystem;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Audio;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 public class FileListFragment extends Fragment {
 
@@ -36,35 +33,17 @@ public class FileListFragment extends Fragment {
 	private static FileListAdapter adapter;
 	public static String currDirectory = "/";
 	private static View view;
+	private FileListHelper fileListHelper;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
+		fileListHelper = new FileListHelper(view.getContext());
 		listView = (ListView) view.findViewById(R.id.filelistview);
-		//fileList = GetFiles(FileSystem.SDCARD_PATH);
-		fileList = new ArrayList<FileInfo>();
-		String volume = "external";
-		
-		Uri uri = Audio.Media.getContentUri(volume);
-		
-		String[] colums = new String[] {"COUNT(*)","SUM(_size)"};
-		Cursor c = view.getContext().getContentResolver().query(uri, colums, null, null, null);
-		while (c.moveToNext()) {
-			FileInfo fileInfo = new FileInfo();
-			fileInfo.absolutePath = c.getString(1);
-			File file = new File(fileInfo.absolutePath);
-			fileInfo.fileName = file.getName();
-			fileInfo.isDirectory = file.isDirectory();
-			if(!fileInfo.isDirectory){
-				fileInfo.fileSize = file.length();
-			}
-			
-			fileList.add(fileInfo);
-		}
-		for (FileInfo file : fileList) {		
-			System.out.println(file);
-		}
+		fileList = GetFiles(FileSystem.SDCARD_PATH);
+		// fileList =
+		// fileListHelper.GetAllFiles(FileListHelper.FileCategory.MUSIC, true);
 		adapter = new FileListAdapter(view.getContext(), fileList,
 				R.layout.file_item);
 		listView.setAdapter(adapter);
@@ -81,41 +60,8 @@ public class FileListFragment extends Fragment {
 	}
 
 	private List<FileInfo> GetFiles(String path) {
-		List<FileInfo> fileNames = new ArrayList<FileInfo>();
-		List<FileInfo> dirList = new ArrayList<FileInfo>();
-		List<FileInfo> fList = new ArrayList<FileInfo>();
-		File file = new File(path);
-		currDirectory = path;
-		if (file != null && file.isDirectory()) {
-			File[] files = file.listFiles();
-			if (files != null) {
-				for (File temp : files) {
-					FileInfo fileInfo = new FileInfo();
-					fileInfo.fileName = temp.getName();
-					fileInfo.absolutePath = temp.getAbsolutePath();
-					if (temp.isDirectory()) {
-						fileInfo.isDirectory = true;
-						if (!isHidden(fileInfo.fileName))
-							dirList.add(fileInfo);
-					} else {
-						fileInfo.isDirectory = false;
-						fileInfo.fileSize = temp.length();
-						if (!isHidden(fileInfo.fileName))
-							fList.add(fileInfo);
-					}
-				}
-			}
-		}
-		fileNames.addAll(dirList);
-		fileNames.addAll(fList);
+		List<FileInfo> fileNames = fileListHelper.GetAllFiles(path, false);
 		return fileNames;
-	}
-
-	private boolean isHidden(String fileName) {
-		if (fileName.charAt(0) == '.') {
-			return true;
-		}
-		return false;
 	}
 
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
@@ -149,9 +95,11 @@ public class FileListFragment extends Fragment {
 	}
 
 	public static void setData(List<FileInfo> fileList) {
-		FileListFragment.fileList.clear();
-		FileListFragment.fileList.addAll(fileList);
-		adapter.notifyDataSetChanged();
+		if (fileList != null) {
+			FileListFragment.fileList.clear();
+			FileListFragment.fileList.addAll(fileList);
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 	/**
