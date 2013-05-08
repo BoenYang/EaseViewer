@@ -2,9 +2,11 @@ package team.top.fragment;
 
 import java.util.List;
 
+import team.top.activity.MainActivity;
 import team.top.activity.R;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
+import team.top.utils.FileListHelper.FileCategory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -55,27 +57,45 @@ public class RightCategoryFragment extends Fragment {
 			List<FileInfo> fileList = null;
 			switch (id) {
 			case R.id.officeFile:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
+				// fileList =
+				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC,
+				// true);
+				//FileListFragment.fileCategory = FileCategory.DOC;
 				break;
 			case R.id.pictureFile:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.PICTURE, true);
+				fileList = fileListHelper.GetAllFiles(
+						FileListHelper.FileCategory.PICTURE, true);
+				FileListFragment.fileCategory = FileCategory.PICTURE;
 				break;
 			case R.id.musicFile:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.MUSIC, true);
+				fileList = fileListHelper.GetAllFiles(
+						FileListHelper.FileCategory.MUSIC, true);
+				FileListFragment.fileCategory = FileCategory.MUSIC;
 				break;
 			case R.id.videoFile:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.VIDEO, true);
+				fileList = fileListHelper.GetAllFiles(
+						FileListHelper.FileCategory.VIDEO, true);
+				FileListFragment.fileCategory = FileCategory.VIDEO;
 				break;
 			case R.id.zipFile:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP, true);
+				// fileList =
+				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
+				// true);
+				//FileListFragment.fileCategory = FileCategory.ZIP;
 				break;
 			case R.id.apkFile:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK, true);
+				// fileList =
+				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
+				// true);
+				//FileListFragment.fileCategory = FileCategory.APK;
 				break;
 			default:
 				break;
 			}
-			FileListFragment.setData(fileList);
+			if (fileList != null) {
+				FileListFragment.setData(fileList);
+			}
+			MainActivity.mSlidingMenu.showRightView();
 		}
 
 	}

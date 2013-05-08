@@ -13,7 +13,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore.Audio;
-import android.provider.MediaStore.Files;
 import android.provider.MediaStore.Files.FileColumns;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
@@ -30,7 +29,6 @@ public class FileListHelper {
 	private static final int COLUMN_ID = 0;
 	private static final int COLUMN_PATH = 1;
 	private static final int COLUMN_SIZE = 2;
-	// private static final int COLUMN_DATE = 3;
 
 	public static HashSet<String> sDocMimeTypesSet = new HashSet<String>() {
 		/**
@@ -49,7 +47,7 @@ public class FileListHelper {
 	};
 
 	public enum FileCategory {
-		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER
+		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER,SDCARD,ROOT
 	}
 
 	public FileListHelper(Context context) {
@@ -97,13 +95,10 @@ public class FileListHelper {
 			fileInfo.fileId = cursor.getLong(COLUMN_ID);
 			fileInfo.absolutePath = cursor.getString(COLUMN_PATH);
 			if (!fileInfo.absolutePath.equals("")) {
-				System.out.println("-----" + fileInfo.absolutePath);
 				fileInfo.fileName = GetNameByPath(fileInfo.absolutePath);
-				System.out.println("---------------->>" + fileInfo.fileName);
 				fileInfo.isHidden = isHidden(fileInfo.fileName);
 				fileInfo.isDirectory = isDirectory(fileInfo.absolutePath);
 				fileInfo.fileSize = cursor.getLong(COLUMN_SIZE);
-
 				if (!showHidden) {
 					if (fileInfo.isHidden)
 						continue;
@@ -121,7 +116,7 @@ public class FileListHelper {
 		case THEME:
 		case ZIP:
 		case APK:
-			uri = Files.getContentUri(VOLUME);
+			//uri = Files.getContentUri(VOLUME);
 			break;
 		case MUSIC:
 			uri = Audio.Media.getContentUri(VOLUME);
