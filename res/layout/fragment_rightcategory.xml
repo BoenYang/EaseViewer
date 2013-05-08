@@ -33,7 +33,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="4dp"
                 android:layout_toRightOf="@+id/appLogo"
-                android:text="AndroidReader"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -50,43 +50,30 @@
 
         <include
             android:layout_width="fill_parent"
-            android:layout_height="2px"
+            android:layout_height="2dp"
             layout="@layout/line" >
         </include>
 
-        <RelativeLayout
-            android:id="@+id/settingLayout"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/settingBtn"
+            style="@style/CategoryButtonStyle"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:padding="10dip" >
+            android:background="@drawable/category_button" >
 
             <ImageView
-                android:id="@+id/settingicon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/settingtest" />
+                style="@style/CategoryButtonIconStyle"
+                android:src="@drawable/settingtest" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="4dp"
-                android:layout_toRightOf="@+id/settingicon"
-                android:text="设置"
-                android:textColor="@color/text_color"
-                android:textSize="15sp" />
-        </RelativeLayout>
+                style="@style/CategoryButtonTextStyle"
+                android:text="@string/setting" />
+        </LinearLayout>
 
         <ScrollView
             android:id="@+id/mlist"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_above="@id/settingLayout"
+            android:layout_above="@id/settingBtn"
             android:layout_alignParentRight="true"
             android:layout_below="@id/appInfo"
             android:background="@color/bg_color_deep" >
@@ -98,195 +85,147 @@
                 android:background="@color/bg_color_deep"
                 android:orientation="vertical" >
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip" >
+                <LinearLayout
+                    android:id="@+id/categoryOfficeBtn"
+                    style="@style/CategoryButtonStyle"
+                    android:background="@drawable/category_button" >
 
                     <ImageView
-                        android:id="@+id/category_officeicon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/category_icon_office" />
+                        style="@style/CategoryButtonIconStyle"
+                        android:src="@drawable/category_icon_office" />
 
                     <TextView
-                        android:id="@+id/officeFile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_toRightOf="@+id/category_officeicon"
-                        android:text="办公文档"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                        style="@style/CategoryButtonTextStyle"
+                        android:text="@string/category_office" />
+
+                    <TextView
+                        android:id="@+id/categoryOfficeCount"
+                        style="@style/CategoryButtonCountTextStyle" />
+                </LinearLayout>
 
                 <include
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     layout="@layout/line" >
                 </include>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip" >
+                <LinearLayout
+                    android:id="@+id/categoryPictureBtn"
+                    style="@style/CategoryButtonStyle"
+                    android:background="@drawable/category_button" >
 
                     <ImageView
-                        android:id="@+id/category_pictureicon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/category_icon_picture" />
+                        style="@style/CategoryButtonIconStyle"
+                        android:src="@drawable/category_icon_picture" />
 
                     <TextView
-                        android:id="@+id/pictureFile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_toRightOf="@+id/category_pictureicon"
-                        android:text="图片"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                        style="@style/CategoryButtonTextStyle"
+                        android:text="@string/category_picture" />
+
+                    <TextView
+                        android:id="@+id/categoryPictureCount"
+                        style="@style/CategoryButtonCountTextStyle" />
+                </LinearLayout>
 
                 <include
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     layout="@layout/line" >
                 </include>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip" >
+                <LinearLayout
+                    android:id="@+id/categoryMusicBtn"
+                    style="@style/CategoryButtonStyle"
+                    android:background="@drawable/category_button" >
 
                     <ImageView
-                        android:id="@+id/category_musicicon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/category_icon_music" />
+                        style="@style/CategoryButtonIconStyle"
+                        android:src="@drawable/category_icon_music" />
 
                     <TextView
-                        android:id="@+id/musicFile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_toRightOf="@+id/category_musicicon"
-                        android:text="音乐"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                        style="@style/CategoryButtonTextStyle"
+                        android:text="@string/category_music" />
+
+                    <TextView
+                        android:id="@+id/categoryMusicCount"
+                        style="@style/CategoryButtonCountTextStyle" />
+                </LinearLayout>
 
                 <include
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     layout="@layout/line" >
                 </include>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip" >
+                <LinearLayout
+                    android:id="@+id/categoryVideoBtn"
+                    style="@style/CategoryButtonStyle"
+                    android:background="@drawable/category_button" >
 
                     <ImageView
-                        android:id="@+id/category_videoicon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/category_icon_video" />
+                        style="@style/CategoryButtonIconStyle"
+                        android:src="@drawable/category_icon_video" />
 
                     <TextView
-                        android:id="@+id/videoFile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_toRightOf="@+id/category_videoicon"
-                        android:text="视频"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                        style="@style/CategoryButtonTextStyle"
+                        android:text="@string/category_video" />
+
+                    <TextView
+                        android:id="@+id/categoryVideoCount"
+                        style="@style/CategoryButtonCountTextStyle" />
+                </LinearLayout>
 
                 <include
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     layout="@layout/line" >
                 </include>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip" >
+                <LinearLayout
+                    android:id="@+id/categoryApkBtn"
+                    style="@style/CategoryButtonStyle"
+                    android:background="@drawable/category_button" >
 
                     <ImageView
-                        android:id="@+id/category_apkicon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/category_icon_apk" />
+                        style="@style/CategoryButtonIconStyle"
+                        android:src="@drawable/category_icon_apk" />
 
                     <TextView
-                        android:id="@+id/apkFile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_toRightOf="@+id/category_apkicon"
-                        android:text="安装包"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                        style="@style/CategoryButtonTextStyle"
+                        android:text="@string/category_apk" />
+
+                    <TextView
+                        android:id="@+id/categoryApkCount"
+                        style="@style/CategoryButtonCountTextStyle" />
+                </LinearLayout>
 
                 <include
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     layout="@layout/line" >
                 </include>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dip" >
+                <LinearLayout
+                    android:id="@+id/categoryZipBtn"
+                    style="@style/CategoryButtonStyle"
+                    android:background="@drawable/category_button" >
 
                     <ImageView
-                        android:id="@+id/category_zipicon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/category_icon_zip" />
+                        style="@style/CategoryButtonIconStyle"
+                        android:src="@drawable/category_icon_zip" />
 
                     <TextView
-                        android:id="@+id/zipFile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_toRightOf="@+id/category_zipicon"
-                        android:text="压缩包"
-                        android:textColor="@color/text_color"
-                        android:textSize="15sp" />
-                </RelativeLayout>
+                        style="@style/CategoryButtonTextStyle"
+                        android:text="@string/category_zip" />
+
+                    <TextView
+                        android:id="@+id/categoryZipCount"
+                        style="@style/CategoryButtonCountTextStyle" />
+                </LinearLayout>
 
                 <include
                     android:layout_width="fill_parent"
-                    android:layout_height="2px"
+                    android:layout_height="2dp"
                     layout="@layout/line" >
                 </include>
             </LinearLayout>
