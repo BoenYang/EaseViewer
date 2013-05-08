@@ -223,10 +223,6 @@ public class SlidingMenu extends RelativeLayout {
 			}
 			mLastMotionX = x;
 			mLastMotionY = y;
-			// if (mSlidingView.getScrollX() == -getMenuViewWidth()
-			// && mLastMotionX < getMenuViewWidth()) {
-			// return false;
-			// }
 
 			if (mSlidingView.getScrollX() == getDetailViewWidth()) {
 				return false;
@@ -247,16 +243,6 @@ public class SlidingMenu extends RelativeLayout {
 					if (scrollX < 0)
 						scrollX = 0;
 				}
-				// if (deltaX < 0 && oldScrollX < 0) { // left view
-				// final float leftBound = 0;
-				// final float rightBound = -getMenuViewWidth();
-				// if (scrollX > leftBound) {
-				// scrollX = leftBound;
-				// }
-				// else if (scrollX < rightBound) {
-				// scrollX = rightBound;
-				// }
-				// } else
 				if (deltaX > 0 && oldScrollX > 0) { // right view
 					final float rightBound = getDetailViewWidth();
 					final float leftBound = 0;
@@ -276,7 +262,14 @@ public class SlidingMenu extends RelativeLayout {
 						bgShade.scrollTo((int) scrollX - 20,
 								mSlidingView.getScrollY());
 				}
-
+				
+				if(mSlidingView.getScrollX() == 0){
+					isShowRight = false;
+				}
+				
+				if(mSlidingView.getScrollX() == 400){
+					isShowRight = true;
+				}
 			}
 			break;
 		case MotionEvent.ACTION_CANCEL:

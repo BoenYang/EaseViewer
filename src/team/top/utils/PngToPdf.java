@@ -14,6 +14,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PngToPdf {
+	
     public static File Pdf(String imageUrllist,String mOutputPdfFileName) {
         String TAG = "PdfManager";
         Document doc = new Document(PageSize.A4, 20, 20, 20, 20);
@@ -66,6 +67,7 @@ public class PngToPdf {
         p = Math.round(p2);
         return p;
     }
+    
     /**
      * 第二种解决方案，统一按照宽度压缩 这样来的效果是，所有图片的宽度是相等的，自我认为给客户的效果是最好的
      * 

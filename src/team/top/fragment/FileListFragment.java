@@ -8,6 +8,7 @@ import team.top.activity.R;
 import team.top.constant.Constant;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
+import team.top.utils.FileListHelper.FileCategory;
 import team.top.utils.FileSystem;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,20 +22,28 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * 
+ * @author ybw ht
+ *
+ */
 public class FileListFragment extends Fragment {
+
+	private static ListView listView;
+	private static List<FileInfo> fileList;
+	private static FileListAdapter adapter;
+	private static View view;
+	private FileListHelper fileListHelper;
+	public static boolean isSdcard = false;
+	public static String currentDir = FileSystem.SDCARD_PATH;
+	public static FileCategory fileCategory;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	private static ListView listView;
-	private static List<FileInfo> fileList;
-	private static FileListAdapter adapter;
-	public static String currDirectory = "/";
-	private static View view;
-	private FileListHelper fileListHelper;
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -42,8 +51,7 @@ public class FileListFragment extends Fragment {
 		fileListHelper = new FileListHelper(view.getContext());
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		fileList = GetFiles(FileSystem.SDCARD_PATH);
-		// fileList =
-		// fileListHelper.GetAllFiles(FileListHelper.FileCategory.MUSIC, true);
+		fileCategory = FileCategory.SDCARD;
 		adapter = new FileListAdapter(view.getContext(), fileList,
 				R.layout.file_item);
 		listView.setAdapter(adapter);
@@ -53,24 +61,25 @@ public class FileListFragment extends Fragment {
 
 	public void backToParentPath() {
 		fileList.clear();
-		File file = new File(currDirectory);
-		File parent = file.getParentFile();
-		fileList.addAll(GetFiles(parent.getAbsolutePath()));
+		if(fileCategory != FileListHelper.FileCategory.SDCARD){
+			fileList.addAll(GetFiles(FileSystem.SDCARD_PATH));
+			fileCategory = FileCategory.SDCARD;
+		}else{
+			File file  = new File(currentDir);
+			fileList.addAll(GetFiles(file.getParent()));
+		}
 		adapter.notifyDataSetChanged();
 	}
 
 	private List<FileInfo> GetFiles(String path) {
 		List<FileInfo> fileNames = fileListHelper.GetAllFiles(path, false);
+		currentDir = path;
 		return fileNames;
 	}
 
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
 		if (keycode == KeyEvent.KEYCODE_BACK) {
-			if (!currDirectory.equals(FileSystem.SDCARD_PATH))
-				backToParentPath();
-			else {
-				System.exit(0);
-			}
+			backToParentPath();
 		}
 		return true;
 	}
@@ -81,7 +90,6 @@ public class FileListFragment extends Fragment {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			FileInfo file = fileList.get(position);
-
 			if (file.isDirectory) {
 				fileList.clear();
 				String absolutePath = file.absolutePath;

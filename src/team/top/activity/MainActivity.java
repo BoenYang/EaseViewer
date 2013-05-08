@@ -6,21 +6,20 @@ import java.util.TimerTask;
 import team.top.fragment.CenterViewPagerFragment;
 import team.top.fragment.FileListFragment;
 import team.top.fragment.RightCategoryFragment;
+import team.top.utils.FileListHelper;
 import team.top.utils.FileSystem;
 import team.top.views.SlidingMenu;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
-	SlidingMenu mSlidingMenu;
-	RightCategoryFragment rightClassifyFragment;
-	CenterViewPagerFragment centerViewPagerFragment;
-	FragmentPagerAdapter mAdapter;
+	public static SlidingMenu mSlidingMenu;
+	private RightCategoryFragment rightClassifyFragment;
+	private CenterViewPagerFragment centerViewPagerFragment;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -57,15 +56,16 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		System.out.println("mainacivity");
-		if (keyCode == event.KEYCODE_BACK) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (mSlidingMenu.isShowRight == true) {
 				mSlidingMenu.showRightView();
 			} else {
-				if (FileListFragment.currDirectory.equals(FileSystem.SDCARD_PATH)) {
+				if (FileListFragment.currentDir.equals(FileSystem.SDCARD_PATH)
+						&& FileListFragment.fileCategory == FileListHelper.FileCategory.SDCARD) {
 					exitBy2Click();
 				} else {
-					centerViewPagerFragment.onKeyDown(keyCode, event);
+					return centerViewPagerFragment.fileListFragment.onKeyDown(
+							keyCode, event);
 				}
 			}
 		}
