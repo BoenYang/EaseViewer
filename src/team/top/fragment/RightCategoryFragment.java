@@ -2,6 +2,7 @@ package team.top.fragment;
 
 import java.util.List;
 
+import team.top.activity.MainActivity;
 import team.top.activity.R;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
@@ -10,16 +11,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 public class RightCategoryFragment extends Fragment {
 
-	private TextView officeTv;
-	private TextView pictureTv;
-	private TextView musicTv;
-	private TextView videoTv;
-	private TextView zipTv;
-	private TextView apkTv;
+	private LinearLayout officeCategory;
+	private LinearLayout pictureCategory;
+	private LinearLayout musicCategory;
+	private LinearLayout videoCategory;
+	private LinearLayout zipCategory;
+	private LinearLayout apkCategory;
 	private FileListHelper fileListHelper;
 
 	@Override
@@ -32,18 +33,18 @@ public class RightCategoryFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_rightcategory, null);
 		fileListHelper = new FileListHelper(view.getContext());
-		officeTv = (TextView) view.findViewById(R.id.officeFile);
-		pictureTv = (TextView) view.findViewById(R.id.pictureFile);
-		musicTv = (TextView) view.findViewById(R.id.musicFile);
-		videoTv = (TextView) view.findViewById(R.id.videoFile);
-		zipTv = (TextView) view.findViewById(R.id.zipFile);
-		apkTv = (TextView) view.findViewById(R.id.apkFile);
-		officeTv.setOnClickListener(new FileCategorySelectListener());
-		pictureTv.setOnClickListener(new FileCategorySelectListener());
-		musicTv.setOnClickListener(new FileCategorySelectListener());
-		videoTv.setOnClickListener(new FileCategorySelectListener());
-		zipTv.setOnClickListener(new FileCategorySelectListener());
-		apkTv.setOnClickListener(new FileCategorySelectListener());
+		officeCategory = (LinearLayout) view.findViewById(R.id.categoryOfficeBtn);
+		pictureCategory = (LinearLayout) view.findViewById(R.id.categoryPictureBtn);
+		musicCategory = (LinearLayout) view.findViewById(R.id.categoryMusicBtn);
+		videoCategory = (LinearLayout) view.findViewById(R.id.categoryVideoBtn);
+		zipCategory = (LinearLayout) view.findViewById(R.id.categoryZipBtn);
+		apkCategory = (LinearLayout) view.findViewById(R.id.categoryApkBtn);
+		officeCategory.setOnClickListener(new FileCategorySelectListener());
+		pictureCategory.setOnClickListener(new FileCategorySelectListener());
+		musicCategory.setOnClickListener(new FileCategorySelectListener());
+		videoCategory.setOnClickListener(new FileCategorySelectListener());
+		zipCategory.setOnClickListener(new FileCategorySelectListener());
+		apkCategory.setOnClickListener(new FileCategorySelectListener());
 		return view;
 	}
 
@@ -54,23 +55,29 @@ public class RightCategoryFragment extends Fragment {
 			int id = v.getId();
 			List<FileInfo> fileList = null;
 			switch (id) {
-			case R.id.officeFile:
+			case R.id.categoryOfficeBtn:
 				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
+				((MainActivity)getActivity()).showRight();
 				break;
-			case R.id.pictureFile:
+			case R.id.categoryPictureBtn:
 				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.PICTURE, true);
+				((MainActivity)getActivity()).showRight();
 				break;
-			case R.id.musicFile:
+			case R.id.categoryMusicBtn:
 				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.MUSIC, true);
+				((MainActivity)getActivity()).showRight();
 				break;
-			case R.id.videoFile:
+			case R.id.categoryVideoBtn:
 				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.VIDEO, true);
+				((MainActivity)getActivity()).showRight();
 				break;
-			case R.id.zipFile:
+			case R.id.categoryZipBtn:
 				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP, true);
+				((MainActivity)getActivity()).showRight();
 				break;
-			case R.id.apkFile:
+			case R.id.categoryApkBtn:
 				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK, true);
+				((MainActivity)getActivity()).showRight();
 				break;
 			default:
 				break;

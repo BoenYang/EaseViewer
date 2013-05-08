@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="/home/ybw/workspace/AndroidReader/JAR/itextpdf-5.4.1.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="lib" path="JAR/poi-3.9-20121203.jar" sourcepath="/home/ybw/Desktop/poi-3.9/poi-3.9-20121203.jar"/>
 	<classpathentry exported="true" kind="lib" path="JAR/poi-scratchpad-3.9-20121203.jar"/>
+	<classpathentry exported="true" kind="lib" path="JAR/itextpdf-5.4.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
