@@ -18,6 +18,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+/**
+ * 
+ * @author ht
+ *
+ */
 public class CenterViewPagerFragment extends Fragment {
 
 	private Button showRightBtn;

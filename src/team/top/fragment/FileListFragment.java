@@ -22,12 +22,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+/**
+ * 
+ * @author ybw ht
+ *
+ */
 public class FileListFragment extends Fragment {
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	}
 
 	private static ListView listView;
 	private static List<FileInfo> fileList;
@@ -39,12 +39,19 @@ public class FileListFragment extends Fragment {
 	public static FileCategory fileCategory;
 
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+	}
+
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
 		fileListHelper = new FileListHelper(view.getContext());
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		fileList = GetFiles(FileSystem.SDCARD_PATH);
+		fileCategory = FileCategory.SDCARD;
 		adapter = new FileListAdapter(view.getContext(), fileList,
 				R.layout.file_item);
 		listView.setAdapter(adapter);

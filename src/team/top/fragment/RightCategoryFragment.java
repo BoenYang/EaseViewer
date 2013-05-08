@@ -14,6 +14,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author ybw ht
+ *
+ */
 public class RightCategoryFragment extends Fragment {
 
 	private LinearLayout officeCategory;

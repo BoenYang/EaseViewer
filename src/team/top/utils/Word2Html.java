@@ -24,6 +24,11 @@ import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.hwpf.usermodel.PictureType;
 import org.w3c.dom.Document;
 
+/**
+ * 
+ * @author ybw
+ *
+ */
 public class Word2Html {
 	private String fileName;
 	private HWPFDocument document;

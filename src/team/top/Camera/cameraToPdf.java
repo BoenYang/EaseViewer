@@ -16,6 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+/**
+ * 
+ * @author wzy
+ *
+ */
 public class cameraToPdf extends Activity {
 	FileSystem fileSystem;
 
@@ -45,7 +50,6 @@ public class cameraToPdf extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				cameraToPdf.this.finish();
 			}
 		});

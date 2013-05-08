@@ -48,7 +48,7 @@ public final class R {
         public static final int solid_divider_fff=0x7f02000e;
     }
     public static final class id {
-        public static final int action_settings=0x7f090026;
+        public static final int action_settings=0x7f090027;
         public static final int appInfo=0x7f09000b;
         public static final int appLogo=0x7f09000c;
         public static final int appName=0x7f09000d;
@@ -57,9 +57,9 @@ public final class R {
         public static final int btn2=0x7f090003;
         public static final int btn3=0x7f090004;
         public static final int btn4=0x7f090005;
-        public static final int button1=0x7f090022;
+        public static final int button1=0x7f090023;
         public static final int cameraBtn=0x7f090006;
-        public static final int cancel=0x7f090023;
+        public static final int cancel=0x7f090024;
         public static final int categoryApkBtn=0x7f090019;
         public static final int categoryApkCount=0x7f09001a;
         public static final int categoryMusicBtn=0x7f090015;
@@ -73,15 +73,16 @@ public final class R {
         public static final int categoryZipBtn=0x7f09001b;
         public static final int categoryZipCount=0x7f09001c;
         public static final int center_frame=0x7f090007;
-        public static final int confirm=0x7f090024;
+        public static final int confirm=0x7f090025;
         public static final int fileinfo=0x7f090009;
         public static final int filelistview=0x7f09000a;
         public static final int filetext=0x7f090008;
         public static final int head_layout=0x7f09001d;
-        public static final int imageView=0x7f090021;
+        public static final int imageView=0x7f090022;
+        public static final int left_frame=0x7f090021;
         public static final int mlist=0x7f090010;
         public static final int pager=0x7f090020;
-        public static final int right_frame=0x7f090025;
+        public static final int right_frame=0x7f090026;
         public static final int settingBtn=0x7f09000f;
         public static final int showRight=0x7f09001e;
         public static final int slidingMenu=0x7f090000;
@@ -97,9 +98,10 @@ public final class R {
         public static final int fragment_filelist=0x7f030005;
         public static final int fragment_rightcategory=0x7f030006;
         public static final int fragment_viewpager=0x7f030007;
-        public static final int line=0x7f030008;
-        public static final int photoconfirm=0x7f030009;
-        public static final int right_frame=0x7f03000a;
+        public static final int left_frame=0x7f030008;
+        public static final int line=0x7f030009;
+        public static final int photoconfirm=0x7f03000a;
+        public static final int right_frame=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f080000;
