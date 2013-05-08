@@ -6,13 +6,13 @@ import team.top.activity.MainActivity;
 import team.top.activity.R;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
-import team.top.utils.FileListHelper.FileCategory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class RightCategoryFragment extends Fragment {
 
@@ -23,6 +23,19 @@ public class RightCategoryFragment extends Fragment {
 	private LinearLayout zipCategory;
 	private LinearLayout apkCategory;
 	private FileListHelper fileListHelper;
+	//private List<FileInfo> officeList;
+	private List<FileInfo> pictureList;
+	private List<FileInfo> musicList;
+	private List<FileInfo> videoList;
+	//private List<FileInfo> zipList;
+	//private List<FileInfo> apkList;
+	//private TextView officeCount;
+	private TextView musicCount;
+	private TextView videoCount;
+	private TextView pictureCount;
+	//private TextView zipCount;
+	//private TextView apkCount;
+	
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -46,6 +59,25 @@ public class RightCategoryFragment extends Fragment {
 		videoCategory.setOnClickListener(new FileCategorySelectListener());
 		zipCategory.setOnClickListener(new FileCategorySelectListener());
 		apkCategory.setOnClickListener(new FileCategorySelectListener());
+		//officeList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
+		pictureList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.PICTURE, true);
+		musicList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.MUSIC, true);
+		videoList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.VIDEO, true);
+		//zipList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP, true);
+		//apkList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK, true);
+		musicCount = (TextView)view.findViewById(R.id.categoryMusicCount);
+		videoCount = (TextView)view.findViewById(R.id.categoryVideoCount);
+		pictureCount = (TextView)view.findViewById(R.id.categoryPictureCount);
+		//officeCount = (TextView)view.findViewById(R.id.categoryOfficeCount);
+		//zipCount = (TextView)view.findViewById(R.id.categoryZipCount);
+		//apkCount = (TextView)view.findViewById(R.id.categoryApkCount);
+		musicCount.setText("(" + musicList.size() +")");
+		videoCount.setText("(" + videoList.size() +")");
+		pictureCount.setText("(" + pictureList.size() +")");
+		//officeCount.setText("(" + musicList.size() +")");
+		//zipCount.setText("(" + musicList.size() +")");
+		//apkCount.setText("(" + musicList.size() +")");
+		
 		return view;
 	}
 
@@ -56,64 +88,23 @@ public class RightCategoryFragment extends Fragment {
 			int id = v.getId();
 			List<FileInfo> fileList = null;
 			switch (id) {
-<<<<<<< HEAD
-			case R.id.officeFile:
-				// fileList =
-				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC,
-				// true);
-				//FileListFragment.fileCategory = FileCategory.DOC;
-				break;
-			case R.id.pictureFile:
-				fileList = fileListHelper.GetAllFiles(
-						FileListHelper.FileCategory.PICTURE, true);
-				FileListFragment.fileCategory = FileCategory.PICTURE;
-				break;
-			case R.id.musicFile:
-				fileList = fileListHelper.GetAllFiles(
-						FileListHelper.FileCategory.MUSIC, true);
-				FileListFragment.fileCategory = FileCategory.MUSIC;
-				break;
-			case R.id.videoFile:
-				fileList = fileListHelper.GetAllFiles(
-						FileListHelper.FileCategory.VIDEO, true);
-				FileListFragment.fileCategory = FileCategory.VIDEO;
-				break;
-			case R.id.zipFile:
-				// fileList =
-				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
-				// true);
-				//FileListFragment.fileCategory = FileCategory.ZIP;
-				break;
-			case R.id.apkFile:
-				// fileList =
-				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
-				// true);
-				//FileListFragment.fileCategory = FileCategory.APK;
-=======
 			case R.id.categoryOfficeBtn:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
-				((MainActivity)getActivity()).showRight();
+			//	fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
 				break;
 			case R.id.categoryPictureBtn:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.PICTURE, true);
-				((MainActivity)getActivity()).showRight();
+				fileList = pictureList;
 				break;
 			case R.id.categoryMusicBtn:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.MUSIC, true);
-				((MainActivity)getActivity()).showRight();
+				fileList = musicList;
 				break;
 			case R.id.categoryVideoBtn:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.VIDEO, true);
-				((MainActivity)getActivity()).showRight();
+				fileList = videoList;
 				break;
 			case R.id.categoryZipBtn:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP, true);
-				((MainActivity)getActivity()).showRight();
+				//fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP, true);
 				break;
 			case R.id.categoryApkBtn:
-				fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK, true);
-				((MainActivity)getActivity()).showRight();
->>>>>>> 16a22316e078ca1e7076cba5f8579c41b5e90688
+				//fileList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK, true);
 				break;
 			default:
 				break;
