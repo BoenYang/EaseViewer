@@ -4,9 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.poi.hslf.model.Slide;
-import org.apache.poi.hslf.usermodel.PictureData;
 import org.apache.poi.hslf.usermodel.SlideShow;
-import org.apache.poi.hwpf.usermodel.Picture;
 
 
 public class Ppt2Images {
@@ -26,7 +24,6 @@ public class Ppt2Images {
 	
 	public String convert2Images(){
 		Slide[] slides = ppt.getSlides();
-		PictureData[] piPictures = ppt.getPictureData();
 		for (int i = 0; i < slides.length; i++) {
 			slides[i].getBackground();
 		}
