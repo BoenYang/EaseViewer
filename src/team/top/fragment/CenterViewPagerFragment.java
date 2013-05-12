@@ -147,5 +147,4 @@ public class CenterViewPagerFragment extends Fragment {
 		public void onPageSelected(int position);
 	}
 
-
 }

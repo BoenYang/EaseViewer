@@ -4,6 +4,10 @@ package team.top.exception;
  * 
  */
 public class SdCardNotFoud extends Exception{ 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public final static String  SDCARD_NOTFOUND = "not found sdcard";
 	
 }

@@ -1,15 +1,19 @@
 package team.top.fragment;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import team.top.activity.FileListAdapter;
 import team.top.activity.R;
+import team.top.activity.ShowContentActivity;
 import team.top.constant.Constant;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
 import team.top.utils.FileListHelper.FileCategory;
 import team.top.utils.FileSystem;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,7 +38,6 @@ public class FileListFragment extends Fragment {
 	private static FileListAdapter adapter;
 	private static View view;
 	private FileListHelper fileListHelper;
-	public static boolean isSdcard = false;
 	public static String currentDir = FileSystem.SDCARD_PATH;
 	public static FileCategory fileCategory;
 
@@ -116,10 +119,12 @@ public class FileListFragment extends Fragment {
 	 * @param file
 	 */
 	private void openFile(File file) {
-		Intent intent = new Intent();
+		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.setAction(Intent.ACTION_VIEW);
 		String type = getMIMEType(file);
+		String entension = type.substring(type.indexOf('/')+1);
+		intent.putExtra("extension", entension);
+		intent.putExtra("path", file.getAbsolutePath());
 		intent.setDataAndType(Uri.fromFile(file), type);
 		startActivity(intent);
 	}

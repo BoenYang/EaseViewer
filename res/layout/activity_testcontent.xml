@@ -5,18 +5,6 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="convertWordTohtml" />
-
-    <Button
-        android:id="@+id/btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="convertExcelTohtml" />
-
-    <Button
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +14,7 @@
         android:id="@+id/btn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="convertPdfToimages" />
+        android:text="convertPngToPdf" />
 
     <Button
         android:id="@+id/cameraBtn"
