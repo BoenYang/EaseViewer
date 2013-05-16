@@ -1,235 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
+    android:layout_width="240dp"
     android:layout_height="fill_parent"
-    android:layout_gravity="right"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="240dp"
         android:layout_height="fill_parent"
-        android:background="@color/bg_color_deep" >
-
-        <RelativeLayout
-            android:id="@+id/appInfo"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:padding="10dip" >
-
-            <ImageView
-                android:id="@+id/appLogo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/icon_test" />
-
-            <TextView
-                android:id="@+id/appName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="2dp"
-                android:layout_marginTop="4dp"
-                android:layout_toRightOf="@+id/appLogo"
-                android:text="@string/app_name"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/appVersion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/appName"
-                android:layout_below="@+id/appName"
-                android:text="Ver 0.1 alpha"
-                android:textColor="@color/text_color"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <include
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            layout="@layout/line" >
-        </include>
+        android:background="@drawable/wallpaper5"
+        android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/settingBtn"
-            style="@style/CategoryButtonStyle"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/category_button" >
+            android:layout_width="240dp"
+            android:layout_height="fill_parent"
+            android:background="@drawable/category_bg_black"
+            android:orientation="vertical" >
 
-            <ImageView
-                style="@style/CategoryButtonIconStyle"
-                android:src="@drawable/settingtest" />
-
-            <TextView
-                style="@style/CategoryButtonTextStyle"
-                android:text="@string/setting" />
-        </LinearLayout>
-
-        <ScrollView
-            android:id="@+id/mlist"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/settingBtn"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/appInfo"
-            android:background="@color/bg_color_deep" >
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/appInfo"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@color/bg_color_deep"
-                android:orientation="vertical" >
+                android:padding="10dip" >
+
+                <ImageView
+                    android:id="@+id/appLogo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/icon_test" />
+
+                <TextView
+                    android:id="@+id/appName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@+id/appLogo"
+                    android:text="@string/app_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/appVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/appName"
+                    android:layout_below="@+id/appName"
+                    android:text="Ver 0.1 alpha"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="4dp"
+                android:background="@drawable/category_dividing_line" />
+
+            <ScrollView
+                android:id="@+id/mlist"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content" >
 
                 <LinearLayout
-                    android:id="@+id/categoryOfficeBtn"
-                    style="@style/CategoryButtonStyle"
-                    android:background="@drawable/category_button" >
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="vertical" >
 
-                    <ImageView
-                        style="@style/CategoryButtonIconStyle"
-                        android:src="@drawable/category_icon_office" />
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
 
-                    <TextView
-                        style="@style/CategoryButtonTextStyle"
-                        android:text="@string/category_office" />
+                        <TextView
+                            style="@style/CategoryGroupTextStyle"
+                            android:text="@string/category_group1" />
 
-                    <TextView
-                        android:id="@+id/categoryOfficeCount"
-                        style="@style/CategoryButtonCountTextStyle" />
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@drawable/category_dividing_line" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/categoryOfficeBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_office" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/category_office" />
+
+                        <TextView
+                            android:id="@+id/categoryOfficeCount"
+                            style="@style/CategoryButtonCountTextStyle" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryPictureBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_picture" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/category_picture" />
+
+                        <TextView
+                            android:id="@+id/categoryPictureCount"
+                            style="@style/CategoryButtonCountTextStyle" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryMusicBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_music" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/category_music" />
+
+                        <TextView
+                            android:id="@+id/categoryMusicCount"
+                            style="@style/CategoryButtonCountTextStyle" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryVideoBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_video" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/category_video" />
+
+                        <TextView
+                            android:id="@+id/categoryVideoCount"
+                            style="@style/CategoryButtonCountTextStyle" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryApkBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_apk" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/category_apk" />
+
+                        <TextView
+                            android:id="@+id/categoryApkCount"
+                            style="@style/CategoryButtonCountTextStyle" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryZipBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_zip" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/category_zip" />
+
+                        <TextView
+                            android:id="@+id/categoryZipCount"
+                            style="@style/CategoryButtonCountTextStyle" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            style="@style/CategoryGroupTextStyle"
+                            android:text="@string/category_group2" />
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@drawable/category_dividing_line" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/functionPic2PdfBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_apk" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/function_pic2pdf" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/functionChangeThemeBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_apk" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/function_theme" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            style="@style/CategoryGroupTextStyle"
+                            android:text="@string/category_group3" />
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="2dp"
+                            android:background="@drawable/category_dividing_line" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/moreHelpBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_apk" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/more_help" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
+
+                    <LinearLayout
+                        android:id="@+id/moreAboutBtn"
+                        style="@style/CategoryButtonStyle"
+                        android:background="@drawable/category_button" >
+
+                        <ImageView
+                            style="@style/CategoryButtonIconStyle"
+                            android:src="@drawable/category_icon_apk" />
+
+                        <TextView
+                            style="@style/CategoryButtonTextStyle"
+                            android:text="@string/more_about" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@drawable/category_dividing_line_middle" />
                 </LinearLayout>
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    layout="@layout/line" >
-                </include>
-
-                <LinearLayout
-                    android:id="@+id/categoryPictureBtn"
-                    style="@style/CategoryButtonStyle"
-                    android:background="@drawable/category_button" >
-
-                    <ImageView
-                        style="@style/CategoryButtonIconStyle"
-                        android:src="@drawable/category_icon_picture" />
-
-                    <TextView
-                        style="@style/CategoryButtonTextStyle"
-                        android:text="@string/category_picture" />
-
-                    <TextView
-                        android:id="@+id/categoryPictureCount"
-                        style="@style/CategoryButtonCountTextStyle" />
-                </LinearLayout>
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    layout="@layout/line" >
-                </include>
-
-                <LinearLayout
-                    android:id="@+id/categoryMusicBtn"
-                    style="@style/CategoryButtonStyle"
-                    android:background="@drawable/category_button" >
-
-                    <ImageView
-                        style="@style/CategoryButtonIconStyle"
-                        android:src="@drawable/category_icon_music" />
-
-                    <TextView
-                        style="@style/CategoryButtonTextStyle"
-                        android:text="@string/category_music" />
-
-                    <TextView
-                        android:id="@+id/categoryMusicCount"
-                        style="@style/CategoryButtonCountTextStyle" />
-                </LinearLayout>
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    layout="@layout/line" >
-                </include>
-
-                <LinearLayout
-                    android:id="@+id/categoryVideoBtn"
-                    style="@style/CategoryButtonStyle"
-                    android:background="@drawable/category_button" >
-
-                    <ImageView
-                        style="@style/CategoryButtonIconStyle"
-                        android:src="@drawable/category_icon_video" />
-
-                    <TextView
-                        style="@style/CategoryButtonTextStyle"
-                        android:text="@string/category_video" />
-
-                    <TextView
-                        android:id="@+id/categoryVideoCount"
-                        style="@style/CategoryButtonCountTextStyle" />
-                </LinearLayout>
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    layout="@layout/line" >
-                </include>
-
-                <LinearLayout
-                    android:id="@+id/categoryApkBtn"
-                    style="@style/CategoryButtonStyle"
-                    android:background="@drawable/category_button" >
-
-                    <ImageView
-                        style="@style/CategoryButtonIconStyle"
-                        android:src="@drawable/category_icon_apk" />
-
-                    <TextView
-                        style="@style/CategoryButtonTextStyle"
-                        android:text="@string/category_apk" />
-
-                    <TextView
-                        android:id="@+id/categoryApkCount"
-                        style="@style/CategoryButtonCountTextStyle" />
-                </LinearLayout>
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    layout="@layout/line" >
-                </include>
-
-                <LinearLayout
-                    android:id="@+id/categoryZipBtn"
-                    style="@style/CategoryButtonStyle"
-                    android:background="@drawable/category_button" >
-
-                    <ImageView
-                        style="@style/CategoryButtonIconStyle"
-                        android:src="@drawable/category_icon_zip" />
-
-                    <TextView
-                        style="@style/CategoryButtonTextStyle"
-                        android:text="@string/category_zip" />
-
-                    <TextView
-                        android:id="@+id/categoryZipCount"
-                        style="@style/CategoryButtonCountTextStyle" />
-                </LinearLayout>
-
-                <include
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    layout="@layout/line" >
-                </include>
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

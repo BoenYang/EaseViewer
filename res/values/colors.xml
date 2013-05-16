@@ -7,8 +7,10 @@
     <color name="bg_color">#F4F3F3</color>
     <color name="bg_color_deep">#E5E5E5</color>
     <color name="black">#000000</color>
-    <color name="text_color">#434343</color>
+    <color name="text_color">#7fffffff</color>
     <color name="black_half">#50000000</color>
+    <color name="translucent_20">#20000000</color>
+    <color name="translucent_00">#00000000</color>
     
 
 </resources>
