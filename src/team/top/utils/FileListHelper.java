@@ -69,7 +69,7 @@ public class FileListHelper {
 					if (temp.isDirectory()) {
 						fileInfo.isDirectory = true;
 						if (!isHidden(fileInfo.fileName))
-							fList.add(fileInfo);
+							dirList.add(fileInfo);
 					} else {
 						fileInfo.isDirectory = false;
 						fileInfo.fileSize = temp.length();

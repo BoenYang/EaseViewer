@@ -6,6 +6,7 @@ import team.top.activity.MainActivity;
 import team.top.activity.R;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
+import team.top.utils.FileListHelper.FileCategory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -108,12 +109,15 @@ public class RightCategoryFragment extends Fragment {
 				break;
 			case R.id.categoryPictureBtn:
 				fileList = pictureList;
+				FileListFragment.fileCategory = FileCategory.PICTURE;
 				break;
 			case R.id.categoryMusicBtn:
 				fileList = musicList;
+				FileListFragment.fileCategory = FileCategory.MUSIC;
 				break;
 			case R.id.categoryVideoBtn:
 				fileList = videoList;
+				FileListFragment.fileCategory = FileCategory.VIDEO;
 				break;
 			case R.id.categoryZipBtn:
 				// fileList =

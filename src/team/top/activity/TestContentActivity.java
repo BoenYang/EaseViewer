@@ -1,13 +1,17 @@
 package team.top.activity;
 
+import java.util.Calendar;
+
+import team.top.dialog.SelectDialog;
+import team.top.dialog.SetNameDialog;
+import team.top.utils.ScreenCapturer;
+import android.app.Activity;
+import android.content.Intent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-import team.top.Camera.cameraToPdf;
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -21,11 +25,10 @@ import android.widget.Button;
 
 public class TestContentActivity extends Activity {
 
-	Button btn1;
-	Button btn2;
-	Button btn3;
-	Button btn4;
-	Button btn5;
+	private Button btn3;
+	private Button btn4;
+	private Button btn5;
+	private Button btn6;
 
 	String FileName;
 	public static String lastImagePath;
@@ -34,13 +37,14 @@ public class TestContentActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_testcontent);
-		btn1 = (Button) findViewById(R.id.btn1);
-		btn2 = (Button) findViewById(R.id.btn2);
 		btn3 = (Button) findViewById(R.id.btn3);
 		btn4 = (Button) findViewById(R.id.btn4);
 		btn5 = (Button) findViewById(R.id.cameraBtn);
+		btn6 = (Button) findViewById(R.id.screenshot);
 		btn5.setOnClickListener(new BtnListener());
-
+		btn4.setOnClickListener(new BtnListener());
+		btn3.setOnClickListener(new BtnListener());
+		btn6.setOnClickListener(new BtnListener());
 	}
 
 	class BtnListener implements View.OnClickListener {
@@ -49,17 +53,30 @@ public class TestContentActivity extends Activity {
 		public void onClick(View v) {
 			int id = v.getId();
 			switch (id) {
-			case R.id.btn1:
-				break;
-			case R.id.btn2:
-				break;
 			case R.id.btn3:
+				Intent intent = new Intent();
+				intent.setClass(TestContentActivity.this, ImageToPdfActivity.class);
+				startActivity(intent);
 				break;
 			case R.id.btn4:
+				SelectDialog selectDialog = new SelectDialog(TestContentActivity.this);
+				selectDialog.show();
 				break;
 			case R.id.cameraBtn:
-				System.out.println("take photo----------");
-				takePhoto();
+				SetNameDialog setNameDialog = new SetNameDialog(TestContentActivity.this);
+				setNameDialog.show();
+			case R.id.screenshot:
+				Calendar calendar = Calendar.getInstance();
+				int year = calendar.get(Calendar.YEAR);
+				int mounth = calendar.get(Calendar.MONTH);
+				int day = calendar.get(Calendar.DAY_OF_MONTH);
+				int hour = calendar.get(Calendar.HOUR_OF_DAY);
+				int munites = calendar.get(Calendar.MINUTE);
+				int second = calendar.get(Calendar.SECOND);
+				String name = "ScreenShot" + year + mounth + day + hour + munites + second;
+				System.out.println(name);
+				if(ScreenCapturer.TakeScreenShot(TestContentActivity.this, "/sdcard",name)){
+					System.out.println("---------------------------");
 				break;
 			}
 		}
@@ -85,14 +102,6 @@ public class TestContentActivity extends Activity {
 		TestContentActivity.this.startActivityForResult(intent, 0);
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Intent intent = new Intent();
-		intent.setClass(TestContentActivity.this, cameraToPdf.class);
-
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-
 	/**
 	 * 保存图片到本地(JPG)
 	 * 
@@ -100,7 +109,7 @@ public class TestContentActivity extends Activity {
 	 *            保存的图片
 	 * @return 图片路径
 	 */
-	public static String saveToLocal(Bitmap bm) {
+	public String saveToLocal(Bitmap bm) {
 		if (!Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 			return null;
@@ -145,7 +154,7 @@ public class TestContentActivity extends Activity {
 	 *            图片高度
 	 * @return 缩放后的图片
 	 */
-	public static Bitmap createBitmap(String path, int w, int h) {
+	public Bitmap createBitmap(String path, int w, int h) {
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
 			opts.inJustDecodeBounds = true;
@@ -194,7 +203,7 @@ public class TestContentActivity extends Activity {
 	 * @param bitmap
 	 * @return Bitmap
 	 */
-	public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
+	public Bitmap rotaingImageView(int angle, Bitmap bitmap) {
 		// 旋转图片 动作
 		Matrix matrix = new Matrix();
 		matrix.postRotate(angle);
@@ -212,7 +221,7 @@ public class TestContentActivity extends Activity {
 	 *            图片绝对路径
 	 * @return degree旋转的角度
 	 */
-	public static int readPictureDegree(String path) {
+	public int readPictureDegree(String path) {
 		int degree = 0;
 		try {
 			ExifInterface exifInterface = new ExifInterface(path);
@@ -235,6 +244,5 @@ public class TestContentActivity extends Activity {
 		}
 		return degree;
 	}
-	// **************************************************************//
-
+	}
 }

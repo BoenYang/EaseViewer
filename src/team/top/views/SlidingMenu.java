@@ -66,18 +66,9 @@ public class SlidingMenu extends RelativeLayout {
 	}
 
 	public void addViews(View left, View center, View right) {
-		// setLeftView(left);
 		setRightView(right);
 		setCenterView(center);
 	}
-
-	// public void setLeftView(View view) {
-	// LayoutParams behindParams = new
-	// LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
-	// android.view.ViewGroup.LayoutParams.FILL_PARENT);
-	// addView(view, behindParams);
-	// mMenuView = view;
-	// }
 
 	public void setRightView(View view) {
 		LayoutParams behindParams = new LayoutParams(

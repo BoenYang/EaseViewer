@@ -23,12 +23,7 @@ public class FileSystem {
 		APP_DIR = SDCARD_PATH + File.separator + Constant.APP_NAME;
 	}
 
-	/**
-	 * 
-	 * @throws SdCardNotFoud	thrown if sdcard not mounted
-	 */
-	public FileSystem(){
-	}
+
 
 	/**write files to application directory
 	 * 
@@ -36,7 +31,7 @@ public class FileSystem {
 	 * @param data			the file data 
 	 * @return				the result true--success  false -- failed
 	 */
-	public boolean WriteToAppDir(String filename,byte[] data) {
+	public static boolean WriteToAppDir(String filename,byte[] data) {
 		makeAppDir();
 		return Write(APP_DIR + File.separator + filename, data);
 	}
@@ -47,7 +42,7 @@ public class FileSystem {
 	 * @param data			the file data 
 	 * @return				the result true--success  false -- failed
 	 */
-	public boolean WriteToScard(String filepath,byte[] data) {
+	public static boolean WriteToScard(String filepath,byte[] data) {
 		return Write(SDCARD_PATH + File.separator + filepath, data);
 	}
 	
@@ -57,7 +52,7 @@ public class FileSystem {
 	 * @param data			the file data 
 	 * @return				the result true--success  false -- failed
 	 */
-	public boolean Write(String filepath, byte[] data) {
+	public static boolean Write(String filepath, byte[] data) {
 		File file = new File(filepath);
 		FileOutputStream fileOutputStream = null;
 		try {
@@ -88,9 +83,22 @@ public class FileSystem {
 		}
 	}
 	
-	private void makeAppDir() {
+	/**
+	 * 
+	 */
+	private static void makeAppDir() {
 		File file = new File(FileSystem.APP_DIR);
 		if (!file.exists())
 			file.mkdir();
+	}
+	
+	/**
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static String GetFileNameByPath(String path){
+		String fileName = path.substring(path.lastIndexOf('/') + 1);
+		return fileName.substring(0, fileName.lastIndexOf('.'));
 	}
 }

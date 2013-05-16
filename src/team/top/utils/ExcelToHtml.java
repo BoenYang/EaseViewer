@@ -1,8 +1,9 @@
 package team.top.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,34 +19,35 @@ import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+import team.top.exception.WriteHtmlExcpetion;
+
+/**
+ * note: exception handle need improved
+ */
+
 /**This is a class use for convert a excel document to a html file
  * 
  * @author ybw
  *
  */
-public class Excel2Html {
+public class ExcelToHtml {
 
 	private String fileName;
 	private HSSFWorkbook hssfWorkbook;
-	private FileSystem fileUtil;
 	private final static String HEAD = "<html><body>";
 	private final static String TAIL = "</body></html>";
 	
+	
 	/**
 	 * 
-	 * @param filepath 					the file path 
-	 * @throws FileNotFoundException    thrown if the file not exist
-	 * @throws IOException				thrown if open file error
-	 * @throws SdCardNotFoud			thrown if sdcard not mounted
+	 * @param filepath
+	 * @throws IOException
 	 */
-	public Excel2Html(String filepath) throws FileNotFoundException, IOException{
-		String temp[] = filepath.split("/");
-		String file = temp[temp.length-1];
-		fileName = file.substring(0,file.lastIndexOf('.'));
+	public ExcelToHtml(String filepath) throws IOException{
+		fileName = FileSystem.GetFileNameByPath(filepath);
 		FileInputStream fileInputStream = new FileInputStream(filepath);
 		hssfWorkbook = new HSSFWorkbook(fileInputStream);
 		fileInputStream.close();
-		fileUtil = new FileSystem();
 	}
 	
 	/**use for check the merged col and raw in the sheet
@@ -180,9 +182,11 @@ public class Excel2Html {
 	/**
 	 * 
 	 * @return 				the absolute path of the html file
-	 * @throws Exception	thrown if convert failed
+	 * @throws WriteHtmlExcpetion 
+	 * @throws UnsupportedEncodingException 
+	 * 
 	 */
-	public String convert2Html() throws Exception {
+	public String convert2Html() throws WriteHtmlExcpetion, UnsupportedEncodingException{
 		StringBuffer sb = new StringBuffer();
 		sb.append(HEAD);
 		HSSFSheet sheet = hssfWorkbook.getSheetAt(0);							//get sheet
@@ -264,7 +268,7 @@ public class Excel2Html {
 				}
 
 				sb.append(">");
-				if (stringValue == null || "".equals(stringValue.trim())) {
+				if (stringValue == null || " ".equals(stringValue.trim())) {
 					sb.append(" &nbsp; ");
 				} else {
 					sb.append(stringValue.replace(String.valueOf((char) 160), 	// transform space to html code
@@ -276,8 +280,10 @@ public class Excel2Html {
 		}
 		sb.append("</table>");
 		sb.append(TAIL);
-		fileUtil.WriteToAppDir(fileName + ".html", sb.toString().getBytes());
-		return fileName + ".html";
+		if(!FileSystem.WriteToAppDir(fileName + ".html", sb.toString().getBytes("gbk"))){
+			throw new WriteHtmlExcpetion();
+		}
+		return FileSystem.APP_DIR + File.separator + fileName + ".html";
 	}
 }
 

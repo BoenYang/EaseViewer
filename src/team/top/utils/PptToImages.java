@@ -7,13 +7,13 @@ import org.apache.poi.hslf.model.Slide;
 import org.apache.poi.hslf.usermodel.SlideShow;
 
 
-public class Ppt2Images {
+public class PptToImages {
 	
 	private String fileName;
 	private SlideShow ppt;
 	
 	
-	public Ppt2Images(String filepath) throws IOException{
+	public PptToImages(String filepath) throws IOException{
 		String temp[] = filepath.split("/");
 		String file = temp[temp.length - 1];
 		fileName = file.substring(0, file.lastIndexOf('.'));
