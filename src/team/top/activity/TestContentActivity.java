@@ -1,15 +1,17 @@
 package team.top.activity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 import team.top.Camera.cameraToPdf;
-import team.top.utils.FileSystem;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,6 +26,9 @@ public class TestContentActivity extends Activity {
 	Button btn3;
 	Button btn4;
 	Button btn5;
+
+	String FileName;
+	public static String lastImagePath;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,42 +58,183 @@ public class TestContentActivity extends Activity {
 			case R.id.btn4:
 				break;
 			case R.id.cameraBtn:
-				Intent intent_camera = new Intent(
-						MediaStore.ACTION_IMAGE_CAPTURE);
-				startActivityForResult(intent_camera, 1);
+				System.out.println("take photo----------");
+				takePhoto();
 				break;
 			}
 		}
+	}
 
+	/**
+	 * 拍照获取图片
+	 * 
+	 */
+	protected void takePhoto() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		//photo directory
+		File file = new File(Environment.getExternalStorageDirectory()
+				+ "/AndroidReader/Images/image.jpg");
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+		TestContentActivity.this.startActivityForResult(intent, 0);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == Activity.RESULT_OK) {
-			Bundle bundle = data.getExtras();
-			Bitmap bitmap = (Bitmap) bundle.get("data");
-			FileOutputStream b = null;
-			File file = new File(FileSystem.SDCARD_PATH + "/myImage/");
+		Intent intent = new Intent();
+		intent.setClass(TestContentActivity.this, cameraToPdf.class);
+
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	/**
+	 * 保存图片到本地(JPG)
+	 * 
+	 * @param bm
+	 *            保存的图片
+	 * @return 图片路径
+	 */
+	public static String saveToLocal(Bitmap bm) {
+		if (!Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED)) {
+			return null;
+		}
+		FileOutputStream fileOutputStream = null;
+		File file = new File(Environment.getExternalStorageDirectory()
+				+ "/AndroidReader/ImagesCache/");
+		if (!file.exists()) {
 			file.mkdirs();
-			String fileName = FileSystem.SDCARD_PATH + "/myImage/111.png";
+		}
+		String fileName = UUID.randomUUID().toString() + ".jpg";
+		String filePath = Environment.getExternalStorageDirectory()
+				+ "/AndroidReader/ImagesCache/" + fileName;
+		File f = new File(filePath);
+		if (!f.exists()) {
 			try {
-				b = new FileOutputStream(fileName);
-				bitmap.compress(Bitmap.CompressFormat.PNG, 100, b);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				f.createNewFile();
+				fileOutputStream = new FileOutputStream(filePath);
+				bm.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+			} catch (IOException e) {
+				return null;
 			} finally {
 				try {
-					b.flush();
-					b.close();
+					fileOutputStream.flush();
+					fileOutputStream.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					return null;
 				}
 			}
-			Intent intent_confirm = new Intent();
-			intent_confirm
-					.setClass(TestContentActivity.this, cameraToPdf.class);
-			TestContentActivity.this.startActivity(intent_confirm);
-			super.onActivityResult(requestCode, resultCode, data);
+		}
+		return filePath;
+	}
+
+	/**
+	 * 创建一个缩放的图片
+	 * 
+	 * @param path
+	 *            图片地址
+	 * @param w
+	 *            图片宽度
+	 * @param h
+	 *            图片高度
+	 * @return 缩放后的图片
+	 */
+	public static Bitmap createBitmap(String path, int w, int h) {
+		try {
+			BitmapFactory.Options opts = new BitmapFactory.Options();
+			opts.inJustDecodeBounds = true;
+			// 这里是整个方法的关键，inJustDecodeBounds设为true时将不为图片分配内存。
+			BitmapFactory.decodeFile(path, opts);
+			int srcWidth = opts.outWidth;// 获取图片的原始宽度
+			int srcHeight = opts.outHeight;// 获取图片原始高度
+			int destWidth = 0;
+			int destHeight = 0;
+			// 缩放的比例
+			double ratio = 0.0;
+			if (srcWidth < w || srcHeight < h) {
+				ratio = 0.0;
+				destWidth = srcWidth;
+				destHeight = srcHeight;
+			} else if (srcWidth > srcHeight) {// 按比例计算缩放后的图片大小，maxLength是长或宽允许的最大长度
+				ratio = (double) srcWidth / w;
+				destWidth = w;
+				destHeight = (int) (srcHeight / ratio);
+			} else {
+				ratio = (double) srcHeight / h;
+				destHeight = h;
+				destWidth = (int) (srcWidth / ratio);
+			}
+			BitmapFactory.Options newOpts = new BitmapFactory.Options();
+			// 缩放的比例，缩放是很难按准备的比例进行缩放的，目前我只发现只能通过inSampleSize来进行缩放，其值表明缩放的倍数，SDK中建议其值是2的指数值
+			newOpts.inSampleSize = (int) ratio + 1;
+			// inJustDecodeBounds设为false表示把图片读进内存中
+			newOpts.inJustDecodeBounds = false;
+			// 设置大小，这个一般是不准确的，是以inSampleSize的为准，但是如果不设置却不能缩放
+			newOpts.outHeight = destHeight;
+			newOpts.outWidth = destWidth;
+			// 获取缩放后图片
+			return BitmapFactory.decodeFile(path, newOpts);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
 		}
 	}
+
+	// **************************************************************//
+	/**
+	 * 旋转图片
+	 * 
+	 * @param angle
+	 * @param bitmap
+	 * @return Bitmap
+	 */
+	public static Bitmap rotaingImageView(int angle, Bitmap bitmap) {
+		// 旋转图片 动作
+		Matrix matrix = new Matrix();
+		matrix.postRotate(angle);
+		System.out.println("angle2=" + angle);
+		// 创建新的图片
+		Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+		return resizedBitmap;
+	}
+
+	/**
+	 * 读取图片属性：旋转的角度
+	 * 
+	 * @param path
+	 *            图片绝对路径
+	 * @return degree旋转的角度
+	 */
+	public static int readPictureDegree(String path) {
+		int degree = 0;
+		try {
+			ExifInterface exifInterface = new ExifInterface(path);
+			int orientation = exifInterface.getAttributeInt(
+					ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_NORMAL);
+			switch (orientation) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				degree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				degree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				degree = 270;
+				break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return degree;
+	}
+	// **************************************************************//
+
 }

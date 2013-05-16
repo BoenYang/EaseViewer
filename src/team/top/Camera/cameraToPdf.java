@@ -1,14 +1,19 @@
 package team.top.Camera;
 
 import java.io.File;
+import java.io.IOException;
 
 import team.top.activity.R;
+import team.top.activity.TestContentActivity;
 import team.top.utils.FileSystem;
 import team.top.utils.PngToPdf;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +24,7 @@ import android.widget.Toast;
 /**
  * 
  * @author wzy
- *
+ * 
  */
 public class cameraToPdf extends Activity {
 	FileSystem fileSystem;
@@ -27,13 +32,28 @@ public class cameraToPdf extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.photoconfirm);
-		Bitmap bitmap = getDiskBitmap(FileSystem.SDCARD_PATH
-				+ "/myImage/111.png");
+
+		File file = new File(Environment.getExternalStorageDirectory()
+				+ "/CameraTest/CameraCache", "photoCache.jpg");
+//		Bitmap bitmap = null;
+//		try {
+//			bitmap = TestContentActivity.convertBitmap(file);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		// bitmap = getDiskBitmap(Environment.getExternalStorageDirectory()
+		// + "/CameraTest/CameraCache/photoCache.jpg");
+		// Bitmap bitmap = getDiskBitmap(FileSystem.SDCARD_PATH +
+		// "/myImage/111.png");
+		Uri uri = Uri.fromFile(file);
 		Button confirmBtn = (Button) findViewById(R.id.confirm);
 		Button cancelBtn = (Button) findViewById(R.id.cancel);
 		Log.v("=", "done");
-		((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);// 将图片显示在ImageView里
-
+		ImageView imageView = (ImageView)findViewById(R.id.imageView);
+		//imageView.setImageBitmap(bitmap);
+		imageView.setImageURI(uri);
+		
+		
 		confirmBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -73,7 +93,6 @@ public class cameraToPdf extends Activity {
 				bitmap = BitmapFactory.decodeFile(pathString);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 		return bitmap;
