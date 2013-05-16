@@ -3,6 +3,7 @@ package team.top.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -182,9 +183,10 @@ public class ExcelToHtml {
 	 * 
 	 * @return 				the absolute path of the html file
 	 * @throws WriteHtmlExcpetion 
+	 * @throws UnsupportedEncodingException 
 	 * 
 	 */
-	public String convert2Html() throws WriteHtmlExcpetion{
+	public String convert2Html() throws WriteHtmlExcpetion, UnsupportedEncodingException{
 		StringBuffer sb = new StringBuffer();
 		sb.append(HEAD);
 		HSSFSheet sheet = hssfWorkbook.getSheetAt(0);							//get sheet
@@ -278,7 +280,7 @@ public class ExcelToHtml {
 		}
 		sb.append("</table>");
 		sb.append(TAIL);
-		if(!FileSystem.WriteToAppDir(fileName + ".html", sb.toString().getBytes())){
+		if(!FileSystem.WriteToAppDir(fileName + ".html", sb.toString().getBytes("gbk"))){
 			throw new WriteHtmlExcpetion();
 		}
 		return FileSystem.APP_DIR + File.separator + fileName + ".html";

@@ -1,19 +1,16 @@
 package team.top.fragment;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import team.top.activity.FileListAdapter;
 import team.top.activity.R;
-import team.top.activity.ShowContentActivity;
 import team.top.constant.Constant;
 import team.top.data.FileInfo;
 import team.top.utils.FileListHelper;
+import team.top.utils.ThemeChangeListener;
 import team.top.utils.FileListHelper.FileCategory;
 import team.top.utils.FileSystem;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,7 +28,7 @@ import android.widget.ListView;
  * @author ybw ht
  *
  */
-public class FileListFragment extends Fragment {
+public class FileListFragment extends Fragment{
 
 	private static ListView listView;
 	private static List<FileInfo> fileList;
@@ -153,5 +150,4 @@ public class FileListFragment extends Fragment {
 		}
 		return type;
 	}
-
 }

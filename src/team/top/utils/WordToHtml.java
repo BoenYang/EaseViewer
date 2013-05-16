@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.poi.hwpf.HWPFDocument;
@@ -71,11 +72,13 @@ public class WordToHtml {
 	 * 
 	 * @return
 	 * @throws WriteHtmlExcpetion
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String convertToHtml() throws WriteHtmlExcpetion {
+	public String convertToHtml() throws WriteHtmlExcpetion, UnsupportedEncodingException {
 		readDoc();
+		String str = html.toString();
 		
-		if(!FileSystem.WriteToAppDir(fileName + ".html",html.toString().getBytes())){
+		if(!FileSystem.WriteToAppDir(fileName + ".html",str.getBytes("gbk"))){
 			throw new WriteHtmlExcpetion();
 		}
 		return FileSystem.APP_DIR + File.separator + fileName + ".html";

@@ -38,15 +38,44 @@
                 <data android:mimeType="application/xls" />
             </intent-filter>
         </activity>
-        <activity android:name="team.top.activity.TextReaderActivity" >
+        <activity
+            android:name="team.top.activity.TextReaderActivity"
+            android:theme="@style/NoTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:mimeType="application/txt" />
+                <data android:mimeType="application/log" />
+                <data android:mimeType="application/cpp" />
+                <data android:mimeType="application/java" />
             </intent-filter>
         </activity>
-        <activity android:name="team.top.activity.TestContentActivity" >
+        <activity
+            android:name="team.top.activity.TestContentActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.SplashActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.ChangeThemeActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.HelpActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.ImageToPdfActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.PhotoPreviewActivity"
+            android:theme="@style/NoTitle" >
         </activity>
     </application>
 

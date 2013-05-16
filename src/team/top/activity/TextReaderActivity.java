@@ -8,6 +8,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.EditText;
 
 public class TextReaderActivity extends Activity {
@@ -35,5 +36,9 @@ public class TextReaderActivity extends Activity {
 		textView.setText(content);
 		textView.setFocusable(false);
 		textView.setFocusableInTouchMode(false);
+	}
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		return false;
 	}
 }

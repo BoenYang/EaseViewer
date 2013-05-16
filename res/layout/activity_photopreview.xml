@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/blue" >
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@color/bg_color_deep"
+            android:text="back" />
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/bg_color_deep"
+            android:text="save" />
+    </RelativeLayout>
+    
+    <ImageView 
+        android:id="@+id/photoPreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/text_color"
+        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black_half" >
+
+        <Button
+            android:id="@+id/leftRoate"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@color/bg_color_deep"
+            android:text="rLeft" />
+
+        <Button
+            android:id="@+id/rightRoate"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/bg_color_deep"
+            android:text="rRight" />
+    </RelativeLayout>
+
+</RelativeLayout>
