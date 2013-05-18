@@ -1,11 +1,12 @@
 package team.top.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import team.top.data.FileInfo;
+import team.top.utils.BitmapHelper;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class ImageShowAdapter extends BaseAdapter {
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private ViewHolder viewHolder;
+	private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
 
 	class ViewHolder {
 		public ImageView imageView;
@@ -30,6 +32,9 @@ public class ImageShowAdapter extends BaseAdapter {
 		this.layoutId = layoutId;
 		this.layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		for (FileInfo fileInfo : data) {
+			bitmaps.add(BitmapHelper.createBitmap(fileInfo.absolutePath, 100, 100));
+		}
 	}
 
 	@Override
@@ -57,67 +62,19 @@ public class ImageShowAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (convertView != null) {
+		System.out.println("--------------get view " + position);
+		if(convertView != null){
 			viewHolder = (ViewHolder) convertView.getTag();
-		} else {
+		}else{
 			convertView = layoutInflater.inflate(layoutId, null);
 			viewHolder = new ViewHolder();
-			viewHolder.imageView = (ImageView) convertView
-					.findViewById(R.id.image);
-			BitmapFactory.Options opts = new BitmapFactory.Options();
-			opts.inJustDecodeBounds = true;
-			BitmapFactory.decodeFile(data.get(position).absolutePath, opts);
-			
-			opts.inSampleSize = computeSampleSize(opts, -1, 200 * 200);
-			opts.inJustDecodeBounds = false;
-			try {
-				Bitmap bmp = BitmapFactory.decodeFile(data.get(position).absolutePath, opts);
-				viewHolder.imageView.setImageBitmap(bmp);
-			} catch (OutOfMemoryError err) {
-			}
+			viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image);
+			convertView.setTag(viewHolder);
 		}
+		viewHolder.imageView.setImageBitmap(bitmaps.get(position));
 		return convertView;
 	}
+	
 
-	public static int computeSampleSize(BitmapFactory.Options options,
-			int minSideLength, int maxNumOfPixels) {
-		int initialSize = computeInitialSampleSize(options, minSideLength,
-				maxNumOfPixels);
-
-		int roundedSize;
-		if (initialSize <= 8) {
-			roundedSize = 1;
-			while (roundedSize < initialSize) {
-				roundedSize <<= 1;
-			}
-		} else {
-			roundedSize = (initialSize + 7) / 8 * 8;
-		}
-
-		return roundedSize;
-	}
-
-	private static int computeInitialSampleSize(BitmapFactory.Options options,
-			int minSideLength, int maxNumOfPixels) {
-		double w = options.outWidth;
-		double h = options.outHeight;
-
-		int lowerBound = (maxNumOfPixels == -1) ? 1 : (int) Math.ceil(Math
-				.sqrt(w * h / maxNumOfPixels));
-		int upperBound = (minSideLength == -1) ? 128 : (int) Math.min(
-				Math.floor(w / minSideLength), Math.floor(h / minSideLength));
-
-		if (upperBound < lowerBound) {
-			return lowerBound;
-		}
-
-		if ((maxNumOfPixels == -1) && (minSideLength == -1)) {
-			return 1;
-		} else if (minSideLength == -1) {
-			return lowerBound;
-		} else {
-			return upperBound;
-		}
-	}
 
 }

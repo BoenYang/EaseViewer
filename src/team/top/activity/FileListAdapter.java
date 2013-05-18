@@ -75,9 +75,11 @@ public class FileListAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		System.out.println("get view" + position);
 		if (convertView != null) {
 			viewHolder = (ViewHolder) convertView.getTag();
 		} else {
+			System.out.println("new view" + position);
 			convertView = layoutInflater.inflate(layoutId, null);
 			viewHolder = new ViewHolder();
 			viewHolder.fileNameTextView = (TextView) convertView
@@ -86,7 +88,6 @@ public class FileListAdapter extends BaseAdapter {
 					.findViewById(R.id.fileinfo);
 			convertView.setTag(viewHolder);
 		}
-
 		if (fileList != null && fileList.size() != 0) {
 			FileInfo file = fileList.get(position);
 			viewHolder.fileNameTextView.setText(file.fileName);

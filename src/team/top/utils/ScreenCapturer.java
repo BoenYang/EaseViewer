@@ -22,7 +22,7 @@ public class ScreenCapturer {
 		int h = activity.getWindowManager().getDefaultDisplay().getHeight();
 		
 		//int titlebarH
-		Bitmap b =  Bitmap.createBitmap(bitmap, 0, 0, w, h);
+		bitmap =  Bitmap.createBitmap(bitmap, 0, 0, w, h);
 		return WriteBitmapToSdcard(bitmap,saveDir,saveName);
 	}
 	

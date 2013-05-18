@@ -45,6 +45,8 @@ public class MainActivity extends FragmentActivity {
 		t.replace(R.id.center_frame, centerViewPagerFragment);
 
 		t.commit();
+		
+		FileSystem.makeAppDirTree();
 	}
 
 	/**

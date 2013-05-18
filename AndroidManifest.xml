@@ -28,7 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="team.top.activity.ShowContentActivity" >
+        <activity
+            android:name="team.top.activity.ShowOfficeActivity"
+            android:theme="@style/NoTitle" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -76,6 +78,14 @@
         </activity>
         <activity
             android:name="team.top.activity.PhotoPreviewActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.PdfReaderActivity"
+            android:theme="@style/NoTitle" >
+        </activity>
+        <activity
+            android:name="team.top.activity.AboutActivity"
             android:theme="@style/NoTitle" >
         </activity>
     </application>

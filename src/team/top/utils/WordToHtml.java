@@ -2,8 +2,6 @@ package team.top.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -19,7 +17,6 @@ import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
 import team.top.exception.WriteHtmlExcpetion;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -77,7 +74,6 @@ public class WordToHtml {
 	public String convertToHtml() throws WriteHtmlExcpetion, UnsupportedEncodingException {
 		readDoc();
 		String str = html.toString();
-		
 		if(!FileSystem.WriteToAppDir(fileName + ".html",str.getBytes("gbk"))){
 			throw new WriteHtmlExcpetion();
 		}
