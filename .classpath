@@ -7,6 +7,5 @@
 	<classpathentry exported="true" kind="lib" path="JAR/poi-3.9-20121203.jar" sourcepath="/home/ybw/Desktop/poi-3.9/poi-3.9-20121203.jar"/>
 	<classpathentry exported="true" kind="lib" path="JAR/poi-scratchpad-3.9-20121203.jar"/>
 	<classpathentry exported="true" kind="lib" path="JAR/itextpdf-5.4.1.jar"/>
-	<classpathentry kind="lib" path="JAR/PDFRenderer.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -32,7 +32,7 @@ public class PdfShowAdapter extends BaseAdapter {
 		this.context = context;
 		this.bitmaps = data;
 		this.layoutId = layoutId;
-		this.layoutInflater = (LayoutInflater) context
+		this.layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 

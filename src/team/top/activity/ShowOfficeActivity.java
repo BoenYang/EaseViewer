@@ -1,15 +1,14 @@
 package team.top.activity;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-
-import com.itextpdf.text.xml.simpleparser.NewLineHandler;
 
 import team.top.dialog.WaittingDialog;
 import team.top.exception.WriteHtmlExcpetion;
 import team.top.utils.ExcelToHtml;
+import team.top.utils.FileSystem;
 import team.top.utils.WordToHtml;
-import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -27,10 +26,9 @@ public class ShowOfficeActivity extends Activity {
 	private String extension;
 	private String path;
 	private final static int PRASE_SUCCESSFUL = 0;
-	private final static int FILE_NOT_FOUND = 1;
 	private final static int PRASE_FAILED = -1;
 	private WaittingDialog waittingDialog;
-	
+
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +49,8 @@ public class ShowOfficeActivity extends Activity {
 		Thread thread = new Thread(new PraseOfficeThread());
 		thread.start();
 	}
-	
-	private Handler handler = new Handler(){
 
+	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			int what = msg.what;
@@ -69,50 +66,63 @@ public class ShowOfficeActivity extends Activity {
 			}
 			super.handleMessage(msg);
 		}
-		
+
 	};
-	
-	class PraseOfficeThread implements Runnable{
+
+	class PraseOfficeThread implements Runnable {
 
 		@Override
 		public void run() {
 			Message msg = new Message();
+			String fileName = "";
+			fileName = FileSystem.GetFileNameByPath(path);
 			if (extension.equals("doc")) {
 				WordToHtml word2Html = null;
-					try {
+				try {
+					if (hasWordConcerted(path)) {
+						htmlPath = FileSystem.WORD_CACHE + File.separator
+								+ fileName + File.separator + fileName
+								+ ".html";
+					} else {
 						word2Html = new WordToHtml(path);
 						htmlPath = word2Html.convertToHtml();
-					} catch (WriteHtmlExcpetion e) {
-						msg.what = PRASE_FAILED;
-						System.out.println("读取文件失败");
-						e.printStackTrace();
-					} catch (IOException e) {
-						msg.what = PRASE_FAILED;
-						System.out.println("文件不存在");
-						e.printStackTrace();
 					}
-			
-				
+				} catch (WriteHtmlExcpetion e) {
+					msg.what = PRASE_FAILED;
+					System.out.println("读取文件失败");
+					e.printStackTrace();
+				} catch (IOException e) {
+					msg.what = PRASE_FAILED;
+					System.out.println("文件不存在");
+					e.printStackTrace();
+				}
+
 			} else if (extension.equals("xls")) {
 				ExcelToHtml excel2Html;
-					try {
+				try {
+					if (hasExcelConcerted(path)) {
+						htmlPath = FileSystem.EXCEL_CACHE + File.separator
+								+ fileName + File.separator + fileName
+								+ ".html";
+					} else {
 						excel2Html = new ExcelToHtml(path);
 						htmlPath = excel2Html.convert2Html();
-					} catch (IOException e) {
-						msg.what = PRASE_FAILED;
-						System.out.println("文件不存在");
-						e.printStackTrace();
-					} catch (WriteHtmlExcpetion e) {
-						msg.what = PRASE_FAILED;
-						System.out.println("读取文件失败");
-						e.printStackTrace();
 					}
-			
+				} catch (IOException e) {
+					msg.what = PRASE_FAILED;
+					System.out.println("文件不存在");
+					e.printStackTrace();
+				} catch (WriteHtmlExcpetion e) {
+					msg.what = PRASE_FAILED;
+					System.out.println("读取文件失败");
+					e.printStackTrace();
+				}
+
 			}
 			msg.what = PRASE_SUCCESSFUL;
 			handler.sendMessage(msg);
 		}
-		
+
 	}
 
 	public void setZoomControlGone(View view) {
@@ -137,6 +147,36 @@ public class ShowOfficeActivity extends Activity {
 			e.printStackTrace();
 		} catch (NoSuchFieldException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private boolean hasWordConcerted(String path) {
+		String fileName = FileSystem.GetFileNameByPath(path);
+		File file = new File(FileSystem.WORD_CACHE + File.separator + fileName);
+		if (file.exists()) {
+			if (new File(FileSystem.WORD_CACHE + File.separator + fileName
+					+ File.separator + fileName + ".html").exists()) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	private boolean hasExcelConcerted(String path) {
+		String fileName = FileSystem.GetFileNameByPath(path);
+		File file = new File(FileSystem.EXCEL_CACHE + File.separator + fileName);
+		if (file.exists()) {
+			if (new File(FileSystem.EXCEL_CACHE + File.separator + fileName
+					+ File.separator + fileName + ".html").exists()) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
 	}
 

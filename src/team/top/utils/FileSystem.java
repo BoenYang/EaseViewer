@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Calendar;
-
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import team.top.constant.Constant;
 import android.os.Environment;
@@ -27,6 +24,7 @@ public class FileSystem {
 	public static String EXCEL_CACHE;
 	public static String PDF_CACHE;
 	public static String CAMERA_CACHE;
+	public static String PRTSCR_DIR;
 
 	static {
 		SDCARD_PATH = Environment.getExternalStorageDirectory()
@@ -36,6 +34,7 @@ public class FileSystem {
 		EXCEL_CACHE = APP_DIR + File.separator + Constant.EXCEL_CACHE_DIR;
 		PDF_CACHE = APP_DIR + File.separator + Constant.PDF_CACHE_DIR;
 		CAMERA_CACHE = APP_DIR + File.separator + Constant.CAMERA_CHCHE_DIR;
+		PRTSCR_DIR = APP_DIR + File.separator + Constant.PTRSCR_DIR;
 	}
 
 	/**
@@ -123,6 +122,10 @@ public class FileSystem {
 		File cameraDir = new File(CAMERA_CACHE);
 		if (!cameraDir.exists())
 			cameraDir.mkdir();
+		File prtScr = new File(PRTSCR_DIR);
+		if(!prtScr.exists()){
+			prtScr.mkdir();
+		}
 	}
 
 	/**

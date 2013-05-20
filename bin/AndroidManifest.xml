@@ -83,6 +83,14 @@
         <activity
             android:name="team.top.activity.PdfReaderActivity"
             android:theme="@style/NoTitle" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:mimeType="application-pdf/pdf" />
+            </intent-filter>
         </activity>
         <activity
             android:name="team.top.activity.AboutActivity"

@@ -1,6 +1,8 @@
 package team.top.activity;
 
-import java.util.Calendar;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 import team.top.dialog.SelectDialog;
 import team.top.dialog.SetNameDialog;
@@ -9,15 +11,6 @@ import team.top.utils.FileSystem;
 import team.top.utils.ScreenCapturer;
 import android.app.Activity;
 import android.content.Intent;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.UUID;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -76,9 +69,8 @@ public class TestContentActivity extends Activity {
 			case R.id.screenshot:
 		
 				String name = "ScreenShot" + FileSystem.GetNameByTime();
-				System.out.println(name);
 				if (ScreenCapturer.TakeScreenShot(TestContentActivity.this,
-						"/sdcard", name)) {
+						FileSystem.PRTSCR_DIR, name)) {
 					System.out.println("---------------------------");
 					break;
 				}
@@ -88,7 +80,8 @@ public class TestContentActivity extends Activity {
 				startActivity(intent2);
 				break;
 			case R.id.testWattingDialog:
-				new WaittingDialog(TestContentActivity.this).show();
+				File file = new File("/sdcard/test.pdf");
+				System.out.println(file.hashCode());
 				break;
 			}
 		}
