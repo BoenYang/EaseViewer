@@ -98,6 +98,11 @@ public class PdfPage implements CodecPage
         int[] bufferarray = new int[width * height];
         nativeCreateView(docHandle, pageHandle, mRect, matrixArray, bufferarray);
         return Bitmap.createBitmap(bufferarray, width, height, Bitmap.Config.RGB_565);
+        /*ByteBuffer buffer = ByteBuffer.allocateDirect(width * height * 2);
+        render(docHandle, docHandle, mRect, matrixArray, buffer, ByteBuffer.allocateDirect(width * height * 8));
+        final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        bitmap.copyPixelsFromBuffer(buffer);
+        return bitmap;*/
 	}
 
     private static native void getMediaBox(long handle, float[] mediabox);

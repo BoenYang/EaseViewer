@@ -13,6 +13,8 @@ public class Constant {
 	public final static String PDF_CACHE_DIR = "PdfCache";
 	public final static String CAMERA_CHCHE_DIR = "CameraCache";
 	public final static String PTRSCR_DIR = "Ptrsrc";
+	public final static int PRASE_SUCCESSFUL = 0;
+	public final static int PRASE_FAILED = -1;
 
 	/**
 	 * MIME list

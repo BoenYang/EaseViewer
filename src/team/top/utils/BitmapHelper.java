@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.util.UUID;
 
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Environment;
 
 public class BitmapHelper {
-	
+
 	public static Bitmap createBitmap(String path, int w, int h) {
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -49,9 +50,17 @@ public class BitmapHelper {
 			// 获取缩放后图片
 			return BitmapFactory.decodeFile(path, newOpts);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return null;
 		}
+	}
+
+	public static void writeBitmapToSdcard(Bitmap bitmap, String path,
+			CompressFormat format, int compress) throws IOException {
+		FileOutputStream fileOutputStream = null;
+		fileOutputStream = new FileOutputStream(path);
+		bitmap.compress(format, compress, fileOutputStream);
+		fileOutputStream.close();
+		fileOutputStream = null;
 	}
 
 	public static int computeSampleSize(BitmapFactory.Options options,
@@ -94,7 +103,7 @@ public class BitmapHelper {
 			return upperBound;
 		}
 	}
-	
+
 	/**
 	 * 保存图片到本地(JPG)
 	 * 

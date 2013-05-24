@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import org.vudroid.core.codec.CodecPage;
+import com.poqop.document.codec.CodecPage;
 
 import java.nio.ByteBuffer;
 

@@ -1,7 +1,7 @@
 package org.vudroid.pdfdroid.codec;
 
-import org.vudroid.core.codec.CodecDocument;
-import org.vudroid.core.codec.CodecPage;
+import com.poqop.document.codec.CodecDocument;
+import com.poqop.document.codec.CodecPage;
 
 public class PdfDocument implements CodecDocument
 {

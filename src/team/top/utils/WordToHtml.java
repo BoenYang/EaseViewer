@@ -82,7 +82,7 @@ public class WordToHtml {
 		readDoc();
 		String str = html.toString();
 		if (!FileSystem
-				.Write(saveDir + fileName + ".html", str.getBytes("gbk"))) {
+				.Write(saveDir + File.separator +  fileName + ".html", str.getBytes("gbk"))) {
 			throw new WriteHtmlExcpetion();
 		}
 		return saveDir + File.separator + fileName + ".html";
@@ -200,14 +200,16 @@ public class WordToHtml {
 		Bitmap bitmap = BitmapFactory.decodeByteArray(pictureBytes, 0,
 				pictureBytes.length);
 		presentPicture++;
-		String imageName = fileName + presentPicture;
+		String imageName = fileName + presentPicture + ".jpg";
 		FileSystem.Write(saveDir + File.separator + imageName, pictureBytes);
-		String imageString = "<img src=\"" + fileName + presentPicture
-				+ picture.suggestFileExtension() + "\"";
+		String imageString = "<img src=\"" + imageName  + "\"";
 		if (bitmap.getWidth() > 640) {
 			imageString += " " + "width=\"" + 640 + "\"";
 		}
 		imageString += ">";
+		if(bitmap.isRecycled()){
+			bitmap.recycle();
+		}
 		html.append(imageString);
 	}
 

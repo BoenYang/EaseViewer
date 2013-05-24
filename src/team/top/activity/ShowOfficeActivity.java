@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import team.top.constant.Constant;
 import team.top.dialog.WaittingDialog;
 import team.top.exception.WriteHtmlExcpetion;
 import team.top.utils.ExcelToHtml;
@@ -25,8 +26,7 @@ public class ShowOfficeActivity extends Activity {
 	private String htmlPath = "";
 	private String extension;
 	private String path;
-	private final static int PRASE_SUCCESSFUL = 0;
-	private final static int PRASE_FAILED = -1;
+
 	private WaittingDialog waittingDialog;
 
 	@SuppressLint("SetJavaScriptEnabled")
@@ -55,11 +55,11 @@ public class ShowOfficeActivity extends Activity {
 		public void handleMessage(Message msg) {
 			int what = msg.what;
 			switch (what) {
-			case PRASE_SUCCESSFUL:
+			case Constant.PRASE_SUCCESSFUL:
 				waittingDialog.dismiss();
 				webView.loadUrl("file://" + htmlPath);
 				break;
-			case PRASE_FAILED:
+			case Constant.PRASE_FAILED:
 				waittingDialog.dismiss();
 				ShowOfficeActivity.this.finish();
 				break;
@@ -70,7 +70,6 @@ public class ShowOfficeActivity extends Activity {
 	};
 
 	class PraseOfficeThread implements Runnable {
-
 		@Override
 		public void run() {
 			Message msg = new Message();
@@ -88,11 +87,11 @@ public class ShowOfficeActivity extends Activity {
 						htmlPath = word2Html.convertToHtml();
 					}
 				} catch (WriteHtmlExcpetion e) {
-					msg.what = PRASE_FAILED;
+					msg.what = Constant.PRASE_FAILED;
 					System.out.println("读取文件失败");
 					e.printStackTrace();
 				} catch (IOException e) {
-					msg.what = PRASE_FAILED;
+					msg.what = Constant.PRASE_FAILED;
 					System.out.println("文件不存在");
 					e.printStackTrace();
 				}
@@ -109,17 +108,17 @@ public class ShowOfficeActivity extends Activity {
 						htmlPath = excel2Html.convert2Html();
 					}
 				} catch (IOException e) {
-					msg.what = PRASE_FAILED;
+					msg.what = Constant.PRASE_FAILED;
 					System.out.println("文件不存在");
 					e.printStackTrace();
 				} catch (WriteHtmlExcpetion e) {
-					msg.what = PRASE_FAILED;
+					msg.what = Constant.PRASE_FAILED;
 					System.out.println("读取文件失败");
 					e.printStackTrace();
 				}
 
 			}
-			msg.what = PRASE_SUCCESSFUL;
+			msg.what = Constant.PRASE_SUCCESSFUL;
 			handler.sendMessage(msg);
 		}
 

@@ -1,9 +1,9 @@
 package org.vudroid.pdfdroid.codec;
 
 import android.content.ContentResolver;
-import org.vudroid.core.VuDroidLibraryLoader;
-import org.vudroid.core.codec.CodecContext;
-import org.vudroid.core.codec.CodecDocument;
+import com.poqop.document.codec.CodecContext;
+import com.poqop.document.codec.CodecDocument;
+import com.poqop.document.codec.VuDroidLibraryLoader;
 
 public class PdfContext implements CodecContext
 {
