@@ -77,14 +77,13 @@ public class ZoomListener implements OnTouchListener {
 				}
 			}
 		} else if (mode == ActionMode.MOVE) {
+			float outX = (v.getWidth() * v.getScaleX() - v.getWidth()) / 2.0f;
 			if (x1 - oldx > 10) {
-				float outX = (v.getWidth() * v.getScaleX() - v.getWidth()) / 2.0f;
 				if (v.getX() <= (outX - 10)) {
 					v.setX(v.getX() + 10);
 				}
 			} else if (x1 - oldx < -10) {
-				float outX = (v.getWidth() * v.getScaleX() - v.getWidth()) / 2.0f;
-				if (v.getX() >= (outX + 10)) {
+				if (v.getX() >= -(outX + 10)) {
 					v.setX(v.getX() - 10);
 				}
 
