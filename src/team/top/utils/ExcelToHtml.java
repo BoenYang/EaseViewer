@@ -25,10 +25,11 @@ import team.top.exception.WriteHtmlExcpetion;
  * note: exception handle need improved
  */
 
-/**This is a class use for convert a excel document to a html file
+/**
+ * This is a class use for convert a excel document to a html file
  * 
  * @author ybw
- *
+ * 
  */
 public class ExcelToHtml {
 
@@ -36,44 +37,53 @@ public class ExcelToHtml {
 	private HSSFWorkbook hssfWorkbook;
 	private final static String HEAD = "<html><body>";
 	private final static String TAIL = "</body></html>";
-	
-	
+	private String saveDir;
+
 	/**
 	 * 
 	 * @param filepath
 	 * @throws IOException
 	 */
-	public ExcelToHtml(String filepath) throws IOException{
+	public ExcelToHtml(String filepath) throws IOException {
 		fileName = FileSystem.GetFileNameByPath(filepath);
 		FileInputStream fileInputStream = new FileInputStream(filepath);
 		hssfWorkbook = new HSSFWorkbook(fileInputStream);
 		fileInputStream.close();
+		saveDir = FileSystem.EXCEL_CACHE + File.separator + fileName;
 	}
-	
-	/**use for check the merged col and raw in the sheet
+
+	/**
+	 * use for check the merged col and raw in the sheet
 	 * 
 	 * 
-	 * @param sheet 	the sheet to scan
-	 * @return 			the merged information of the sheet
+	 * @param sheet
+	 *            the sheet to scan
+	 * @return the merged information of the sheet
 	 */
 	@SuppressWarnings("unchecked")
 	private Map<String, String>[] getRowSpanColSpanMap(Sheet sheet) {
 		Map<String, String> map0 = new HashMap<String, String>();
 		Map<String, String> map1 = new HashMap<String, String>();
-		int mergedNum = sheet.getNumMergedRegions();							//get the number of merged regions
+		int mergedNum = sheet.getNumMergedRegions(); // get the number of merged
+														// regions
 		CellRangeAddress range = null;
 		for (int i = 0; i < mergedNum; i++) {
-			range = sheet.getMergedRegion(i);									//get a merged region
-			int topRow = range.getFirstRow();									//get the number of top row and col of the region
-			int topCol = range.getFirstColumn();							
-			int bottomRow = range.getLastRow();									//get the number bottom row and col of the region
+			range = sheet.getMergedRegion(i); // get a merged region
+			int topRow = range.getFirstRow(); // get the number of top row and
+												// col of the region
+			int topCol = range.getFirstColumn();
+			int bottomRow = range.getLastRow(); // get the number bottom row and
+												// col of the region
 			int bottomCol = range.getLastColumn();
-			map0.put(topRow + "," + topCol, bottomRow + "," + bottomCol);       //record the merged region
+			map0.put(topRow + "," + topCol, bottomRow + "," + bottomCol); // record
+																			// the
+																			// merged
+																			// region
 			int tempRow = topRow;
 			while (tempRow <= bottomRow) {
-				int tempCol = topCol;								
-				while (tempCol <= bottomCol) {		
-					map1.put(tempRow + "," + tempCol, "");						
+				int tempCol = topCol;
+				while (tempCol <= bottomCol) {
+					map1.put(tempRow + "," + tempCol, "");
 					tempCol++;
 				}
 				tempRow++;
@@ -84,10 +94,12 @@ public class ExcelToHtml {
 		return map;
 	}
 
-	/**convert excel document to html  file
+	/**
+	 * convert excel document to html file
 	 * 
-	 * @param hc 		convert the hssfcolot to normal color format
-	 * @return  		the #.......  RGB color format 
+	 * @param hc
+	 *            convert the hssfcolot to normal color format
+	 * @return the #....... RGB color format
 	 */
 	private String convertToStardColor(HSSFColor hc) {
 		StringBuffer sb = new StringBuffer("");
@@ -103,10 +115,12 @@ public class ExcelToHtml {
 		return sb.toString();
 	}
 
-	/**fill color string
+	/**
+	 * fill color string
 	 * 
-	 * @param str 		the color string uncompleted,such as #00
-	 * @return 			the completed color string,such as #000000
+	 * @param str
+	 *            the color string uncompleted,such as #00
+	 * @return the completed color string,such as #000000
 	 */
 	private String fillWithZero(String str) {
 		if (str != null && str.length() < 2) {
@@ -115,10 +129,12 @@ public class ExcelToHtml {
 		return str;
 	}
 
-	/**get the content in cell
+	/**
+	 * get the content in cell
 	 * 
-	 * @param cell  	the cell
-	 * @return the 		content in cell
+	 * @param cell
+	 *            the cell
+	 * @return the content in cell
 	 */
 	private String getCellValue(HSSFCell cell) {
 		switch (cell.getCellType()) {
@@ -132,10 +148,13 @@ public class ExcelToHtml {
 		}
 	}
 
-	/**convert the value of verticalAlignment to string (middle,bottom,center,top) 
+	/**
+	 * convert the value of verticalAlignment to string
+	 * (middle,bottom,center,top)
 	 * 
-	 * @param verticalAlignment 		the verticalAligment value
-	 * @return 							the VerticalAlignment in string
+	 * @param verticalAlignment
+	 *            the verticalAligment value
+	 * @return the VerticalAlignment in string
 	 */
 	private String convertVerticalAlignToHtml(short verticalAlignment) {
 		String valign = "middle";
@@ -155,10 +174,12 @@ public class ExcelToHtml {
 		return valign;
 	}
 
-	/**convert the value of vAlignment to string (left,center,right) 
+	/**
+	 * convert the value of vAlignment to string (left,center,right)
 	 * 
-	 * @param alignment  	the Alignment value
-	 * @return 				the Alignment in string
+	 * @param alignment
+	 *            the Alignment value
+	 * @return the Alignment in string
 	 */
 	private String convertAlignToHtml(short alignment) {
 		String align = "left";
@@ -178,42 +199,44 @@ public class ExcelToHtml {
 		return align;
 	}
 
-	
 	/**
 	 * 
-	 * @return 				the absolute path of the html file
-	 * @throws WriteHtmlExcpetion 
-	 * @throws UnsupportedEncodingException 
+	 * @return the absolute path of the html file
+	 * @throws WriteHtmlExcpetion
+	 * @throws UnsupportedEncodingException
 	 * 
 	 */
-	public String convert2Html() throws WriteHtmlExcpetion, UnsupportedEncodingException{
+	public String convert2Html() throws WriteHtmlExcpetion,
+			UnsupportedEncodingException {
+		File file = new File(saveDir);
+		if (!file.exists()) {
+			file.mkdir();
+		} 
 		StringBuffer sb = new StringBuffer();
 		sb.append(HEAD);
-		HSSFSheet sheet = hssfWorkbook.getSheetAt(0);							//get sheet
+		HSSFSheet sheet = hssfWorkbook.getSheetAt(0); // get sheet
 		int lastRowNum = sheet.getLastRowNum();
 		Map<String, String> map[] = getRowSpanColSpanMap(sheet);
-		sb.append("<table border='1' cellspacing='0' width='100%'>");			//get the row number of this sheet 
+		sb.append("<table border='1' cellspacing='0' width='100%'>");
 		HSSFRow row = null;
 		HSSFCell cell = null;
 
-		for (int rowNum = sheet.getFirstRowNum(); 
-			 rowNum < lastRowNum; 
-		     rowNum++  ) {														//get every row data
-			row = (HSSFRow) sheet.getRow(rowNum);								//get a raw
+		for (int rowNum = sheet.getFirstRowNum(); rowNum < lastRowNum; rowNum++) {
+			row = (HSSFRow) sheet.getRow(rowNum);
 			if (row == null) {
 				sb.append("<tr><td > &nbsp;</td></tr>");
 				continue;
 			}
 			sb.append("<tr>");
-			int lastColNum = row.getLastCellNum();								//get the cell number in a raw	
-			for (int colNum = 0; colNum < lastColNum; colNum++) { 				//get every cell in a raw
+			int lastColNum = row.getLastCellNum();
+			for (int colNum = 0; colNum < lastColNum; colNum++) {
 				cell = row.getCell(colNum);
 				if (cell == null) {
 					sb.append("<td>&nbsp;</td>");
 					continue;
 				}
-				String stringValue = getCellValue(cell);	                    //get cell value
-				if (map[0].containsKey(rowNum + "," + colNum)) {               	//check the cell weather merged or not
+				String stringValue = getCellValue(cell);
+				if (map[0].containsKey(rowNum + "," + colNum)) {
 					String pointString = map[0].get(rowNum + "," + colNum);
 					map[0].remove(rowNum + "," + colNum);
 					int bottomeRow = Integer.valueOf(pointString.split(",")[0]);
@@ -225,53 +248,49 @@ public class ExcelToHtml {
 				} else if (map[1].containsKey(rowNum + "," + colNum)) {
 					map[1].remove(rowNum + "," + colNum);
 					continue;
-
 				} else {
 					sb.append("<td ");
 				}
-				
-				HSSFCellStyle cellStyle = cell.getCellStyle();					//get every cell style in a row
+				HSSFCellStyle cellStyle = cell.getCellStyle();
 				if (cellStyle != null) {
-					
-					short alignment = cellStyle.getAlignment();                 //get horizon alignment
-					sb.append("align='" + convertAlignToHtml(alignment) + "' ");  
-					short verticalAlignment = cellStyle.getVerticalAlignment(); //get vertical alignment
+					short alignment = cellStyle.getAlignment();
+					sb.append("align='" + convertAlignToHtml(alignment) + "' ");
+					short verticalAlignment = cellStyle.getVerticalAlignment();
 					sb.append("valign='"
 							+ convertVerticalAlignToHtml(verticalAlignment)
 							+ "' ");
-					HSSFFont hf = cellStyle.getFont(hssfWorkbook);   	        //get font style
-					short boldWeight = hf.getBoldweight();             			//get font boldweight
-					short fontColor = hf.getColor();       					    //get font color
+					HSSFFont hf = cellStyle.getFont(hssfWorkbook);
+					short boldWeight = hf.getBoldweight();
+					short fontColor = hf.getColor();
 					sb.append("style='");
-					HSSFPalette palette = hssfWorkbook.getCustomPalette();   	//get the cell color in international standard
-					HSSFColor hc = palette.getColor(fontColor);					//get the cell color
-					sb.append("font-weight:" + boldWeight + ";"); 				//set font weight
-					sb.append("font-size: " + hf.getFontHeight() / 2 + "%;"); 	//set font size
-					String fontColorStr = convertToStardColor(hc);			    //convert hssfcolor the hex color
+					HSSFPalette palette = hssfWorkbook.getCustomPalette();
+					HSSFColor hc = palette.getColor(fontColor);
+					sb.append("font-weight:" + boldWeight + ";");
+					sb.append("font-size: " + hf.getFontHeight() / 2 + "%;");
+					String fontColorStr = convertToStardColor(hc);
 					if (fontColorStr != null && !"".equals(fontColorStr.trim())) {
-						sb.append("color:" + fontColorStr + ";"); 
+						sb.append("color:" + fontColorStr + ";");
 					}
-					short bgColor = cellStyle.getFillForegroundColor();         //get cell background color
+					short bgColor = cellStyle.getFillForegroundColor();
 					hc = palette.getColor(bgColor);
 					String bgColorStr = convertToStardColor(hc);
 					if (bgColorStr != null && !"".equals(bgColorStr.trim())) {
-						sb.append("background-color:" + bgColorStr + ";"); 
+						sb.append("background-color:" + bgColorStr + ";");
 					}
-					short borderColor = cellStyle.getBottomBorderColor(); 		//get cell border color 
+					short borderColor = cellStyle.getBottomBorderColor();
 					hc = palette.getColor(borderColor);
 					String borderColorStr = convertToStardColor(hc);
 					if (borderColorStr != null
 							&& !"".equals(borderColorStr.trim())) {
-						sb.append("border-color:" + borderColorStr + ";"); 
+						sb.append("border-color:" + borderColorStr + ";");
 					}
 					sb.append("' ");
 				}
-
 				sb.append(">");
 				if (stringValue == null || " ".equals(stringValue.trim())) {
 					sb.append(" &nbsp; ");
 				} else {
-					sb.append(stringValue.replace(String.valueOf((char) 160), 	// transform space to html code
+					sb.append(stringValue.replace(String.valueOf((char) 160),
 							"&nbsp;"));
 				}
 				sb.append("</td>");
@@ -280,12 +299,10 @@ public class ExcelToHtml {
 		}
 		sb.append("</table>");
 		sb.append(TAIL);
-		if(!FileSystem.WriteToAppDir(fileName + ".html", sb.toString().getBytes("gbk"))){
+		if (!FileSystem.Write(saveDir + File.separator + fileName + ".html", sb
+				.toString().getBytes("gbk"))) {
 			throw new WriteHtmlExcpetion();
 		}
-		return FileSystem.APP_DIR + File.separator + fileName + ".html";
+		return saveDir + File.separator + fileName + ".html";
 	}
 }
-
-
-

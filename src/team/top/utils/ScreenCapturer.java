@@ -17,19 +17,19 @@ public class ScreenCapturer {
 		view.buildDrawingCache();
 		
 		Bitmap bitmap = view.getDrawingCache();
-		
+		//Point size = new Point();
+		//activity.getWindowManager().getDefaultDisplay().getSize(size);
 		int w = activity.getWindowManager().getDefaultDisplay().getWidth();
 		int h = activity.getWindowManager().getDefaultDisplay().getHeight();
 		
 		//int titlebarH
-		Bitmap b =  Bitmap.createBitmap(bitmap, 0, 0, w, h);
+		bitmap =  Bitmap.createBitmap(bitmap, 0, 0, w, h);
 		return WriteBitmapToSdcard(bitmap,saveDir,saveName);
 	}
 	
 	private static boolean WriteBitmapToSdcard(Bitmap bitmap,String saveDir,String saveName){
 		FileOutputStream fileOutputStream = null;
 		try {
-			Date date = new Date(System.currentTimeMillis());
 			String filenameString = saveDir + "/" + saveName + ".jpg";
 			fileOutputStream = new FileOutputStream(filenameString);
 			bitmap.compress(CompressFormat.JPEG, 100, fileOutputStream);

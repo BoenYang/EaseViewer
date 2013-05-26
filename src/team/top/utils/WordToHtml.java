@@ -2,8 +2,6 @@ package team.top.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -19,7 +17,6 @@ import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 
 import team.top.exception.WriteHtmlExcpetion;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -52,36 +49,43 @@ public class WordToHtml {
 	private List<Picture> pictures;
 	private int presentPicture;
 	private StringBuilder html;
+	private String saveDir;
 
 	/**
 	 * 
 	 * @param filepath
 	 * @throws IOException
 	 */
-	public WordToHtml(String filepath) throws IOException{
-		fileName = FileSystem.GetFileNameByPath(filepath);
+	public WordToHtml(String filepath) throws IOException {
+		this.fileName = FileSystem.GetFileNameByPath(filepath);
 		FileInputStream inputStream = new FileInputStream(filepath);
-		document = new HWPFDocument(inputStream);
-		pictures = document.getPicturesTable().getAllPictures();
-		presentPicture = 0;
-		html = new StringBuilder();
+		this.document = new HWPFDocument(inputStream);
+		this.pictures = document.getPicturesTable().getAllPictures();
+		this.presentPicture = 0;
+		this.html = new StringBuilder();
 		inputStream.close();
+		this.saveDir = FileSystem.WORD_CACHE + File.separator + fileName;
 	}
 
 	/**
 	 * 
 	 * @return
 	 * @throws WriteHtmlExcpetion
-	 * @throws UnsupportedEncodingException 
+	 * @throws UnsupportedEncodingException
 	 */
-	public String convertToHtml() throws WriteHtmlExcpetion, UnsupportedEncodingException {
+	public String convertToHtml() throws WriteHtmlExcpetion,
+			UnsupportedEncodingException {
+		File file = new File(saveDir);
+		if (!file.exists()) {
+			file.mkdir();
+		} 
 		readDoc();
 		String str = html.toString();
-		
-		if(!FileSystem.WriteToAppDir(fileName + ".html",str.getBytes("gbk"))){
+		if (!FileSystem
+				.Write(saveDir + File.separator +  fileName + ".html", str.getBytes("gbk"))) {
 			throw new WriteHtmlExcpetion();
 		}
-		return FileSystem.APP_DIR + File.separator + fileName + ".html";
+		return saveDir + File.separator + fileName + ".html";
 	}
 
 	/**
@@ -89,56 +93,56 @@ public class WordToHtml {
 	 */
 	private void readDoc() {
 		TableIterator tableIterator = null;
-			html.append(HEAD);
-			Range range = document.getRange();
-			tableIterator = new TableIterator(range);
-			int numParagraphs = range.numParagraphs();
-			for (int i = 0; i < numParagraphs; i++) {
-				Paragraph p = range.getParagraph(i);
-				if (p.isInTable()) {
-					int temp = i;
-					if (tableIterator.hasNext()) {
-						Table table = tableIterator.next();
-						html.append(TABLE_BEGIN);
-						int rows = table.numRows();
-						for (int r = 0; r < rows; r++) {
-							html.append(ROW_BEGIN);
-							TableRow row = table.getRow(r);
-							int cols = row.numCells();
-							int rowNumParagraphs = row.numParagraphs();
-							int colsNumParagraphs = 0;
-							for (int c = 0; c < cols; c++) {
-								html.append(COL_BEGIN);
-								TableCell cell = row.getCell(c);
-								int max = temp + cell.numParagraphs();
-								colsNumParagraphs = colsNumParagraphs
-										+ cell.numParagraphs();
-								for (int cp = temp; cp < max; cp++) {
-									Paragraph p1 = range.getParagraph(cp);
-									html.append(BEGIN);
-									readParagrahp(p1);
-									html.append(END);
-									temp++;
-								}
-								html.append(COL_END);
-							}
-							int max1 = temp + rowNumParagraphs;
-							for (int m = temp + colsNumParagraphs; m < max1; m++) {
-								Paragraph p2 = range.getParagraph(m);
+		html.append(HEAD);
+		Range range = document.getRange();
+		tableIterator = new TableIterator(range);
+		int numParagraphs = range.numParagraphs();
+		for (int i = 0; i < numParagraphs; i++) {
+			Paragraph p = range.getParagraph(i);
+			if (p.isInTable()) {
+				int temp = i;
+				if (tableIterator.hasNext()) {
+					Table table = tableIterator.next();
+					html.append(TABLE_BEGIN);
+					int rows = table.numRows();
+					for (int r = 0; r < rows; r++) {
+						html.append(ROW_BEGIN);
+						TableRow row = table.getRow(r);
+						int cols = row.numCells();
+						int rowNumParagraphs = row.numParagraphs();
+						int colsNumParagraphs = 0;
+						for (int c = 0; c < cols; c++) {
+							html.append(COL_BEGIN);
+							TableCell cell = row.getCell(c);
+							int max = temp + cell.numParagraphs();
+							colsNumParagraphs = colsNumParagraphs
+									+ cell.numParagraphs();
+							for (int cp = temp; cp < max; cp++) {
+								Paragraph p1 = range.getParagraph(cp);
+								html.append(BEGIN);
+								readParagrahp(p1);
+								html.append(END);
 								temp++;
 							}
-							html.append(ROW_END);
+							html.append(COL_END);
 						}
-						html.append(TABLE_END);
+						int max1 = temp + rowNumParagraphs;
+						for (int m = temp + colsNumParagraphs; m < max1; m++) {
+							Paragraph p2 = range.getParagraph(m);
+							temp++;
+						}
+						html.append(ROW_END);
 					}
-					i = temp;
-				} else {
-					html.append(BEGIN);
-					readParagrahp(p);
-					html.append(END);
+					html.append(TABLE_END);
 				}
+				i = temp;
+			} else {
+				html.append(BEGIN);
+				readParagrahp(p);
+				html.append(END);
 			}
-			html.append(TAIL);
+		}
+		html.append(TAIL);
 	}
 
 	/**
@@ -196,13 +200,16 @@ public class WordToHtml {
 		Bitmap bitmap = BitmapFactory.decodeByteArray(pictureBytes, 0,
 				pictureBytes.length);
 		presentPicture++;
-		FileSystem.WriteToAppDir(picture.suggestFullFileName(), pictureBytes);
-		String imageString = "<img src=\"" + picture.suggestFullFileName()
-				+ "\"";
+		String imageName = fileName + presentPicture + ".jpg";
+		FileSystem.Write(saveDir + File.separator + imageName, pictureBytes);
+		String imageString = "<img src=\"" + imageName  + "\"";
 		if (bitmap.getWidth() > 640) {
 			imageString += " " + "width=\"" + 640 + "\"";
 		}
 		imageString += ">";
+		if(bitmap.isRecycled()){
+			bitmap.recycle();
+		}
 		html.append(imageString);
 	}
 

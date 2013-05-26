@@ -8,12 +8,18 @@ package team.top.constant;
 public class Constant {
 	public final static String APP_NAME = "AndroidReader";
 	public final static String APP_VERSION = "1.0";
+	public final static String WORD_CACHE_DIR = "WordCache";
+	public final static String EXCEL_CACHE_DIR = "ExcelCache";
+	public final static String PDF_CACHE_DIR = "PdfCache";
+	public final static String CAMERA_CHCHE_DIR = "CameraCache";
+	public final static String PTRSCR_DIR = "Ptrsrc";
+	public final static int PRASE_SUCCESSFUL = 0;
+	public final static int PRASE_FAILED = -1;
 
 	/**
 	 * MIME list
 	 */
 	public static final String[][] MIME_MapTable = {
-			// {后缀名， MIME类型}
 			{ ".3gp", "video/3gpp" },
 			{ ".3gpp", "video/3gpp" },
 			{ ".aac", "audio/x-mpeg" },
@@ -245,7 +251,7 @@ public class Constant {
 			{ ".pcx", "image/x-pcx" },
 			{ ".pda", "image/x-pda" },
 			{ ".pdb", "chemical/x-pdb" },
-			// { ".pdf", "application/pdf" },
+			{ ".pdf", "application-pdf/pdf" },
 			{ ".pfr", "application/font-tdpfr" },
 			{ ".pgm", "image/x-portable-graymap" },
 			{ ".pict", "image/x-pict" },

@@ -8,24 +8,35 @@
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="convertPptToimages" />
+        android:text="testImageToPdfListShow" />
 
     <Button
         android:id="@+id/btn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="convertPngToPdf" />
+        android:text="testSelectDialog" />
 
     <Button
         android:id="@+id/cameraBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cameraToPdf" />
-    
-        <Button
+        android:text="testInputNameDialo" />
+
+    <Button
         android:id="@+id/screenshot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="screenshot" />
+     <Button
+        android:id="@+id/pdfshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pdfshow" />
+
+     <Button
+         android:id="@+id/testWattingDialog"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="test waitting dialog" />
 
 </LinearLayout>

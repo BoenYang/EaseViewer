@@ -37,9 +37,6 @@ public class FileListAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
-	/*
-	 * @see android.widget.Adapter#getCount()
-	 */
 	@Override
 	public int getCount() {
 		if (fileList != null) {
@@ -49,9 +46,6 @@ public class FileListAdapter extends BaseAdapter {
 		}
 	}
 
-	/*
-	 * @see android.widget.Adapter#getItem(int)
-	 */
 	@Override
 	public Object getItem(int position) {
 		if (fileList != null && fileList.size() != 0) {
@@ -61,18 +55,11 @@ public class FileListAdapter extends BaseAdapter {
 		}
 	}
 
-	/*
-	 * @see android.widget.Adapter#getItemId(int)
-	 */
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
-	/*
-	 * @see android.widget.Adapter#getView(int, android.view.View,
-	 * android.view.ViewGroup)
-	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView != null) {
@@ -86,7 +73,6 @@ public class FileListAdapter extends BaseAdapter {
 					.findViewById(R.id.fileinfo);
 			convertView.setTag(viewHolder);
 		}
-
 		if (fileList != null && fileList.size() != 0) {
 			FileInfo file = fileList.get(position);
 			viewHolder.fileNameTextView.setText(file.fileName);

@@ -1,6 +1,13 @@
 package team.top.activity;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
+import team.top.dialog.SelectDialog;
+import team.top.dialog.SetNameDialog;
+import team.top.dialog.WaittingDialog;
+import team.top.utils.FileSystem;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -29,6 +36,8 @@ public class TestContentActivity extends Activity {
 	private Button btn4;
 	private Button btn5;
 	private Button btn6;
+	private Button pdfshowBtn;
+	public Button testWaittingBtn;
 
 	String fileName;
 	String filePath;
@@ -43,10 +52,14 @@ public class TestContentActivity extends Activity {
 		btn4 = (Button) findViewById(R.id.btn4);
 		btn5 = (Button) findViewById(R.id.cameraBtn);
 		btn6 = (Button) findViewById(R.id.screenshot);
+		pdfshowBtn = (Button) findViewById(R.id.pdfshow);
+		testWaittingBtn = (Button) findViewById(R.id.testWattingDialog);
 		btn5.setOnClickListener(new BtnListener());
 		btn4.setOnClickListener(new BtnListener());
 		btn3.setOnClickListener(new BtnListener());
 		btn6.setOnClickListener(new BtnListener());
+		pdfshowBtn.setOnClickListener(new BtnListener());
+		testWaittingBtn.setOnClickListener(new BtnListener());
 	}
 
 	class BtnListener implements View.OnClickListener {
@@ -67,25 +80,25 @@ public class TestContentActivity extends Activity {
 				selectDialog.show();
 				break;
 			case R.id.cameraBtn:
-				////////////////////////////////////////////////////////////////////
 				takePhoto();
-				////////////////////////////////////////////////////////////////////
 			case R.id.screenshot:
-				Calendar calendar = Calendar.getInstance();
-				int year = calendar.get(Calendar.YEAR);
-				int mounth = calendar.get(Calendar.MONTH);
-				int day = calendar.get(Calendar.DAY_OF_MONTH);
-				int hour = calendar.get(Calendar.HOUR_OF_DAY);
-				int munites = calendar.get(Calendar.MINUTE);
-				int second = calendar.get(Calendar.SECOND);
-				String name = "ScreenShot" + year + mounth + day + hour
-						+ munites + second;
-				System.out.println(name);
+				String name = "ScreenShot" + FileSystem.GetNameByTime();
 				if (ScreenCapturer.TakeScreenShot(TestContentActivity.this,
-						"/sdcard", name)) {
+						FileSystem.PRTSCR_DIR, name)) {
 					System.out.println("---------------------------");
 					break;
 				}
+			case R.id.pdfshow:
+				Intent intent2 = new Intent();
+				intent2.setClass(TestContentActivity.this,
+						PdfReaderActivity.class);
+				startActivity(intent2);
+				break;
+			case R.id.testWattingDialog:
+				File file = new File("/sdcard/test.pdf");
+				System.out.println(file.hashCode());
+				break;
+
 			}
 		}
 
@@ -138,13 +151,13 @@ public class TestContentActivity extends Activity {
 		return resizeBmp;
 	}
 
-	public static Bitmap rotate(Bitmap bitmap, float degrees){
+	public static Bitmap rotate(Bitmap bitmap, float degrees) {
 		Matrix matrix = new Matrix();
-		//matrix.setRotate(degrees);
+		// matrix.setRotate(degrees);
 		matrix.preRotate(degrees);
 		System.out.println("------------------------" + degrees);
-		Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
-				bitmap.getHeight(), matrix, true);
+		Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 		return rotateBitmap;
 	}
 
