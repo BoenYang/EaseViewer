@@ -1,17 +1,16 @@
 package team.top.activity;
 
-import java.util.Calendar;
-
-import team.top.dialog.SelectDialog;
-import team.top.dialog.SetNameDialog;
-import team.top.utils.ScreenCapturer;
-import android.app.Activity;
-import android.content.Intent;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.UUID;
 
+import team.top.dialog.SelectDialog;
+import team.top.utils.ScreenCapturer;
+import android.R.integer;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -25,13 +24,16 @@ import android.widget.Button;
 
 public class TestContentActivity extends Activity {
 
+	public static float curDegrees = 0;// 当前旋转度数
 	private Button btn3;
 	private Button btn4;
 	private Button btn5;
 	private Button btn6;
 
-	String FileName;
-	public static String lastImagePath;
+	String fileName;
+	String filePath;
+
+	// public static String lastImagePath;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +57,19 @@ public class TestContentActivity extends Activity {
 			switch (id) {
 			case R.id.btn3:
 				Intent intent = new Intent();
-				intent.setClass(TestContentActivity.this, ImageToPdfActivity.class);
+				intent.setClass(TestContentActivity.this,
+						ImageToPdfActivity.class);
 				startActivity(intent);
 				break;
 			case R.id.btn4:
-				SelectDialog selectDialog = new SelectDialog(TestContentActivity.this);
+				SelectDialog selectDialog = new SelectDialog(
+						TestContentActivity.this);
 				selectDialog.show();
 				break;
 			case R.id.cameraBtn:
-				SetNameDialog setNameDialog = new SetNameDialog(TestContentActivity.this);
-				setNameDialog.show();
+				////////////////////////////////////////////////////////////////////
+				takePhoto();
+				////////////////////////////////////////////////////////////////////
 			case R.id.screenshot:
 				Calendar calendar = Calendar.getInstance();
 				int year = calendar.get(Calendar.YEAR);
@@ -73,13 +78,17 @@ public class TestContentActivity extends Activity {
 				int hour = calendar.get(Calendar.HOUR_OF_DAY);
 				int munites = calendar.get(Calendar.MINUTE);
 				int second = calendar.get(Calendar.SECOND);
-				String name = "ScreenShot" + year + mounth + day + hour + munites + second;
+				String name = "ScreenShot" + year + mounth + day + hour
+						+ munites + second;
 				System.out.println(name);
-				if(ScreenCapturer.TakeScreenShot(TestContentActivity.this, "/sdcard",name)){
+				if (ScreenCapturer.TakeScreenShot(TestContentActivity.this,
+						"/sdcard", name)) {
 					System.out.println("---------------------------");
-				break;
+					break;
+				}
 			}
 		}
+
 	}
 
 	/**
@@ -88,9 +97,16 @@ public class TestContentActivity extends Activity {
 	 */
 	protected void takePhoto() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		//photo directory
-		File file = new File(Environment.getExternalStorageDirectory()
-				+ "/AndroidReader/Images/image.jpg");
+		// photo directory
+		File dir = new File(Environment.getExternalStorageDirectory()
+				+ "/AndroidReader/Images/");
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		fileName = UUID.randomUUID().toString() + ".png";
+		filePath = Environment.getExternalStorageDirectory()
+				+ "/AndroidReader/Images/" + fileName;
+		File file = new File(filePath);
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -100,6 +116,67 @@ public class TestContentActivity extends Activity {
 		}
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
 		TestContentActivity.this.startActivityForResult(intent, 0);
+	}
+
+	// 左转事件处理
+	public static Bitmap left(Bitmap bitmap) {
+		Matrix matrix = new Matrix();
+		matrix.setRotate(curDegrees = (curDegrees - 90) % 360);
+		Bitmap resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrix, true);
+		System.out.println(curDegrees);
+		return resizeBmp;
+	}
+
+	// 右转事件处理
+	public static Bitmap right(Bitmap bitmap) {
+		Matrix matrix = new Matrix();
+		matrix.setRotate(curDegrees = (curDegrees + 90) % 360);
+		Bitmap resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrix, true);
+		System.out.println(curDegrees);
+		return resizeBmp;
+	}
+
+	public static Bitmap rotate(Bitmap bitmap, float degrees){
+		Matrix matrix = new Matrix();
+		//matrix.setRotate(degrees);
+		matrix.preRotate(degrees);
+		System.out.println("------------------------" + degrees);
+		Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrix, true);
+		return rotateBitmap;
+	}
+
+	/**
+	 * 读取图片属性：旋转的角度
+	 * 
+	 * @param path
+	 *            图片绝对路径
+	 * @return degree旋转的角度
+	 */
+	public int readPictureDegree(String path) {
+		int degree = 0;
+		try {
+			ExifInterface exifInterface = new ExifInterface(path);
+			int orientation = exifInterface.getAttributeInt(
+					ExifInterface.TAG_ORIENTATION,
+					ExifInterface.ORIENTATION_NORMAL);
+			switch (orientation) {
+			case ExifInterface.ORIENTATION_ROTATE_90:
+				degree = 90;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_180:
+				degree = 180;
+				break;
+			case ExifInterface.ORIENTATION_ROTATE_270:
+				degree = 270;
+				break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return degree;
 	}
 
 	/**
@@ -120,7 +197,7 @@ public class TestContentActivity extends Activity {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		String fileName = UUID.randomUUID().toString() + ".jpg";
+		String fileName = UUID.randomUUID().toString() + ".png";
 		String filePath = Environment.getExternalStorageDirectory()
 				+ "/AndroidReader/ImagesCache/" + fileName;
 		File f = new File(filePath);
@@ -128,7 +205,7 @@ public class TestContentActivity extends Activity {
 			try {
 				f.createNewFile();
 				fileOutputStream = new FileOutputStream(filePath);
-				bm.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+				bm.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
 			} catch (IOException e) {
 				return null;
 			} finally {
@@ -154,7 +231,7 @@ public class TestContentActivity extends Activity {
 	 *            图片高度
 	 * @return 缩放后的图片
 	 */
-	public Bitmap createBitmap(String path, int w, int h) {
+	public static Bitmap createBitmap(String path, int w, int h) {
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
 			opts.inJustDecodeBounds = true;
@@ -190,59 +267,17 @@ public class TestContentActivity extends Activity {
 			// 获取缩放后图片
 			return BitmapFactory.decodeFile(path, newOpts);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return null;
 		}
 	}
 
-	// **************************************************************//
-	/**
-	 * 旋转图片
-	 * 
-	 * @param angle
-	 * @param bitmap
-	 * @return Bitmap
-	 */
-	public Bitmap rotaingImageView(int angle, Bitmap bitmap) {
-		// 旋转图片 动作
-		Matrix matrix = new Matrix();
-		matrix.postRotate(angle);
-		System.out.println("angle2=" + angle);
-		// 创建新的图片
-		Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-				bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-		return resizedBitmap;
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Intent intent = new Intent();
+		intent.setClass(TestContentActivity.this, PhotoPreviewActivity.class);
+		intent.putExtra("path", filePath);
+		startActivity(intent);
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	/**
-	 * 读取图片属性：旋转的角度
-	 * 
-	 * @param path
-	 *            图片绝对路径
-	 * @return degree旋转的角度
-	 */
-	public int readPictureDegree(String path) {
-		int degree = 0;
-		try {
-			ExifInterface exifInterface = new ExifInterface(path);
-			int orientation = exifInterface.getAttributeInt(
-					ExifInterface.TAG_ORIENTATION,
-					ExifInterface.ORIENTATION_NORMAL);
-			switch (orientation) {
-			case ExifInterface.ORIENTATION_ROTATE_90:
-				degree = 90;
-				break;
-			case ExifInterface.ORIENTATION_ROTATE_180:
-				degree = 180;
-				break;
-			case ExifInterface.ORIENTATION_ROTATE_270:
-				degree = 270;
-				break;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return degree;
-	}
-	}
 }

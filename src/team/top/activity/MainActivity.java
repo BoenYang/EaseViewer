@@ -12,6 +12,7 @@ import team.top.views.SlidingMenu;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -20,11 +21,21 @@ public class MainActivity extends FragmentActivity {
 	public static SlidingMenu mSlidingMenu;
 	private RightCategoryFragment rightClassifyFragment;
 	private CenterViewPagerFragment centerViewPagerFragment;
+	public static int mScreenWidth;
+	public static int mScreenHeight;
+
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
+		/**
+		 * 获取屏幕宽度和高度
+		 */
+		DisplayMetrics metric = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metric);
+		mScreenWidth = metric.widthPixels;
+		mScreenHeight = metric.heightPixels;
 		init();
 	}
 

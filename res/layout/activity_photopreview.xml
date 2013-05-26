@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -28,19 +28,25 @@
             android:background="@color/bg_color_deep"
             android:text="save" />
     </RelativeLayout>
-    
-    <ImageView 
-        android:id="@+id/photoPreView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/text_color"
-        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@color/black_half" >
+
+        <ImageView
+            android:id="@+id/photoPreView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/black_half" >
+        android:background="@color/blue" >
 
         <Button
             android:id="@+id/leftRoate"
@@ -62,4 +68,4 @@
             android:text="rRight" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
