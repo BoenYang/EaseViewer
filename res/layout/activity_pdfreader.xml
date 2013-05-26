@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/black"
-    android:orientation="vertical" >
+    android:background="@color/black" >
 
     <ListView
-        android:id="@+id/pdfreader_gridview"
+        android:id="@+id/pdfreader_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/black"
         android:cacheColorHint="@color/black"
-        android:fastScrollEnabled="false"
-        android:dividerHeight="5dp" >
-    </ListView>
+        android:dividerHeight="5dp"
+        android:fastScrollEnabled="false" />
 
-</LinearLayout>
+</RelativeLayout>

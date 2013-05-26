@@ -86,13 +86,12 @@ public class PdfShowAdapter extends BaseAdapter {
 					.findViewById(R.id.pdfview);
 			convertView.setTag(viewHolder);
 		}
-		
-		if(threadCount < 1 )
-		{
+
+		if (threadCount < 1) {
 			Bitmap bitmap = null;
 			AsyncImageLoader asyncImageLoader = new AsyncImageLoader(
 					bitmaps.get(position), position);
-			threadCount ++ ;
+			threadCount++;
 			bitmap = asyncImageLoader.loadBitmap(FileSystem.PDF_CACHE
 					+ File.separator + fileName + File.separator + fileName
 					+ position + ".jpg", new CallBack() {
@@ -110,7 +109,6 @@ public class PdfShowAdapter extends BaseAdapter {
 				viewHolder.pdfView.setImageBitmap(bitmap);
 			}
 		}
-		
 
 		return convertView;
 	}

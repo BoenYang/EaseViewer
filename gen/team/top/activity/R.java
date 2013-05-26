@@ -96,7 +96,7 @@ public final class R {
         public static final int moreHelpBtn=0x7f09002c;
         public static final int outputname=0x7f090013;
         public static final int pager=0x7f090031;
-        public static final int pdfreader_gridview=0x7f090002;
+        public static final int pdfreader_listview=0x7f090002;
         public static final int pdfshow=0x7f09000d;
         public static final int pdfview=0x7f090033;
         public static final int photoPreView=0x7f090005;

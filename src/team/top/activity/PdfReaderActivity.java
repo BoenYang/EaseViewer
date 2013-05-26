@@ -15,6 +15,7 @@ import team.top.constant.Constant;
 import team.top.dialog.WaittingDialog;
 import team.top.utils.BitmapHelper;
 import team.top.utils.FileSystem;
+import team.top.utils.ZoomListener;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,11 +24,10 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
+import android.view.MotionEvent;
 import android.widget.ListView;
 
-public class PdfReaderActivity extends Activity {
+public class PdfReaderActivity extends Activity{
 
 	private ListView listview;
 	private PdfShowAdapter pdfShowAdapter;
@@ -43,8 +43,8 @@ public class PdfReaderActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pdfreader);
-		listview = (ListView) findViewById(R.id.pdfreader_gridview);
-		listview.setOnScrollListener(new ListViewScrollListener());
+		listview = (ListView) findViewById(R.id.pdfreader_listview);
+		listview.setOnTouchListener(new ZoomListener(listview));
 		waittingDialog = new WaittingDialog(PdfReaderActivity.this);
 		Intent intent = getIntent();
 		path = intent.getStringExtra("path");
@@ -52,32 +52,6 @@ public class PdfReaderActivity extends Activity {
 		waittingDialog.show();
 		Thread thread = new Thread(new PrasePdfThread());
 		thread.start();
-	}
-
-	class ListViewScrollListener implements OnScrollListener {
-
-		@Override
-		public void onScrollStateChanged(AbsListView view, int scrollState) {
-			switch (scrollState) {
-			case OnScrollListener.SCROLL_STATE_FLING:
-				isScrolling = true;
-				break;
-			case OnScrollListener.SCROLL_STATE_IDLE:
-				isScrolling = false;
-				break;
-			case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-				isScrolling = false;
-				break;
-			}
-
-		}
-
-		@Override
-		public void onScroll(AbsListView view, int firstVisibleItem,
-				int visibleItemCount, int totalItemCount) {
-
-		}
-
 	}
 
 	private Handler handler = new Handler() {
@@ -157,5 +131,4 @@ public class PdfReaderActivity extends Activity {
 			handler.sendMessage(msg);
 		}
 	}
-
 }
