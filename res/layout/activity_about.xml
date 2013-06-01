@@ -4,17 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/ic_launcher" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/blue"
+        android:orientation="horizontal" >
 
-    <TextView 
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="45dp"
+            android:background="@drawable/back_button" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/action_bar_divider"
+            android:focusable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_about"
+            android:textColor="@color/white"
+            android:paddingLeft="10dp"
+            android:textSize="9pt" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/category_dividing_line" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="write some thing here"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="70dp"
+        android:text="write some thing here" />
 
 </LinearLayout>
