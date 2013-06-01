@@ -1,4 +1,4 @@
-package team.androdi.test;
+package team.androidreader.test;
 
 
 import java.io.File;
@@ -13,8 +13,6 @@ import team.androidreader.scanner.SelectDialog;
 import team.androidreader.utils.FileSystem;
 import team.androidreader.utils.ScreenCapturer;
 import team.top.activity.R;
-import team.top.activity.R.id;
-import team.top.activity.R.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
