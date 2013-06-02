@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@color/blue"
+        android:background="@color/blue_ICS"
         android:orientation="horizontal" >
 
         <Button
@@ -17,16 +17,17 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
             android:background="@drawable/action_bar_divider"
             android:focusable="false" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="@string/title_about"
             android:textColor="@color/white"
-            android:paddingLeft="10dp"
             android:textSize="9pt" />
     </LinearLayout>
 

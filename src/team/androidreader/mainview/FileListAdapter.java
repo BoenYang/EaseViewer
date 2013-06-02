@@ -68,9 +68,9 @@ public class FileListAdapter extends BaseAdapter {
 			convertView = layoutInflater.inflate(layoutId, null);
 			viewHolder = new ViewHolder();
 			viewHolder.fileNameTextView = (TextView) convertView
-					.findViewById(R.id.filetext);
+					.findViewById(R.id.fileName);
 			viewHolder.fileSizeTextView = (TextView) convertView
-					.findViewById(R.id.fileinfo);
+					.findViewById(R.id.fileSize);
 			convertView.setTag(viewHolder);
 		}
 		if (fileList != null && fileList.size() != 0) {

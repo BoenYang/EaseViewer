@@ -5,7 +5,9 @@ import java.util.List;
 import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.theme.ChangeThemeActivity;
 import team.top.activity.R;
+import android.R.integer;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -134,12 +136,20 @@ public class RightCategoryFragment extends Fragment {
 				MainActivity.fileListController.handleDirectoryChange(videoList, "");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
-			case R.id.categoryZipBtn:
-				MainActivity.mSlidingMenu.showRightView();
-				break;
+
 			case R.id.categoryApkBtn:
+				// fileList =
+				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
+				// true);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
+			case R.id.categoryZipBtn:
+				// fileList =
+				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
+				// true);
+				MainActivity.mSlidingMenu.showRightView();
+				break;
+
 			case R.id.functionPic2PdfBtn:
 				// Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				// File file = new File(FileSystem.CAMERA_CACHE + File.separator

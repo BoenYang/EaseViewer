@@ -8,7 +8,7 @@
         android:id="@+id/head_layout"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@color/blue" >
+        android:background="@color/blue_ICS" >
 
         <Button
             android:id="@+id/showRight"
@@ -16,6 +16,14 @@
             android:layout_height="45dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/more_button" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/showRight"
+            android:background="@drawable/action_bar_divider"
+            android:focusable="false" />
 
         <Button
             android:id="@+id/test"
@@ -25,12 +33,6 @@
             android:text="testoffice"
             android:visibility="visible" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="4dp"
-        android:layout_below="@id/head_layout"
-        android:background="@drawable/category_dividing_line" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
