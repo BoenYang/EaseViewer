@@ -1,4 +1,3 @@
-
 package team.androidreader.mainview;
 
 import java.util.List;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -25,6 +25,7 @@ public class FileListAdapter extends BaseAdapter {
 	private ViewHolder viewHolder;
 
 	class ViewHolder {
+		public ImageView fileIconImageView;
 		public TextView fileNameTextView;
 		public TextView fileSizeTextView;
 	}
@@ -68,6 +69,12 @@ public class FileListAdapter extends BaseAdapter {
 		} else {
 			convertView = layoutInflater.inflate(layoutId, null);
 			viewHolder = new ViewHolder();
+			
+			
+			viewHolder.fileIconImageView = (ImageView) convertView
+					.findViewById(R.id.fileIcon);
+			
+			
 			viewHolder.fileNameTextView = (TextView) convertView
 					.findViewById(R.id.fileName);
 			viewHolder.fileSizeTextView = (TextView) convertView
@@ -80,8 +87,10 @@ public class FileListAdapter extends BaseAdapter {
 
 			if (!file.isDirectory) {
 				viewHolder.fileSizeTextView.setText(file.fileSize + "");
+				viewHolder.fileIconImageView.setImageResource(R.drawable.file_icon_default);
 			} else {
 				viewHolder.fileSizeTextView.setText("");
+				viewHolder.fileIconImageView.setImageResource(R.drawable.folder);
 			}
 
 		}
