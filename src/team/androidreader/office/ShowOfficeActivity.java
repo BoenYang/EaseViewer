@@ -1,6 +1,5 @@
 package team.androidreader.office;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -95,7 +94,6 @@ public class ShowOfficeActivity extends Activity {
 					System.out.println("文件不存在");
 					e.printStackTrace();
 				}
-
 			} else if (extension.equals("xls")) {
 				ExcelToHtml excel2Html;
 				try {
@@ -116,12 +114,10 @@ public class ShowOfficeActivity extends Activity {
 					System.out.println("读取文件失败");
 					e.printStackTrace();
 				}
-
 			}
 			msg.what = Constant.PRASE_SUCCESSFUL;
 			handler.sendMessage(msg);
 		}
-
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -1,7 +1,6 @@
 package team.androidreader.helpabout;
 
 import team.top.activity.R;
-import team.top.activity.R.layout;
 import android.app.Activity;
 import android.os.Bundle;
 

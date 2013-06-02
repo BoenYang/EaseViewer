@@ -6,9 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import team.top.activity.R;
-import team.top.activity.R.id;
-import team.top.activity.R.layout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

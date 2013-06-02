@@ -5,8 +5,6 @@ import java.util.TimerTask;
 
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
-import team.top.activity.R.id;
-import team.top.activity.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;

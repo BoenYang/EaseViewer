@@ -1,10 +1,8 @@
 package team.androidreader.mainview;
 
-
 import java.io.File;
 import java.util.List;
 
-import team.androidreader.constant.Constant;
 import team.androidreader.mainview.FileListHelper.FileCategory;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
@@ -23,9 +21,9 @@ import android.widget.ListView;
 /**
  * 
  * @author ybw ht
- *
+ * 
  */
-public class FileListFragment extends Fragment{
+public class FileListFragment extends Fragment {
 
 	private static ListView listView;
 	private static List<FileInfo> fileList;
@@ -40,7 +38,6 @@ public class FileListFragment extends Fragment{
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -56,13 +53,36 @@ public class FileListFragment extends Fragment{
 		return view;
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+	}
+
+	/**
+	 * 
+	 */
 	public void backToParentPath() {
 		fileList.clear();
-		if(fileCategory != FileListHelper.FileCategory.SDCARD){
+		if (fileCategory != FileListHelper.FileCategory.SDCARD) {
 			fileList.addAll(GetFiles(FileSystem.SDCARD_PATH));
 			fileCategory = FileCategory.SDCARD;
-		}else{
-			File file  = new File(currentDir);
+		} else {
+			File file = new File(currentDir);
 			fileList.addAll(GetFiles(file.getParent()));
 		}
 		adapter.notifyDataSetChanged();
@@ -115,36 +135,12 @@ public class FileListFragment extends Fragment{
 	private void openFile(File file) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		String type = getMIMEType(file);
-		String entension = type.substring(type.indexOf('/')+1);
+		String type = FileSystem.getMIMEType(file);
+		String entension = type.substring(type.indexOf('/') + 1);
 		intent.putExtra("extension", entension);
 		intent.putExtra("path", file.getAbsolutePath());
 		intent.setDataAndType(Uri.fromFile(file), type);
 		startActivity(intent);
 	}
 
-	/**
-	 * 根据文件后缀名获得对应的MIME类型。
-	 * 
-	 * @param file
-	 */
-	private String getMIMEType(File file) {
-		String type = "*/*";
-		String fName = file.getName();
-		// 获取后缀名前的分隔符"."在fName中的位置。
-		int dotIndex = fName.lastIndexOf(".");
-		if (dotIndex < 0) {
-			return type;
-		}
-		/* 获取文件的后缀名 */
-		String end = fName.substring(dotIndex, fName.length()).toLowerCase();
-		if (end == "")
-			return type;
-		// 在MIME和文件类型的匹配表中找到对应的MIME类型。
-		for (int i = 0; i < Constant.MIME_MapTable.length; i++) {
-			if (end.equals(Constant.MIME_MapTable[i][0]))
-				type = Constant.MIME_MapTable[i][1];
-		}
-		return type;
-	}
 }

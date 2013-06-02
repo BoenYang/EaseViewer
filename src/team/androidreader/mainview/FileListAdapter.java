@@ -4,7 +4,6 @@ package team.androidreader.mainview;
 import java.util.List;
 
 import team.top.activity.R;
-import team.top.activity.R.id;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

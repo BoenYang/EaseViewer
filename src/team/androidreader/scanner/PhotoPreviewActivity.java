@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
-import team.androdi.test.TestContentActivity;
 import team.androidreader.mainview.MainActivity;
+import team.androidreader.test.TestContentActivity;
 import team.top.activity.R;
 import android.app.Activity;
 import android.graphics.Bitmap;

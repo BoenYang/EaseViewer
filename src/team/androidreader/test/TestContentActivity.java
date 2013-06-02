@@ -92,6 +92,7 @@ public class TestContentActivity extends Activity {
 				startActivity(intent2);
 				break;
 			case R.id.testWattingDialog:
+				FileSystem.fileRename("/sdcard/AndroidReader", "Test");
 				break;
 			}
 		}

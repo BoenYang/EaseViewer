@@ -3,7 +3,7 @@ package team.androidreader.mainview;
 
 import java.util.ArrayList;
 
-import team.androdi.test.TestContentActivity;
+import team.androidreader.test.TestContentActivity;
 import team.top.activity.R;
 import android.content.Intent;
 import android.os.Bundle;

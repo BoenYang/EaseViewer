@@ -1,11 +1,11 @@
 package team.androidreader.utils;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import team.androidreader.constant.Constant;
 
@@ -125,7 +125,7 @@ public class FileSystem {
 		if (!cameraDir.exists())
 			cameraDir.mkdir();
 		File prtScr = new File(PRTSCR_DIR);
-		if(!prtScr.exists()){
+		if (!prtScr.exists()) {
 			prtScr.mkdir();
 		}
 	}
@@ -165,14 +165,71 @@ public class FileSystem {
 		String name = "" + year + mounth + day + hour + munites + second;
 		return name;
 	}
-	
-	public static boolean dirDelete(String path){
-		return true;
+
+	/**
+	 * 
+	 * @param path
+	 */
+	public static void Delete(String path) {
+		File file = new File(path);
+		if (file.isDirectory()) {
+			File[] files = file.listFiles();
+			if (files != null) {
+				for (int i = 0; i < files.length; i++) {
+					Delete(files[i].getAbsolutePath());
+				}
+				file.delete();
+			}
+		} else {
+			file.delete();
+		}
+
 	}
-	
-	public static void fileRename(String path,String newName){
+
+	/**
+	 * 
+	 * @param path
+	 * @param newName
+	 */
+	public static boolean fileRename(String path, String newName) {
+		File file = new File(path);
+		String newPath = path.substring(0, path.lastIndexOf("/") + 1) + newName;
+		return file.renameTo(new File(newPath));
+	}
+
+	/**
+	 * 
+	 * @param oldPath
+	 * @param newPath
+	 */
+	public static void moveTo(String oldPath, String newPath) {
+		File file = new File(oldPath);
 		
 	}
 	
-	
+	/**
+	 * 根据文件后缀名获得对应的MIME类型。
+	 * 
+	 * @param file
+	 */
+	public static String getMIMEType(File file) {
+		String type = "*/*";
+		String fName = file.getName();
+		// 获取后缀名前的分隔符"."在fName中的位置。
+		int dotIndex = fName.lastIndexOf(".");
+		if (dotIndex < 0) {
+			return type;
+		}
+		/* 获取文件的后缀名 */
+		String end = fName.substring(dotIndex, fName.length()).toLowerCase();
+		if (end == "")
+			return type;
+		// 在MIME和文件类型的匹配表中找到对应的MIME类型。
+		for (int i = 0; i < Constant.MIME_MapTable.length; i++) {
+			if (end.equals(Constant.MIME_MapTable[i][0]))
+				type = Constant.MIME_MapTable[i][1];
+		}
+		return type;
+	}
+
 }

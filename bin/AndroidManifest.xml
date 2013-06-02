@@ -57,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="team.androdi.test.TestContentActivity"
+            android:name="team.androidreader.test.TestContentActivity"
             android:theme="@style/NoTitle" >
         </activity>
         <activity
