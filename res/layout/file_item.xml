@@ -10,6 +10,8 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginRight="10dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
         android:background="@drawable/file_icon_default" />
 
     <TextView
@@ -38,7 +40,9 @@
         android:id="@+id/isSelected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_alignParentRight="true"
+        android:button="@drawable/checkbox"
         android:focusable="false" />
 
 </RelativeLayout>

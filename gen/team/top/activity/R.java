@@ -50,17 +50,20 @@ public final class R {
         public static final int category_icon_picture=0x7f02000d;
         public static final int category_icon_video=0x7f02000e;
         public static final int category_icon_zip=0x7f02000f;
-        public static final int cover=0x7f020010;
-        public static final int file_icon_default=0x7f020011;
-        public static final int folder=0x7f020012;
-        public static final int head_default=0x7f020013;
-        public static final int ic_launcher=0x7f020014;
-        public static final int icon_test=0x7f020015;
-        public static final int more_button=0x7f020016;
-        public static final int settingtest=0x7f020017;
-        public static final int shade_bg=0x7f020018;
-        public static final int waittingdialog_bg=0x7f020019;
-        public static final int wallpaper5=0x7f02001a;
+        public static final int checkbox=0x7f020010;
+        public static final int checkbox_checked=0x7f020011;
+        public static final int checkbox_normal=0x7f020012;
+        public static final int cover=0x7f020013;
+        public static final int file_icon_default=0x7f020014;
+        public static final int folder=0x7f020015;
+        public static final int head_default=0x7f020016;
+        public static final int ic_launcher=0x7f020017;
+        public static final int icon_test=0x7f020018;
+        public static final int more_button=0x7f020019;
+        public static final int settingtest=0x7f02001a;
+        public static final int shade_bg=0x7f02001b;
+        public static final int waittingdialog_bg=0x7f02001c;
+        public static final int wallpaper5=0x7f02001d;
     }
     public static final class id {
         public static final int action_settings=0x7f09003b;
