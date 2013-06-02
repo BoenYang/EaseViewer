@@ -8,6 +8,7 @@ package team.androidreader.mainview;
 public class FileInfo {
 
 	public String fileName;
+	public String fileExtension;
 	public String absolutePath;
 	public boolean isDirectory;
 	public boolean isHidden;

@@ -1,5 +1,6 @@
 package team.androidreader.mainview;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +20,8 @@ public class MainActivity extends FragmentActivity {
 	private CenterViewPagerFragment centerViewPagerFragment;
 	public static int mScreenWidth;
 	public static int mScreenHeight;
-
+	public static FileListModel fileListModel;
+	public static FileListController fileListController;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -52,8 +54,11 @@ public class MainActivity extends FragmentActivity {
 		t.replace(R.id.center_frame, centerViewPagerFragment);
 
 		t.commit();
-		
 		FileSystem.makeAppDirTree();
+		List<FileInfo> filelist = FileListHelper.GetAllFiles(
+				FileSystem.SDCARD_PATH, false);
+		fileListModel = new FileListModel(filelist, FileSystem.SDCARD_PATH);
+		fileListController = new FileListController(fileListModel);
 	}
 
 	/**
@@ -66,16 +71,16 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mSlidingMenu.isShowRight == true) {
-				mSlidingMenu.showRightView();
+			if (fileListModel.getCurrentDirectory().equals(
+					FileSystem.SDCARD_PATH)) {
+				exitBy2Click();
+			} else if (fileListModel.getCurrentDirectory().equals("")) {
+				List<FileInfo> fileList = FileListHelper.GetAllFiles(
+						FileSystem.SDCARD_PATH, true);
+				fileListController.handleDirectoryChange(fileList, FileSystem.SDCARD_PATH);
 			} else {
-				if (FileListFragment.currentDir.equals(FileSystem.SDCARD_PATH)
-						&& FileListFragment.fileCategory == FileListHelper.FileCategory.SDCARD) {
-					exitBy2Click();
-				} else {
-					return centerViewPagerFragment.fileListFragment.onKeyDown(
-							keyCode, event);
-				}
+				centerViewPagerFragment.fileListFragment.onKeyDown(keyCode,
+						event);
 			}
 		}
 		return true;

@@ -20,8 +20,7 @@ public class ImageToPdfActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_imagetopdf);
 		fileGridView = (GridView) findViewById(R.id.fileGridView);
-		FileListHelper fileListHelper = new FileListHelper(this);
-		fileData = fileListHelper.GetAllFiles("/sdcard/" + "Camera", true);
+		fileData = FileListHelper.GetAllFiles("/sdcard/" + "Camera", true);
 		imageShowAdapter = new ImageShowAdapter(this, fileData,
 				R.layout.image_item);
 		fileGridView.setAdapter(imageShowAdapter);

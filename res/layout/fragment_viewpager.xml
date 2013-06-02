@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:text="testoffice"
-            android:visibility="invisible" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <View

@@ -1,14 +1,14 @@
 package team.androidreader.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 import team.androidreader.constant.Constant;
-
+import team.androidreader.mainview.FileInfo;
 import android.os.Environment;
 
 /**
@@ -145,16 +145,43 @@ public class FileSystem {
 	 * @param path
 	 * @return
 	 */
-	public static String GetFileNameByPath(String path) {
+	public static String GetFileNameNoExtension(FileInfo fileInfo) {
+		String fileName = fileInfo.absolutePath.substring(fileInfo.absolutePath
+				.lastIndexOf('/') + 1);
+		return fileName.substring(0, fileName.lastIndexOf('.'));
+	}
+
+	public static String GetFileNameNoExtension(String path) {
 		String fileName = path.substring(path.lastIndexOf('/') + 1);
 		return fileName.substring(0, fileName.lastIndexOf('.'));
+	}
+
+	public static String GetFileNameHasExtension(FileInfo fileInfo) {
+		return fileInfo.absolutePath.substring(fileInfo.absolutePath
+				.lastIndexOf('/') + 1);
+	}
+
+	public static String GetFileNameHasExtension(String path) {
+		return path.substring(path.lastIndexOf('/') + 1);
+	}
+
+	public static boolean isHidden(FileInfo fileInfo) {
+		if (fileInfo.fileName.charAt(0) == '.') {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isDirectory(FileInfo fileInfo) {
+		File file = new File(fileInfo.absolutePath);
+		return file.isDirectory();
 	}
 
 	/**
 	 * 
 	 * @return a file name with time information
 	 */
-	public static String GetNameByTime() {
+	public static String GetTimeFileName() {
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int mounth = calendar.get(Calendar.MONTH);
@@ -167,54 +194,13 @@ public class FileSystem {
 	}
 
 	/**
-	 * 
-	 * @param path
-	 */
-	public static void Delete(String path) {
-		File file = new File(path);
-		if (file.isDirectory()) {
-			File[] files = file.listFiles();
-			if (files != null) {
-				for (int i = 0; i < files.length; i++) {
-					Delete(files[i].getAbsolutePath());
-				}
-				file.delete();
-			}
-		} else {
-			file.delete();
-		}
-
-	}
-
-	/**
-	 * 
-	 * @param path
-	 * @param newName
-	 */
-	public static boolean fileRename(String path, String newName) {
-		File file = new File(path);
-		String newPath = path.substring(0, path.lastIndexOf("/") + 1) + newName;
-		return file.renameTo(new File(newPath));
-	}
-
-	/**
-	 * 
-	 * @param oldPath
-	 * @param newPath
-	 */
-	public static void moveTo(String oldPath, String newPath) {
-		File file = new File(oldPath);
-		
-	}
-	
-	/**
 	 * 根据文件后缀名获得对应的MIME类型。
 	 * 
 	 * @param file
 	 */
-	public static String getMIMEType(File file) {
+	public static String getMIMEType(FileInfo fileinfo) {
 		String type = "*/*";
-		String fName = file.getName();
+		String fName = fileinfo.fileName;
 		// 获取后缀名前的分隔符"."在fName中的位置。
 		int dotIndex = fName.lastIndexOf(".");
 		if (dotIndex < 0) {

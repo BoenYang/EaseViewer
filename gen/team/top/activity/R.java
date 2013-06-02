@@ -55,11 +55,14 @@ public final class R {
         public static final int head_default=0x7f020013;
         public static final int ic_launcher=0x7f020014;
         public static final int icon_test=0x7f020015;
-        public static final int more_button=0x7f020016;
-        public static final int settingtest=0x7f020017;
-        public static final int shade_bg=0x7f020018;
-        public static final int waittingdialog_bg=0x7f020019;
-        public static final int wallpaper5=0x7f02001a;
+        public static final int line_diviver=0x7f020016;
+        public static final int more_button=0x7f020017;
+        public static final int settingtest=0x7f020018;
+        public static final int shade_bg=0x7f020019;
+        public static final int solid_divider_ccc=0x7f02001a;
+        public static final int solid_divider_fff=0x7f02001b;
+        public static final int waittingdialog_bg=0x7f02001c;
+        public static final int wallpaper5=0x7f02001d;
     }
     public static final class id {
         public static final int action_settings=0x7f09003a;
@@ -142,9 +145,10 @@ public final class R {
         public static final int fragment_rightcategory=0x7f030010;
         public static final int fragment_viewpager=0x7f030011;
         public static final int image_item=0x7f030012;
-        public static final int pdf_item=0x7f030013;
-        public static final int photoconfirm=0x7f030014;
-        public static final int right_frame=0x7f030015;
+        public static final int line=0x7f030013;
+        public static final int pdf_item=0x7f030014;
+        public static final int photoconfirm=0x7f030015;
+        public static final int right_frame=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f080000;

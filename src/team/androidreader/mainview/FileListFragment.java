@@ -3,7 +3,6 @@ package team.androidreader.mainview;
 import java.io.File;
 import java.util.List;
 
-import team.androidreader.mainview.FileListHelper.FileCategory;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
@@ -23,15 +22,12 @@ import android.widget.ListView;
  * @author ybw ht
  * 
  */
-public class FileListFragment extends Fragment {
+public class FileListFragment extends Fragment implements
+		FileListChangeListener {
 
 	private static ListView listView;
-	private static List<FileInfo> fileList;
 	private static FileListAdapter adapter;
 	private static View view;
-	private FileListHelper fileListHelper;
-	public static String currentDir = FileSystem.SDCARD_PATH;
-	public static FileCategory fileCategory;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -42,61 +38,26 @@ public class FileListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
-		fileListHelper = new FileListHelper(view.getContext());
+		MainActivity.fileListModel.addFileListenerChangeListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
-		fileList = GetFiles(FileSystem.SDCARD_PATH);
-		fileCategory = FileCategory.SDCARD;
-		adapter = new FileListAdapter(view.getContext(), fileList,
-				R.layout.file_item);
+		adapter = new FileListAdapter(view.getContext(),
+				MainActivity.fileListModel.getFileList(), R.layout.file_item);
+		System.out.println(MainActivity.fileListModel.getFileList().size());
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
 		return view;
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-	}
-
-	/**
-	 * 
-	 */
-	public void backToParentPath() {
-		fileList.clear();
-		if (fileCategory != FileListHelper.FileCategory.SDCARD) {
-			fileList.addAll(GetFiles(FileSystem.SDCARD_PATH));
-			fileCategory = FileCategory.SDCARD;
-		} else {
-			File file = new File(currentDir);
-			fileList.addAll(GetFiles(file.getParent()));
-		}
-		adapter.notifyDataSetChanged();
-	}
-
-	private List<FileInfo> GetFiles(String path) {
-		List<FileInfo> fileNames = fileListHelper.GetAllFiles(path, false);
-		currentDir = path;
-		return fileNames;
-	}
-
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
 		if (keycode == KeyEvent.KEYCODE_BACK) {
-			backToParentPath();
+			String currentDir = MainActivity.fileListModel
+					.getCurrentDirectory();
+			File file = new File(currentDir);
+			String parentDir = file.getParent();
+			List<FileInfo> fileList = FileListHelper.GetAllFiles(parentDir,
+					false);
+			MainActivity.fileListController.handleDirectoryChange(fileList,
+					parentDir);
 		}
 		return true;
 	}
@@ -106,24 +67,16 @@ public class FileListFragment extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			FileInfo file = fileList.get(position);
+			FileInfo file = MainActivity.fileListModel.getFileList().get(
+					position);
 			if (file.isDirectory) {
-				fileList.clear();
-				String absolutePath = file.absolutePath;
-				fileList.addAll(GetFiles(absolutePath));
-				adapter.notifyDataSetChanged();
+				List<FileInfo> fileList = FileListHelper.GetAllFiles(
+						file.absolutePath, false);
+				MainActivity.fileListController.handleDirectoryChange(fileList,
+						file.absolutePath);
 			} else {
-				File f = new File(file.absolutePath);
-				openFile(f);
+				openFile(file);
 			}
-		}
-	}
-
-	public static void setData(List<FileInfo> fileList) {
-		if (fileList != null) {
-			FileListFragment.fileList.clear();
-			FileListFragment.fileList.addAll(fileList);
-			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -132,15 +85,21 @@ public class FileListFragment extends Fragment {
 	 * 
 	 * @param file
 	 */
-	private void openFile(File file) {
+	private void openFile(FileInfo fileInfo) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		String type = FileSystem.getMIMEType(file);
+		String type = FileSystem.getMIMEType(fileInfo);
 		String entension = type.substring(type.indexOf('/') + 1);
 		intent.putExtra("extension", entension);
-		intent.putExtra("path", file.getAbsolutePath());
-		intent.setDataAndType(Uri.fromFile(file), type);
+		intent.putExtra("path", fileInfo.absolutePath);
+		intent.setDataAndType(Uri.fromFile(new File(fileInfo.absolutePath)),
+				type);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onFileListChange(FileListModel fileListModel) {
+		adapter.notifyDataSetChanged();
 	}
 
 }

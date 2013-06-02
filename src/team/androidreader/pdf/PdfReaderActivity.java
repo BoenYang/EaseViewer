@@ -47,7 +47,7 @@ public class PdfReaderActivity extends Activity {
 		waittingDialog = new WaittingDialog(PdfReaderActivity.this);
 		Intent intent = getIntent();
 		path = intent.getStringExtra("path");
-		filename = FileSystem.GetFileNameByPath(path);
+		filename = FileSystem.GetFileNameNoExtension(path);
 		waittingDialog.show();
 		Thread thread = new Thread(new PrasePdfThread());
 		thread.start();

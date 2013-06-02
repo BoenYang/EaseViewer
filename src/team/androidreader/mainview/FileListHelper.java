@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import team.androidreader.utils.FileSystem;
 import team.androidreader.utils.StringCompare;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,7 +21,6 @@ import android.provider.MediaStore.Video;
 @SuppressLint("InlinedApi")
 public class FileListHelper {
 
-	private Context context;
 	private final static String VOLUME = "external";
 	private final static String[] SEARCH_COLUMNS = { FileColumns._ID,
 			FileColumns.DATA, FileColumns.SIZE, FileColumns.DATE_MODIFIED };
@@ -47,14 +47,10 @@ public class FileListHelper {
 	};
 
 	public enum FileCategory {
-		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER,SDCARD,ROOT
+		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER, SDCARD, ROOT
 	}
 
-	public FileListHelper(Context context) {
-		this.context = context;
-	}
-
-	public List<FileInfo> GetAllFiles(String path, boolean showHidden) {
+	public static List<FileInfo> GetAllFiles(String path, boolean showHidden) {
 		List<FileInfo> fileNames = new ArrayList<FileInfo>();
 		List<FileInfo> dirList = new ArrayList<FileInfo>();
 		List<FileInfo> fList = new ArrayList<FileInfo>();
@@ -68,12 +64,12 @@ public class FileListHelper {
 					fileInfo.absolutePath = temp.getAbsolutePath();
 					if (temp.isDirectory()) {
 						fileInfo.isDirectory = true;
-						if (!isHidden(fileInfo.fileName))
+						if (!FileSystem.isHidden(fileInfo))
 							dirList.add(fileInfo);
 					} else {
 						fileInfo.isDirectory = false;
 						fileInfo.fileSize = temp.length();
-						if (!isHidden(fileInfo.fileName))
+						if (!FileSystem.isHidden(fileInfo))
 							fList.add(fileInfo);
 					}
 				}
@@ -87,17 +83,18 @@ public class FileListHelper {
 		return fileNames;
 	}
 
-	public List<FileInfo> GetAllFiles(FileCategory c, boolean showHidden) {
+	public static List<FileInfo> GetCategory(Context context, FileCategory c,
+			boolean showHidden) {
 		List<FileInfo> fileList = new ArrayList<FileInfo>();
-		Cursor cursor = getCursor(c);
+		Cursor cursor = getCursor(context, c);
 		while (cursor.moveToNext()) {
 			FileInfo fileInfo = new FileInfo();
 			fileInfo.fileId = cursor.getLong(COLUMN_ID);
 			fileInfo.absolutePath = cursor.getString(COLUMN_PATH);
 			if (!fileInfo.absolutePath.equals("")) {
-				fileInfo.fileName = GetNameByPath(fileInfo.absolutePath);
-				fileInfo.isHidden = isHidden(fileInfo.fileName);
-				fileInfo.isDirectory = isDirectory(fileInfo.absolutePath);
+				fileInfo.fileName = FileSystem.GetFileNameHasExtension(fileInfo);
+				fileInfo.isHidden = FileSystem.isHidden(fileInfo);
+				fileInfo.isDirectory = FileSystem.isDirectory(fileInfo);
 				fileInfo.fileSize = cursor.getLong(COLUMN_SIZE);
 				if (!showHidden) {
 					if (fileInfo.isHidden)
@@ -109,14 +106,14 @@ public class FileListHelper {
 		return fileList;
 	}
 
-	private Uri GetUri(FileCategory c) {
+	private static Uri GetUri(FileCategory c) {
 		Uri uri = null;
 		switch (c) {
 		case DOC:
 		case THEME:
 		case ZIP:
 		case APK:
-			//uri = Files.getContentUri(VOLUME);
+			// uri = Files.getContentUri(VOLUME);
 			break;
 		case MUSIC:
 			uri = Audio.Media.getContentUri(VOLUME);
@@ -134,7 +131,7 @@ public class FileListHelper {
 		return uri;
 	}
 
-	private Cursor getCursor(FileCategory c) {
+	private static Cursor getCursor(Context context, FileCategory c) {
 		Uri uri = GetUri(c);
 		String selection = GetDocSelection(c);
 		Cursor cursor = context.getContentResolver().query(uri, SEARCH_COLUMNS,
@@ -142,7 +139,7 @@ public class FileListHelper {
 		return cursor;
 	}
 
-	private String GetDocSelection(FileCategory c) {
+	private static String GetDocSelection(FileCategory c) {
 		String selection = null;
 		switch (c) {
 		case THEME:
@@ -164,7 +161,7 @@ public class FileListHelper {
 		return selection;
 	}
 
-	private String GetOfficeSelection() {
+	private static String GetOfficeSelection() {
 		StringBuilder selection = new StringBuilder();
 		Iterator<String> iter = sDocMimeTypesSet.iterator();
 		while (iter.hasNext()) {
@@ -172,23 +169,6 @@ public class FileListHelper {
 					+ "') OR ");
 		}
 		return selection.substring(0, selection.lastIndexOf(")") + 1);
-	}
-
-	private boolean isHidden(String fileName) {
-		if (fileName.charAt(0) == '.') {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean isDirectory(String path) {
-		File file = new File(path);
-		return file.isDirectory();
-	}
-
-	private String GetNameByPath(String path) {
-		File file = new File(path);
-		return file.getName();
 	}
 
 }

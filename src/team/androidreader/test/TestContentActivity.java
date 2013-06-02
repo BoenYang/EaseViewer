@@ -66,10 +66,6 @@ public class TestContentActivity extends Activity {
 			int id = v.getId();
 			switch (id) {
 			case R.id.btn3:
-				Intent intent = new Intent();
-				intent.setClass(TestContentActivity.this,
-						ImageToPdfActivity.class);
-				startActivity(intent);
 				break;
 			case R.id.btn4:
 				SelectDialog selectDialog = new SelectDialog(
@@ -79,7 +75,7 @@ public class TestContentActivity extends Activity {
 			case R.id.cameraBtn:
 				takePhoto();
 			case R.id.screenshot:
-				String name = "ScreenShot" + FileSystem.GetNameByTime();
+				String name = "ScreenShot" + FileSystem.GetTimeFileName();
 				if (ScreenCapturer.TakeScreenShot(TestContentActivity.this,
 						FileSystem.PRTSCR_DIR, name)) {
 					System.out.println("---------------------------");
@@ -92,7 +88,6 @@ public class TestContentActivity extends Activity {
 				startActivity(intent2);
 				break;
 			case R.id.testWattingDialog:
-				FileSystem.fileRename("/sdcard/AndroidReader", "Test");
 				break;
 			}
 		}
