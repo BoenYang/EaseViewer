@@ -6,7 +6,9 @@ import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.mainview.FileListHelper.FileCategory;
 import team.androidreader.theme.ChangeThemeActivity;
 import team.top.activity.R;
+import android.R.integer;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -80,7 +82,7 @@ public class RightCategoryFragment extends Fragment {
 		changeTheme.setOnClickListener(new FileCategorySelectListener());
 		help.setOnClickListener(new FileCategorySelectListener());
 		about.setOnClickListener(new FileCategorySelectListener());
-		
+
 		// officeList =
 		// fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
 		pictureList = fileListHelper.GetAllFiles(
@@ -137,31 +139,33 @@ public class RightCategoryFragment extends Fragment {
 				FileListFragment.fileCategory = FileCategory.VIDEO;
 				MainActivity.mSlidingMenu.showRightView();
 				break;
-			case R.id.categoryZipBtn:
-				// fileList =
-				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
-				// true);
-				MainActivity.mSlidingMenu.showRightView();
-				break;
 			case R.id.categoryApkBtn:
 				// fileList =
 				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
 				// true);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
+			case R.id.categoryZipBtn:
+				// fileList =
+				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
+				// true);
+				MainActivity.mSlidingMenu.showRightView();
+				break;
+
 			case R.id.functionPic2PdfBtn:
-//				Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//				File file = new File(FileSystem.CAMERA_CACHE + File.separator
-//						+ "IMAGE_" + FileSystem.GetNameByTime() + ".jpg");
-//				if (!file.exists()) {
-//					try {
-//						file.createNewFile();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//				intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-//				startActivity(intent1);
+				// Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				// File file = new File(FileSystem.CAMERA_CACHE + File.separator
+				// + "IMAGE_" + FileSystem.GetNameByTime() + ".jpg");
+				// if (!file.exists()) {
+				// try {
+				// file.createNewFile();
+				// } catch (IOException e) {
+				// e.printStackTrace();
+				// }
+				// }
+				// intent1.putExtra(MediaStore.EXTRA_OUTPUT,
+				// Uri.fromFile(file));
+				// startActivity(intent1);
 				break;
 			case R.id.functionChangeThemeBtn:
 				Intent intent2 = new Intent();
@@ -181,11 +185,11 @@ public class RightCategoryFragment extends Fragment {
 			default:
 				break;
 			}
-			
+
 			if (fileList != null) {
 				FileListFragment.setData(fileList);
 			}
-		
+
 		}
 	}
 

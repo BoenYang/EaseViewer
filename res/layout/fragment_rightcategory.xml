@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="240dp"
             android:layout_height="fill_parent"
-            android:background="@drawable/category_bg_black"
+            android:background="@color/black_half"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -61,7 +61,8 @@
             <ScrollView
                 android:id="@+id/mlist"
                 android:layout_width="240dp"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:scrollbars="none" >
 
                 <LinearLayout
                     android:layout_width="240dp"
