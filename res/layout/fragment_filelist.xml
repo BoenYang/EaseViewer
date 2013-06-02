@@ -14,6 +14,7 @@
         android:background="@color/bg_color_deep"
         android:fadeScrollbars="true"
         android:smoothScrollbar="true"
-        android:dividerHeight="1dp"/>
+        android:dividerHeight="2dp"
+        android:divider="@drawable/category_dividing_line_middle"/>
 
 </LinearLayout>

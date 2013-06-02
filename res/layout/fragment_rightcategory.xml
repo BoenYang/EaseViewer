@@ -19,37 +19,38 @@
             <RelativeLayout
                 android:id="@+id/appInfo"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:padding="10dip" >
+                android:layout_height="45dp"
+                android:padding="3dp" >
 
                 <ImageView
                     android:id="@+id/appLogo"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="7dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/icon_test" />
+                    android:background="@drawable/ic_launcher" />
 
                 <TextView
                     android:id="@+id/appName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignTop="@id/appLogo"
                     android:layout_marginBottom="2dp"
-                    android:layout_marginTop="4dp"
                     android:layout_toRightOf="@+id/appLogo"
                     android:text="@string/app_name"
                     android:textColor="@color/text_color"
-                    android:textSize="15sp" />
+                    android:textSize="7pt" />
 
                 <TextView
                     android:id="@+id/appVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/appName"
+                    android:layout_alignBottom="@id/appLogo"
+                    android:layout_alignLeft="@id/appName"
                     android:layout_below="@+id/appName"
                     android:text="Ver 0.1 alpha"
                     android:textColor="@color/text_color"
-                    android:textSize="12sp" />
+                    android:textSize="4pt" />
             </RelativeLayout>
 
             <View
