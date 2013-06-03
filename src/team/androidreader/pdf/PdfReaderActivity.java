@@ -61,7 +61,7 @@ public class PdfReaderActivity extends Activity {
 			case Constant.PRASE_SUCCESSFUL:
 				waittingDialog.dismiss();
 				pdfShowAdapter = new PdfShowAdapter(PdfReaderActivity.this,
-						bitmaps, filename, R.layout.pdf_item);
+						bitmaps, filename, R.layout.item_pdf);
 				listview.setAdapter(pdfShowAdapter);
 				break;
 			case Constant.PRASE_FAILED:

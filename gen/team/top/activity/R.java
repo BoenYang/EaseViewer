@@ -149,7 +149,7 @@ public final class R {
         public static final int frame_right=0x7f030011;
         public static final int item_file=0x7f030012;
         public static final int item_image=0x7f030013;
-        public static final int pdf_item=0x7f030014;
+        public static final int item_pdf=0x7f030014;
         public static final int photoconfirm=0x7f030015;
     }
     public static final class menu {
