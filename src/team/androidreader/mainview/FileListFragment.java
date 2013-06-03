@@ -50,7 +50,7 @@ public class FileListFragment extends Fragment{
 		fileList = GetFiles(FileSystem.SDCARD_PATH);
 		fileCategory = FileCategory.SDCARD;
 		adapter = new FileListAdapter(view.getContext(), fileList,
-				R.layout.file_item);
+				R.layout.item_file);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
 		return view;

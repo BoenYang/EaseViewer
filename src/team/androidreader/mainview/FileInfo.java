@@ -11,7 +11,7 @@ public class FileInfo {
 	public String absolutePath;
 	public boolean isDirectory;
 	public boolean isHidden;
-	public long fileSize;
+	public String fileSize;
 	public long fileId;
 	
 

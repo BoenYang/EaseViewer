@@ -40,9 +40,9 @@ public class MainActivity extends FragmentActivity {
 	private void init() {
 		mSlidingMenu = (SlidingMenu) findViewById(R.id.slidingMenu);
 		mSlidingMenu.setRightView(getLayoutInflater().inflate(
-				R.layout.right_frame, null));
+				R.layout.frame_right, null));
 		mSlidingMenu.setCenterView(getLayoutInflater().inflate(
-				R.layout.center_frame, null));
+				R.layout.frame_center, null));
 
 		FragmentTransaction t = this.getSupportFragmentManager()
 				.beginTransaction();
@@ -92,7 +92,7 @@ public class MainActivity extends FragmentActivity {
 		Timer tExit = null;
 		if (isExit == false) {
 			isExit = true; // 准备退出
-			Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
 			tExit = new Timer();
 			tExit.schedule(new TimerTask() {
 				@Override

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import team.androidreader.utils.StringCompare;
+import android.R.string;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -47,7 +48,7 @@ public class FileListHelper {
 	};
 
 	public enum FileCategory {
-		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER,SDCARD,ROOT
+		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER, SDCARD, ROOT
 	}
 
 	public FileListHelper(Context context) {
@@ -72,7 +73,7 @@ public class FileListHelper {
 							dirList.add(fileInfo);
 					} else {
 						fileInfo.isDirectory = false;
-						fileInfo.fileSize = temp.length();
+						fileInfo.fileSize = formatSize(temp.length());
 						if (!isHidden(fileInfo.fileName))
 							fList.add(fileInfo);
 					}
@@ -98,7 +99,7 @@ public class FileListHelper {
 				fileInfo.fileName = GetNameByPath(fileInfo.absolutePath);
 				fileInfo.isHidden = isHidden(fileInfo.fileName);
 				fileInfo.isDirectory = isDirectory(fileInfo.absolutePath);
-				fileInfo.fileSize = cursor.getLong(COLUMN_SIZE);
+				fileInfo.fileSize = formatSize(cursor.getLong(COLUMN_SIZE));
 				if (!showHidden) {
 					if (fileInfo.isHidden)
 						continue;
@@ -109,6 +110,34 @@ public class FileListHelper {
 		return fileList;
 	}
 
+	private String formatSize(long size) {
+		String mSize = null;
+		long formatedSize = size;
+		int count = 0;
+		while (formatedSize >= 1024) {
+			formatedSize /= 1024;
+			count++;
+		}
+
+		switch (count) {
+		case 0:
+			mSize = formatedSize + "B";
+			break;
+		case 1:
+			mSize = formatedSize + "kB";
+			break;
+		case 2:
+			mSize = formatedSize + "MB";
+			break;
+		case 3:
+			mSize = formatedSize + "GB";
+			break;
+		default:
+			break;
+		}
+		return mSize;
+	}
+
 	private Uri GetUri(FileCategory c) {
 		Uri uri = null;
 		switch (c) {
@@ -116,7 +145,7 @@ public class FileListHelper {
 		case THEME:
 		case ZIP:
 		case APK:
-			//uri = Files.getContentUri(VOLUME);
+			// uri = Files.getContentUri(VOLUME);
 			break;
 		case MUSIC:
 			uri = Audio.Media.getContentUri(VOLUME);

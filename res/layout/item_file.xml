@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/appInfo"
+    android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:padding="3dp" >
+
+    <ImageView
+        android:id="@+id/fileIcon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/file_icon_default" />
+
+    <TextView
+        android:id="@+id/fileName"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fileIcon"
+        android:layout_toRightOf="@+id/fileIcon"
+        android:ellipsize="end"
+        android:paddingTop="2dp"
+        android:singleLine="true"
+        android:text="fileName"
+        android:textSize="7pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fileMofidiedDate"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fileIcon"
+        android:layout_alignLeft="@id/fileName"
+        android:text="2013-06-01"
+        android:textSize="4pt" />
+
+    <TextView
+        android:id="@+id/fileSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fileMofidiedDate"
+        android:layout_toRightOf="@id/fileMofidiedDate"
+        android:layout_marginLeft="10dp"
+        android:text="1024k"
+        android:textSize="4pt"
+        android:textStyle="normal" />
+
+    <CheckBox
+        android:id="@+id/isSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:button="@drawable/checkbox"
+        android:focusable="false" />
+
+</RelativeLayout>

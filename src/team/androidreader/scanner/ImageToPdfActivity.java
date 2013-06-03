@@ -25,7 +25,7 @@ public class ImageToPdfActivity extends Activity {
 		FileListHelper fileListHelper = new FileListHelper(this);
 		fileData = fileListHelper.GetAllFiles("/sdcard/" + "Camera", true);
 		imageShowAdapter = new ImageShowAdapter(this, fileData,
-				R.layout.image_item);
+				R.layout.item_image);
 		fileGridView.setAdapter(imageShowAdapter);
 	}
 }
