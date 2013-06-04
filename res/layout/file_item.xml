@@ -17,7 +17,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/fileIcon"
-        android:layout_marginBottom="2dp"
         android:layout_toRightOf="@+id/fileIcon"
         android:ellipsize="end"
         android:singleLine="true"
@@ -30,14 +29,13 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/fileIcon"
         android:layout_alignLeft="@id/fileName"
-        android:layout_below="@+id/fileName"
         android:text="fileSize"
         android:textSize="4pt" />
 
     <CheckBox
         android:id="@+id/isSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:focusable="false" />
 

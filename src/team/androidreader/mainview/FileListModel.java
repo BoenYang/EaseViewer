@@ -13,6 +13,7 @@ public class FileListModel {
 	public FileListModel(List<FileInfo> filelist,String currentDir){
 		this.fileList.clear();
 		this.fileList.addAll(filelist);
+		this.currentDirectory = currentDir;
 	}
 	
 	public void setFileList(List<FileInfo> fileList) {
