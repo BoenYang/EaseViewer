@@ -1,6 +1,5 @@
 package team.androidreader.utils;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,7 +7,7 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import team.androidreader.constant.Constant;
-
+import team.androidreader.mainview.FileInfo;
 import android.os.Environment;
 
 /**
@@ -125,7 +124,7 @@ public class FileSystem {
 		if (!cameraDir.exists())
 			cameraDir.mkdir();
 		File prtScr = new File(PRTSCR_DIR);
-		if(!prtScr.exists()){
+		if (!prtScr.exists()) {
 			prtScr.mkdir();
 		}
 	}
@@ -145,16 +144,44 @@ public class FileSystem {
 	 * @param path
 	 * @return
 	 */
-	public static String GetFileNameByPath(String path) {
+	public static String GetFileFullName(FileInfo fileInfo) {
+		String fileName = fileInfo.absolutePath.substring(fileInfo.absolutePath
+				.lastIndexOf('/') + 1);
+		return fileName.substring(0, fileName.lastIndexOf('.'));
+	}
+
+	public static String GetFileName(String path) {
 		String fileName = path.substring(path.lastIndexOf('/') + 1);
 		return fileName.substring(0, fileName.lastIndexOf('.'));
+	}
+
+	public static String GetFileNameHasExtension(FileInfo fileInfo) {
+		return fileInfo.absolutePath.substring(fileInfo.absolutePath
+				.lastIndexOf('/') + 1);
+	}
+
+	public static String GetFileNameHasExtension(String path) {
+		return path.substring(path.lastIndexOf('/') + 1);
+	}
+
+	public static boolean isHidden(FileInfo fileInfo) {
+		if (fileInfo.fileName.charAt(0) == '.') {
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public static boolean isDirectory(FileInfo fileInfo) {
+		File file = new File(fileInfo.absolutePath);
+		return file.isDirectory();
 	}
 
 	/**
 	 * 
 	 * @return a file name with time information
 	 */
-	public static String GetNameByTime() {
+	public static String GetTimeFileName() {
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
 		int mounth = calendar.get(Calendar.MONTH);
@@ -165,14 +192,30 @@ public class FileSystem {
 		String name = "" + year + mounth + day + hour + munites + second;
 		return name;
 	}
-	
-	public static boolean dirDelete(String path){
-		return true;
+
+	/**
+	 * 根据文件后缀名获得对应的MIME类型。
+	 * 
+	 * @param file
+	 */
+	public static String getMIMEType(FileInfo fileinfo) {
+		String type = "*/*";
+		String fName = fileinfo.fileName;
+		// 获取后缀名前的分隔符"."在fName中的位置。
+		int dotIndex = fName.lastIndexOf(".");
+		if (dotIndex < 0) {
+			return type;
+		}
+		/* 获取文件的后缀名 */
+		String end = fName.substring(dotIndex, fName.length()).toLowerCase();
+		if (end == "")
+			return type;
+		// 在MIME和文件类型的匹配表中找到对应的MIME类型。
+		for (int i = 0; i < Constant.MIME_MapTable.length; i++) {
+			if (end.equals(Constant.MIME_MapTable[i][0]))
+				type = Constant.MIME_MapTable[i][1];
+		}
+		return type;
 	}
-	
-	public static void fileRename(String path,String newName){
-		
-	}
-	
-	
+
 }

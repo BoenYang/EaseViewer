@@ -58,7 +58,7 @@ public class WordToHtml {
 	 * @throws IOException
 	 */
 	public WordToHtml(String filepath) throws IOException {
-		this.fileName = FileSystem.GetFileNameByPath(filepath);
+		this.fileName = FileSystem.GetFileName(filepath);
 		FileInputStream inputStream = new FileInputStream(filepath);
 		this.document = new HWPFDocument(inputStream);
 		this.pictures = document.getPicturesTable().getAllPictures();
@@ -79,11 +79,11 @@ public class WordToHtml {
 		File file = new File(saveDir);
 		if (!file.exists()) {
 			file.mkdir();
-		} 
+		}
 		readDoc();
 		String str = html.toString();
-		if (!FileSystem
-				.Write(saveDir + File.separator +  fileName + ".html", str.getBytes("gbk"))) {
+		if (!FileSystem.Write(saveDir + File.separator + fileName + ".html",
+				str.getBytes("gbk"))) {
 			throw new WriteHtmlExcpetion();
 		}
 		return saveDir + File.separator + fileName + ".html";
@@ -100,7 +100,7 @@ public class WordToHtml {
 		int numParagraphs = range.numParagraphs();
 		for (int i = 0; i < numParagraphs; i++) {
 			Paragraph p = range.getParagraph(i);
-			if (p.isInTable()) {
+			if ( p.isInTable() ) {
 				int temp = i;
 				if (tableIterator.hasNext()) {
 					Table table = tableIterator.next();
@@ -203,12 +203,12 @@ public class WordToHtml {
 		presentPicture++;
 		String imageName = fileName + presentPicture + ".jpg";
 		FileSystem.Write(saveDir + File.separator + imageName, pictureBytes);
-		String imageString = "<img src=\"" + imageName  + "\"";
+		String imageString = "<img src=\"" + imageName + "\"";
 		if (bitmap.getWidth() > 640) {
 			imageString += " " + "width=\"" + 640 + "\"";
 		}
 		imageString += ">";
-		if(bitmap.isRecycled()){
+		if (bitmap.isRecycled()) {
 			bitmap.recycle();
 		}
 		html.append(imageString);

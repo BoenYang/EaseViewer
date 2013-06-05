@@ -12,15 +12,7 @@ public class FileInfo {
 	public boolean isDirectory;
 	public boolean isHidden;
 	public String fileSize;
-	public long fileId;
-	
-
-	@Override
-	public String toString() {
-		return "FileInfo [fileName=" + fileName + ", absolutePath="
-				+ absolutePath + ", isDirectory=" + isDirectory + ", isHidden="
-				+ isHidden + ", fileSize=" + fileSize + ", fileId=" + fileId
-				+ "]";
-	}
-
+	public String lastModify;
+	public long size;
+	public long modifyTime;
 }

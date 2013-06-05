@@ -1,11 +1,10 @@
 package team.androidreader.mainview;
 
-
 import java.io.File;
 import java.util.List;
 
-import team.androidreader.constant.Constant;
-import team.androidreader.mainview.FileListHelper.FileCategory;
+import team.androidreader.mainview.FileListModel.FileListChangeListener;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
@@ -23,60 +22,44 @@ import android.widget.ListView;
 /**
  * 
  * @author ybw ht
- *
+ * 
  */
-public class FileListFragment extends Fragment{
+public class FileListFragment extends Fragment implements
+		FileListChangeListener{
 
 	private static ListView listView;
-	private static List<FileInfo> fileList;
 	private static FileListAdapter adapter;
 	private static View view;
-	private FileListHelper fileListHelper;
-	public static String currentDir = FileSystem.SDCARD_PATH;
-	public static FileCategory fileCategory;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
-		fileListHelper = new FileListHelper(view.getContext());
+		MainActivity.fileListModel.addFileListenerChangeListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
-		fileList = GetFiles(FileSystem.SDCARD_PATH);
-		fileCategory = FileCategory.SDCARD;
-		adapter = new FileListAdapter(view.getContext(), fileList,
-				R.layout.item_file);
+		adapter = new FileListAdapter(view.getContext(),
+				MainActivity.fileListModel.getFileList(), R.layout.item_file);
+		System.out.println(MainActivity.fileListModel.getFileList().size());
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
 		return view;
 	}
 
-	public void backToParentPath() {
-		fileList.clear();
-		if(fileCategory != FileListHelper.FileCategory.SDCARD){
-			fileList.addAll(GetFiles(FileSystem.SDCARD_PATH));
-			fileCategory = FileCategory.SDCARD;
-		}else{
-			File file  = new File(currentDir);
-			fileList.addAll(GetFiles(file.getParent()));
-		}
-		adapter.notifyDataSetChanged();
-	}
-
-	private List<FileInfo> GetFiles(String path) {
-		List<FileInfo> fileNames = fileListHelper.GetAllFiles(path, false);
-		currentDir = path;
-		return fileNames;
-	}
-
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
 		if (keycode == KeyEvent.KEYCODE_BACK) {
-			backToParentPath();
+			String currentDir = MainActivity.fileListModel
+					.getCurrentDirectory();
+			File file = new File(currentDir);
+			String parentDir = file.getParent();
+			List<FileInfo> fileList = FileListHelper.GetSortedFiles(parentDir,
+					false, SortMethod.name);
+			MainActivity.fileListController.handleDirectoryChange(fileList,
+					parentDir);
 		}
 		return true;
 	}
@@ -86,24 +69,16 @@ public class FileListFragment extends Fragment{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			FileInfo file = fileList.get(position);
+			FileInfo file = MainActivity.fileListModel.getFileList().get(
+					position);
 			if (file.isDirectory) {
-				fileList.clear();
-				String absolutePath = file.absolutePath;
-				fileList.addAll(GetFiles(absolutePath));
-				adapter.notifyDataSetChanged();
+				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+						file.absolutePath, false, SortMethod.name);
+				MainActivity.fileListController.handleDirectoryChange(fileList,
+						file.absolutePath);
 			} else {
-				File f = new File(file.absolutePath);
-				openFile(f);
+				openFile(file);
 			}
-		}
-	}
-
-	public static void setData(List<FileInfo> fileList) {
-		if (fileList != null) {
-			FileListFragment.fileList.clear();
-			FileListFragment.fileList.addAll(fileList);
-			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -112,39 +87,21 @@ public class FileListFragment extends Fragment{
 	 * 
 	 * @param file
 	 */
-	private void openFile(File file) {
+	private void openFile(FileInfo fileInfo) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		String type = getMIMEType(file);
-		String entension = type.substring(type.indexOf('/')+1);
+		String type = FileSystem.getMIMEType(fileInfo);
+		String entension = type.substring(type.indexOf('/') + 1);
 		intent.putExtra("extension", entension);
-		intent.putExtra("path", file.getAbsolutePath());
-		intent.setDataAndType(Uri.fromFile(file), type);
+		intent.putExtra("path", fileInfo.absolutePath);
+		intent.setDataAndType(Uri.fromFile(new File(fileInfo.absolutePath)),
+				type);
 		startActivity(intent);
 	}
 
-	/**
-	 * 根据文件后缀名获得对应的MIME类型。
-	 * 
-	 * @param file
-	 */
-	private String getMIMEType(File file) {
-		String type = "*/*";
-		String fName = file.getName();
-		// 获取后缀名前的分隔符"."在fName中的位置。
-		int dotIndex = fName.lastIndexOf(".");
-		if (dotIndex < 0) {
-			return type;
-		}
-		/* 获取文件的后缀名 */
-		String end = fName.substring(dotIndex, fName.length()).toLowerCase();
-		if (end == "")
-			return type;
-		// 在MIME和文件类型的匹配表中找到对应的MIME类型。
-		for (int i = 0; i < Constant.MIME_MapTable.length; i++) {
-			if (end.equals(Constant.MIME_MapTable[i][0]))
-				type = Constant.MIME_MapTable[i][1];
-		}
-		return type;
+	@Override
+	public void onFileListChange(FileListModel fileListModel) {
+		adapter.notifyDataSetChanged();
 	}
+
 }

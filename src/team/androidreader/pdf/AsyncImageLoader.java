@@ -1,7 +1,6 @@
 package team.androidreader.pdf;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
@@ -66,15 +65,11 @@ public class AsyncImageLoader {
 								.renderBitmap(page.getWidth(),
 										page.getHeight(), new RectF(0.0f, 0.0f,
 												1.0f, 1.0f));
-						try {
-							BitmapHelper.writeBitmapToSdcard(b, imagePath,
-									CompressFormat.JPEG, 100);
-							bitmap = b;
-							imageCache.put(imagePath,
-									new SoftReference<Bitmap>(bitmap));
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						BitmapHelper.writeBitmapToSdcard(b, imagePath,
+								CompressFormat.JPEG, 100);
+						bitmap = b;
+						imageCache.put(imagePath, new SoftReference<Bitmap>(
+								bitmap));
 					} else {
 						bitmap = loadBitmapFromSdcrad(imagePath);
 						imageCache.put(imagePath, new SoftReference<Bitmap>(

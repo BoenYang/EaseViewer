@@ -6,7 +6,6 @@ import java.util.List;
 import team.androidreader.mainview.FileInfo;
 import team.androidreader.utils.BitmapHelper;
 import team.top.activity.R;
-import team.top.activity.R.id;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;

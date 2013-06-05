@@ -1,6 +1,5 @@
 package team.androidreader.office;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -74,11 +73,11 @@ public class ShowOfficeActivity extends Activity {
 		public void run() {
 			Message msg = new Message();
 			String fileName = "";
-			fileName = FileSystem.GetFileNameByPath(path);
+			fileName = FileSystem.GetFileName(path);
 			if (extension.equals("doc")) {
 				WordToHtml word2Html = null;
 				try {
-					if (hasWordConverted(path)) {
+					if (hasWordConverted(fileName)) {
 						htmlPath = FileSystem.WORD_CACHE + File.separator
 								+ fileName + File.separator + fileName
 								+ ".html";
@@ -95,11 +94,10 @@ public class ShowOfficeActivity extends Activity {
 					System.out.println("文件不存在");
 					e.printStackTrace();
 				}
-
 			} else if (extension.equals("xls")) {
 				ExcelToHtml excel2Html;
 				try {
-					if (hasExcelConverted(path)) {
+					if (hasExcelConverted(fileName)) {
 						htmlPath = FileSystem.EXCEL_CACHE + File.separator
 								+ fileName + File.separator + fileName
 								+ ".html";
@@ -116,12 +114,10 @@ public class ShowOfficeActivity extends Activity {
 					System.out.println("读取文件失败");
 					e.printStackTrace();
 				}
-
 			}
 			msg.what = Constant.PRASE_SUCCESSFUL;
 			handler.sendMessage(msg);
 		}
-
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -150,8 +146,7 @@ public class ShowOfficeActivity extends Activity {
 		}
 	}
 
-	private boolean hasWordConverted(String path) {
-		String fileName = FileSystem.GetFileNameByPath(path);
+	private boolean hasWordConverted(String fileName) {
 		File file = new File(FileSystem.WORD_CACHE + File.separator + fileName);
 		if (file.exists()) {
 			if (new File(FileSystem.WORD_CACHE + File.separator + fileName
@@ -165,8 +160,7 @@ public class ShowOfficeActivity extends Activity {
 		}
 	}
 
-	private boolean hasExcelConverted(String path) {
-		String fileName = FileSystem.GetFileNameByPath(path);
+	private boolean hasExcelConverted(String fileName) {
 		File file = new File(FileSystem.EXCEL_CACHE + File.separator + fileName);
 		if (file.exists()) {
 			if (new File(FileSystem.EXCEL_CACHE + File.separator + fileName

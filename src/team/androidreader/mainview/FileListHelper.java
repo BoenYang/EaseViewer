@@ -2,13 +2,15 @@ package team.androidreader.mainview;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import team.androidreader.utils.StringCompare;
-import android.R.string;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
+import team.androidreader.utils.FileSystem;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
@@ -21,15 +23,14 @@ import android.provider.MediaStore.Video;
 @SuppressLint("InlinedApi")
 public class FileListHelper {
 
-	private Context context;
 	private final static String VOLUME = "external";
 	private final static String[] SEARCH_COLUMNS = { FileColumns._ID,
 			FileColumns.DATA, FileColumns.SIZE, FileColumns.DATE_MODIFIED };
 	public static String sZipFileMimeType = "application/zip";
 
-	private static final int COLUMN_ID = 0;
 	private static final int COLUMN_PATH = 1;
 	private static final int COLUMN_SIZE = 2;
+	private static final int COLUMN_DATE = 3;
 
 	public static HashSet<String> sDocMimeTypesSet = new HashSet<String>() {
 		/**
@@ -51,14 +52,21 @@ public class FileListHelper {
 		ALL, MUSIC, VIDEO, PICTURE, THEME, DOC, ZIP, APK, OTHER, SDCARD, ROOT
 	}
 
-	public FileListHelper(Context context) {
-		this.context = context;
+	@SuppressWarnings("unchecked")
+	public static List<FileInfo> GetSortedFiles(String path, boolean showHidden,
+			SortMethod sortMethod) {
+		FileSortHelper sortHelper = new FileSortHelper();
+		sortHelper.setSortMethog(sortMethod);
+		List<FileInfo> fileList = GetFiles(path, showHidden);
+		Comparator<FileInfo> comparator = sortHelper.getComparator();
+		if(comparator != null){
+			Collections.sort(fileList, sortHelper.getComparator());
+		}
+		return fileList;
 	}
 
-	public List<FileInfo> GetAllFiles(String path, boolean showHidden) {
-		List<FileInfo> fileNames = new ArrayList<FileInfo>();
-		List<FileInfo> dirList = new ArrayList<FileInfo>();
-		List<FileInfo> fList = new ArrayList<FileInfo>();
+	public static List<FileInfo> GetFiles(String path, boolean showHidden) {
+		List<FileInfo> fileList = new ArrayList<FileInfo>();
 		File file = new File(path);
 		if (file != null && file.isDirectory()) {
 			File[] files = file.listFiles();
@@ -67,50 +75,72 @@ public class FileListHelper {
 					FileInfo fileInfo = new FileInfo();
 					fileInfo.fileName = temp.getName();
 					fileInfo.absolutePath = temp.getAbsolutePath();
-					if (temp.isDirectory()) {
-						fileInfo.isDirectory = true;
-						if (!isHidden(fileInfo.fileName))
-							dirList.add(fileInfo);
+					fileInfo.isDirectory = temp.isDirectory();
+					fileInfo.isHidden = FileSystem.isHidden(fileInfo);
+					fileInfo.size = temp.length();
+					fileInfo.fileSize = formatSize(fileInfo.size);
+					fileInfo.modifyTime = temp.lastModified();
+					fileInfo.lastModify = GetTimeByLong(fileInfo.modifyTime);
+					if (showHidden) {
+						fileList.add(fileInfo);
 					} else {
-						fileInfo.isDirectory = false;
-						fileInfo.fileSize = formatSize(temp.length());
-						if (!isHidden(fileInfo.fileName))
-							fList.add(fileInfo);
+						if (!fileInfo.isHidden)
+							fileList.add(fileInfo);
 					}
 				}
-			}
-		}
-		StringCompare stringCompare = new StringCompare();
-		Collections.sort(dirList, stringCompare);
-		fileNames.addAll(dirList);
-		Collections.sort(fList, stringCompare);
-		fileNames.addAll(fList);
-		return fileNames;
-	}
-
-	public List<FileInfo> GetAllFiles(FileCategory c, boolean showHidden) {
-		List<FileInfo> fileList = new ArrayList<FileInfo>();
-		Cursor cursor = getCursor(c);
-		while (cursor.moveToNext()) {
-			FileInfo fileInfo = new FileInfo();
-			fileInfo.fileId = cursor.getLong(COLUMN_ID);
-			fileInfo.absolutePath = cursor.getString(COLUMN_PATH);
-			if (!fileInfo.absolutePath.equals("")) {
-				fileInfo.fileName = GetNameByPath(fileInfo.absolutePath);
-				fileInfo.isHidden = isHidden(fileInfo.fileName);
-				fileInfo.isDirectory = isDirectory(fileInfo.absolutePath);
-				fileInfo.fileSize = formatSize(cursor.getLong(COLUMN_SIZE));
-				if (!showHidden) {
-					if (fileInfo.isHidden)
-						continue;
-				}
-				fileList.add(fileInfo);
 			}
 		}
 		return fileList;
 	}
 
-	private String formatSize(long size) {
+	@SuppressWarnings("unchecked")
+	public static List<FileInfo> GetSortedFileByCategory(Context context,
+			FileCategory c, boolean showHidden, SortMethod sortMethod) {
+		FileSortHelper sortHelper = new FileSortHelper();
+		sortHelper.setSortMethog(sortMethod);
+		List<FileInfo> fileList = GetFileByCategory(context, c, showHidden);
+		Comparator<FileInfo> comparator = sortHelper.getComparator();
+		if(comparator != null){
+			Collections.sort(fileList, sortHelper.getComparator());
+		}
+		return fileList;
+	}
+
+	public static List<FileInfo> GetFileByCategory(Context context,
+			FileCategory c, boolean showHidden) {
+		List<FileInfo> fileList = new ArrayList<FileInfo>();
+		Cursor cursor = getCursor(context, c);
+		while (cursor.moveToNext()) {
+			FileInfo fileInfo = new FileInfo();
+			fileInfo.absolutePath = cursor.getString(COLUMN_PATH);
+			if (!fileInfo.absolutePath.equals("")) {
+				fileInfo.fileName = FileSystem
+						.GetFileNameHasExtension(fileInfo);
+				fileInfo.isHidden = FileSystem.isHidden(fileInfo);
+				fileInfo.isDirectory = FileSystem.isDirectory(fileInfo);
+				fileInfo.size = cursor.getLong(COLUMN_SIZE);
+				fileInfo.fileSize = formatSize(fileInfo.size);
+				fileInfo.modifyTime = cursor.getLong(COLUMN_DATE);
+				fileInfo.lastModify = GetTimeByLong(fileInfo.modifyTime);
+				if (showHidden) {
+					fileList.add(fileInfo);
+				} else {
+					if (!fileInfo.isHidden)
+						fileList.add(fileInfo);
+				}
+			}
+		}
+		return fileList;
+	}
+
+	private static String GetTimeByLong(long time) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(time);
+		return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH)
+				+ "-" + calendar.get(Calendar.DAY_OF_MONTH);
+	}
+
+	private static String formatSize(long size) {
 		String mSize = null;
 		long formatedSize = size;
 		int count = 0;
@@ -138,7 +168,7 @@ public class FileListHelper {
 		return mSize;
 	}
 
-	private Uri GetUri(FileCategory c) {
+	private static Uri GetUri(FileCategory c) {
 		Uri uri = null;
 		switch (c) {
 		case DOC:
@@ -163,7 +193,7 @@ public class FileListHelper {
 		return uri;
 	}
 
-	private Cursor getCursor(FileCategory c) {
+	private static Cursor getCursor(Context context, FileCategory c) {
 		Uri uri = GetUri(c);
 		String selection = GetDocSelection(c);
 		Cursor cursor = context.getContentResolver().query(uri, SEARCH_COLUMNS,
@@ -171,7 +201,7 @@ public class FileListHelper {
 		return cursor;
 	}
 
-	private String GetDocSelection(FileCategory c) {
+	private static String GetDocSelection(FileCategory c) {
 		String selection = null;
 		switch (c) {
 		case THEME:
@@ -193,7 +223,7 @@ public class FileListHelper {
 		return selection;
 	}
 
-	private String GetOfficeSelection() {
+	private static String GetOfficeSelection() {
 		StringBuilder selection = new StringBuilder();
 		Iterator<String> iter = sDocMimeTypesSet.iterator();
 		while (iter.hasNext()) {
@@ -201,23 +231,6 @@ public class FileListHelper {
 					+ "') OR ");
 		}
 		return selection.substring(0, selection.lastIndexOf(")") + 1);
-	}
-
-	private boolean isHidden(String fileName) {
-		if (fileName.charAt(0) == '.') {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean isDirectory(String path) {
-		File file = new File(path);
-		return file.isDirectory();
-	}
-
-	private String GetNameByPath(String path) {
-		File file = new File(path);
-		return file.getName();
 	}
 
 }

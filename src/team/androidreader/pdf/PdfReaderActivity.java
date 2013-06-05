@@ -1,7 +1,6 @@
 package team.androidreader.pdf;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,9 +46,9 @@ public class PdfReaderActivity extends Activity {
 		waittingDialog = new WaittingDialog(PdfReaderActivity.this);
 		Intent intent = getIntent();
 		path = intent.getStringExtra("path");
-		filename = FileSystem.GetFileNameByPath(path);
+		filename = FileSystem.GetFileName(path);
 		waittingDialog.show();
-		Thread thread = new Thread(new PrasePdfThread());
+		Thread thread = new Thread(new ParseThread());
 		thread.start();
 	}
 
@@ -72,7 +71,7 @@ public class PdfReaderActivity extends Activity {
 
 	};
 
-	class PrasePdfThread implements Runnable {
+	class ParseThread implements Runnable {
 		@Override
 		public void run() {
 
@@ -109,23 +108,22 @@ public class PdfReaderActivity extends Activity {
 					Bitmap bitmap = page
 							.renderBitmap(page.getWidth(), page.getHeight(),
 									new RectF(0.0f, 0.0f, 1.0f, 1.0f));
-					try {
-						BitmapHelper.writeBitmapToSdcard(bitmap, saveImageName,
-								CompressFormat.JPEG, 100);
+					if (BitmapHelper.writeBitmapToSdcard(bitmap, saveImageName,
+							CompressFormat.JPEG, 100)) {
 						HashMap<String, SoftReference<Bitmap>> item = bitmaps
 								.get(i);
 						item.put(saveImageName, new SoftReference<Bitmap>(
 								bitmap));
 						bitmaps.set(i, item);
-					} catch (IOException e) {
+						msg.what = Constant.PRASE_SUCCESSFUL;
+						handler.sendMessage(msg);
+					} else {
 						msg.what = Constant.PRASE_FAILED;
 						handler.sendMessage(msg);
-						e.printStackTrace();
 					}
 				}
 			}
-			msg.what = Constant.PRASE_SUCCESSFUL;
-			handler.sendMessage(msg);
+
 		}
 	}
 }

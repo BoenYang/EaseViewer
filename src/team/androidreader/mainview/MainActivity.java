@@ -1,12 +1,12 @@
 package team.androidreader.mainview;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
-import team.top.activity.R.id;
-import team.top.activity.R.layout;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -21,7 +21,8 @@ public class MainActivity extends FragmentActivity {
 	private CenterViewPagerFragment centerViewPagerFragment;
 	public static int mScreenWidth;
 	public static int mScreenHeight;
-
+	public static FileListModel fileListModel;
+	public static FileListController fileListController;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -54,8 +55,11 @@ public class MainActivity extends FragmentActivity {
 		t.replace(R.id.center_frame, centerViewPagerFragment);
 
 		t.commit();
-		
 		FileSystem.makeAppDirTree();
+		List<FileInfo> filelist = FileListHelper.GetSortedFiles(
+				FileSystem.SDCARD_PATH, false,SortMethod.name);
+		fileListModel = new FileListModel(filelist, FileSystem.SDCARD_PATH);
+		fileListController = new FileListController(fileListModel);
 	}
 
 	/**
@@ -68,16 +72,16 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mSlidingMenu.isShowRight == true) {
-				mSlidingMenu.showRightView();
+			if (fileListModel.getCurrentDirectory().equals(
+					FileSystem.SDCARD_PATH)) {
+				exitBy2Click();
+			} else if (fileListModel.getCurrentDirectory().equals("")) {
+				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+						FileSystem.SDCARD_PATH, false,SortMethod.name);
+				fileListController.handleDirectoryChange(fileList, FileSystem.SDCARD_PATH);
 			} else {
-				if (FileListFragment.currentDir.equals(FileSystem.SDCARD_PATH)
-						&& FileListFragment.fileCategory == FileListHelper.FileCategory.SDCARD) {
-					exitBy2Click();
-				} else {
-					return centerViewPagerFragment.fileListFragment.onKeyDown(
-							keyCode, event);
-				}
+				centerViewPagerFragment.fileListFragment.onKeyDown(keyCode,
+						event);
 			}
 		}
 		return true;
