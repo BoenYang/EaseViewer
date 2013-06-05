@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -27,9 +28,11 @@ public class FileListAdapter extends BaseAdapter {
 	private boolean checked[];
 
 	class ViewHolder {
+		public ImageView fileIconImageView;
 		public TextView fileNameTextView;
 		public TextView fileSizeTextView;
 		public CheckBox checkBox;
+		public TextView modifyTimeTextview;
 	}
 
 	public FileListAdapter(Context context, List<FileInfo> fileList,
@@ -72,25 +75,33 @@ public class FileListAdapter extends BaseAdapter {
 		} else {
 			convertView = layoutInflater.inflate(layoutId, null);
 			viewHolder = new ViewHolder();
+
+			viewHolder.fileIconImageView = (ImageView) convertView
+					.findViewById(R.id.fileIcon);
 			viewHolder.fileNameTextView = (TextView) convertView
 					.findViewById(R.id.fileName);
 			viewHolder.fileSizeTextView = (TextView) convertView
 					.findViewById(R.id.fileSize);
 			viewHolder.checkBox = (CheckBox) convertView
 					.findViewById(R.id.isSelected);
+			viewHolder.modifyTimeTextview = (TextView) convertView
+					.findViewById(R.id.fileMofidiedDate);
 			convertView.setTag(viewHolder);
 		}
+		FileInfo file = fileList.get(position);
+		
 		viewHolder.checkBox.setOnCheckedChangeListener(new CheckBoxListener(
 				position));
 		viewHolder.checkBox.setChecked(checked[position]);
-
-		FileInfo file = fileList.get(position);
 		viewHolder.fileNameTextView.setText(file.fileName);
-
+		viewHolder.modifyTimeTextview.setText(file.lastModify);
 		if (!file.isDirectory) {
-			viewHolder.fileSizeTextView.setText(file.fileSize + "");
+			viewHolder.fileSizeTextView.setText(file.fileSize);
+			viewHolder.fileIconImageView
+					.setImageResource(R.drawable.file_icon_default);
 		} else {
 			viewHolder.fileSizeTextView.setText("");
+			viewHolder.fileIconImageView.setImageResource(R.drawable.folder);
 		}
 		return convertView;
 	}

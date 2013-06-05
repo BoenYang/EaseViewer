@@ -1,7 +1,6 @@
 package team.androidreader.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -145,13 +144,13 @@ public class FileSystem {
 	 * @param path
 	 * @return
 	 */
-	public static String GetFileNameNoExtension(FileInfo fileInfo) {
+	public static String GetFileFullName(FileInfo fileInfo) {
 		String fileName = fileInfo.absolutePath.substring(fileInfo.absolutePath
 				.lastIndexOf('/') + 1);
 		return fileName.substring(0, fileName.lastIndexOf('.'));
 	}
 
-	public static String GetFileNameNoExtension(String path) {
+	public static String GetFileName(String path) {
 		String fileName = path.substring(path.lastIndexOf('/') + 1);
 		return fileName.substring(0, fileName.lastIndexOf('.'));
 	}
@@ -168,8 +167,9 @@ public class FileSystem {
 	public static boolean isHidden(FileInfo fileInfo) {
 		if (fileInfo.fileName.charAt(0) == '.') {
 			return true;
+		}else{
+			return false;
 		}
-		return false;
 	}
 
 	public static boolean isDirectory(FileInfo fileInfo) {

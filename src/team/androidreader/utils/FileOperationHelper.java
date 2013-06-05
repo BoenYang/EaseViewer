@@ -42,7 +42,7 @@ public class FileOperationHelper {
 	 * @param oldPath
 	 * @param newPath
 	 */
-	public static void moveTo(String oldPath, String newPath) {
+	public static void moveTo(String src, String dst) {
 
 	}
 

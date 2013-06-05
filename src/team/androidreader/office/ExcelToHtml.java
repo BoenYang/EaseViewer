@@ -46,7 +46,7 @@ public class ExcelToHtml {
 	 * @throws IOException
 	 */
 	public ExcelToHtml(String filepath) throws IOException {
-		fileName = FileSystem.GetFileNameNoExtension(filepath);
+		fileName = FileSystem.GetFileName(filepath);
 		FileInputStream fileInputStream = new FileInputStream(filepath);
 		hssfWorkbook = new HSSFWorkbook(fileInputStream);
 		fileInputStream.close();

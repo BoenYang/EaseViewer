@@ -3,6 +3,8 @@ package team.androidreader.mainview;
 import java.io.File;
 import java.util.List;
 
+import team.androidreader.mainview.FileListModel.FileListChangeListener;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
@@ -23,7 +25,7 @@ import android.widget.ListView;
  * 
  */
 public class FileListFragment extends Fragment implements
-		FileListChangeListener {
+		FileListChangeListener{
 
 	private static ListView listView;
 	private static FileListAdapter adapter;
@@ -41,7 +43,7 @@ public class FileListFragment extends Fragment implements
 		MainActivity.fileListModel.addFileListenerChangeListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		adapter = new FileListAdapter(view.getContext(),
-				MainActivity.fileListModel.getFileList(), R.layout.file_item);
+				MainActivity.fileListModel.getFileList(), R.layout.item_file);
 		System.out.println(MainActivity.fileListModel.getFileList().size());
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
@@ -54,8 +56,8 @@ public class FileListFragment extends Fragment implements
 					.getCurrentDirectory();
 			File file = new File(currentDir);
 			String parentDir = file.getParent();
-			List<FileInfo> fileList = FileListHelper.GetAllFiles(parentDir,
-					false);
+			List<FileInfo> fileList = FileListHelper.GetSortedFiles(parentDir,
+					false, SortMethod.name);
 			MainActivity.fileListController.handleDirectoryChange(fileList,
 					parentDir);
 		}
@@ -70,8 +72,8 @@ public class FileListFragment extends Fragment implements
 			FileInfo file = MainActivity.fileListModel.getFileList().get(
 					position);
 			if (file.isDirectory) {
-				List<FileInfo> fileList = FileListHelper.GetAllFiles(
-						file.absolutePath, false);
+				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+						file.absolutePath, false, SortMethod.name);
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						file.absolutePath);
 			} else {

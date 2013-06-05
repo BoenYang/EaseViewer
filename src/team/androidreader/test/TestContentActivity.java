@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.UUID;
 
 import team.androidreader.pdf.PdfReaderActivity;
-import team.androidreader.scanner.ImageToPdfActivity;
 import team.androidreader.scanner.PhotoPreviewActivity;
 import team.androidreader.scanner.SelectDialog;
 import team.androidreader.utils.FileSystem;

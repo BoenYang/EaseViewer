@@ -58,7 +58,7 @@ public class WordToHtml {
 	 * @throws IOException
 	 */
 	public WordToHtml(String filepath) throws IOException {
-		this.fileName = FileSystem.GetFileNameNoExtension(filepath);
+		this.fileName = FileSystem.GetFileName(filepath);
 		FileInputStream inputStream = new FileInputStream(filepath);
 		this.document = new HWPFDocument(inputStream);
 		this.pictures = document.getPicturesTable().getAllPictures();

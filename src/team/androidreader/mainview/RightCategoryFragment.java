@@ -3,11 +3,10 @@ package team.androidreader.mainview;
 import java.util.List;
 
 import team.androidreader.helpabout.AboutActivity;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.theme.ChangeThemeActivity;
 import team.top.activity.R;
-import android.R.integer;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -86,12 +85,12 @@ public class RightCategoryFragment extends Fragment {
 		about.setOnClickListener(new FileCategorySelectListener());
 		// officeList =
 		// fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
-		pictureList = FileListHelper.GetCategory(getActivity(),
-				FileListHelper.FileCategory.PICTURE, true);
-		musicList = FileListHelper.GetCategory(getActivity(),
-				FileListHelper.FileCategory.MUSIC, true);
-		videoList = FileListHelper.GetCategory(getActivity(),
-				FileListHelper.FileCategory.VIDEO, true);
+		pictureList = FileListHelper.GetSortedFileByCategory(getActivity(),
+				FileListHelper.FileCategory.PICTURE, false,SortMethod.name);
+		musicList = FileListHelper.GetSortedFileByCategory(getActivity(),
+				FileListHelper.FileCategory.MUSIC, false,SortMethod.name);
+		videoList = FileListHelper.GetSortedFileByCategory(getActivity(),
+				FileListHelper.FileCategory.VIDEO, false,SortMethod.name);
 		// zipList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
 		// true);
 		// apkList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
@@ -123,17 +122,17 @@ public class RightCategoryFragment extends Fragment {
 				break;
 			case R.id.categoryPictureBtn:
 				fileList = pictureList;
-				MainActivity.fileListController.handleDirectoryChange(pictureList, "");
+				MainActivity.fileListController.handleDirectoryChange(fileList, "");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryMusicBtn:
 				fileList = musicList;
-				MainActivity.fileListController.handleDirectoryChange(musicList, "");
+				MainActivity.fileListController.handleDirectoryChange(fileList, "");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryVideoBtn:
 				fileList = videoList;
-				MainActivity.fileListController.handleDirectoryChange(videoList, "");
+				MainActivity.fileListController.handleDirectoryChange(fileList, "");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 

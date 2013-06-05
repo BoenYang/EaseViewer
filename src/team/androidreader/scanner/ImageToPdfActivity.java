@@ -4,6 +4,7 @@ import java.util.List;
 
 import team.androidreader.mainview.FileInfo;
 import team.androidreader.mainview.FileListHelper;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.top.activity.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,9 +21,9 @@ public class ImageToPdfActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_imagetopdf);
 		fileGridView = (GridView) findViewById(R.id.fileGridView);
-		fileData = FileListHelper.GetAllFiles("/sdcard/" + "Camera", true);
+		fileData = FileListHelper.GetSortedFiles("/sdcard", false, SortMethod.nosort);
 		imageShowAdapter = new ImageShowAdapter(this, fileData,
-				R.layout.image_item);
+				R.layout.item_image);
 		fileGridView.setAdapter(imageShowAdapter);
 	}
 }

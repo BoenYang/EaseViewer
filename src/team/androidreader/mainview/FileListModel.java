@@ -5,6 +5,14 @@ import java.util.List;
 
 public class FileListModel {
 	
+	
+	public interface FileListChangeListener {
+		
+		public void onFileListChange(FileListModel fileListModel);
+		
+	}
+
+	
 	private List<FileInfo> fileList = new ArrayList<FileInfo>();
 	private String currentDirectory;
 	private FileListChangeListener listener;

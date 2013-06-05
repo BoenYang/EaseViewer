@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.os.Bundle;
@@ -40,9 +41,9 @@ public class MainActivity extends FragmentActivity {
 	private void init() {
 		mSlidingMenu = (SlidingMenu) findViewById(R.id.slidingMenu);
 		mSlidingMenu.setRightView(getLayoutInflater().inflate(
-				R.layout.right_frame, null));
+				R.layout.frame_right, null));
 		mSlidingMenu.setCenterView(getLayoutInflater().inflate(
-				R.layout.center_frame, null));
+				R.layout.frame_center, null));
 
 		FragmentTransaction t = this.getSupportFragmentManager()
 				.beginTransaction();
@@ -55,8 +56,8 @@ public class MainActivity extends FragmentActivity {
 
 		t.commit();
 		FileSystem.makeAppDirTree();
-		List<FileInfo> filelist = FileListHelper.GetAllFiles(
-				FileSystem.SDCARD_PATH, false);
+		List<FileInfo> filelist = FileListHelper.GetSortedFiles(
+				FileSystem.SDCARD_PATH, false,SortMethod.name);
 		fileListModel = new FileListModel(filelist, FileSystem.SDCARD_PATH);
 		fileListController = new FileListController(fileListModel);
 	}
@@ -75,8 +76,8 @@ public class MainActivity extends FragmentActivity {
 					FileSystem.SDCARD_PATH)) {
 				exitBy2Click();
 			} else if (fileListModel.getCurrentDirectory().equals("")) {
-				List<FileInfo> fileList = FileListHelper.GetAllFiles(
-						FileSystem.SDCARD_PATH, true);
+				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+						FileSystem.SDCARD_PATH, false,SortMethod.name);
 				fileListController.handleDirectoryChange(fileList, FileSystem.SDCARD_PATH);
 			} else {
 				centerViewPagerFragment.fileListFragment.onKeyDown(keyCode,
@@ -95,7 +96,7 @@ public class MainActivity extends FragmentActivity {
 		Timer tExit = null;
 		if (isExit == false) {
 			isExit = true; // 准备退出
-			Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
 			tExit = new Timer();
 			tExit.schedule(new TimerTask() {
 				@Override

@@ -73,7 +73,7 @@ public class ShowOfficeActivity extends Activity {
 		public void run() {
 			Message msg = new Message();
 			String fileName = "";
-			fileName = FileSystem.GetFileNameNoExtension(path);
+			fileName = FileSystem.GetFileName(path);
 			if (extension.equals("doc")) {
 				WordToHtml word2Html = null;
 				try {

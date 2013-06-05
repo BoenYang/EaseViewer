@@ -1,6 +1,7 @@
 package team.androidreader.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
@@ -54,13 +55,27 @@ public class BitmapHelper {
 		}
 	}
 
-	public static void writeBitmapToSdcard(Bitmap bitmap, String path,
-			CompressFormat format, int compress) throws IOException {
+	public static boolean writeBitmapToSdcard(Bitmap bitmap, String path,
+			CompressFormat format, int compress){
 		FileOutputStream fileOutputStream = null;
-		fileOutputStream = new FileOutputStream(path);
-		bitmap.compress(format, compress, fileOutputStream);
-		fileOutputStream.close();
+		try {
+			fileOutputStream = new FileOutputStream(path);
+			bitmap.compress(format, compress, fileOutputStream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}finally{
+			if(fileOutputStream != null)
+			{
+				try {
+					fileOutputStream.close();
+				} catch (IOException e) {
+					return false;
+				}
+			}
+			
+		}
 		fileOutputStream = null;
+		return true;
 	}
 
 	public static int computeSampleSize(BitmapFactory.Options options,
