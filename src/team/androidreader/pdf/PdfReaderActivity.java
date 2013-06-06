@@ -14,6 +14,7 @@ import team.androidreader.constant.Constant;
 import team.androidreader.dialog.WaittingDialog;
 import team.androidreader.utils.BitmapHelper;
 import team.androidreader.utils.FileSystem;
+import team.androidreader.utils.OnProgressListener;
 import team.top.activity.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -27,7 +28,7 @@ import android.os.Message;
 import android.widget.ListView;
 
 @SuppressLint("HandlerLeak")
-public class PdfReaderActivity extends Activity {
+public class PdfReaderActivity extends Activity implements OnProgressListener{
 
 	private ListView listview;
 	private PdfShowAdapter pdfShowAdapter;
@@ -36,20 +37,19 @@ public class PdfReaderActivity extends Activity {
 	private WaittingDialog waittingDialog;
 	private List<HashMap<String, SoftReference<Bitmap>>> bitmaps = new ArrayList<HashMap<String, SoftReference<Bitmap>>>();
 	public static PdfDocument document;
+	Message msg = new Message();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pdfreader);
+		init();
+		this.OnProgressStart();
+	}
+	
+	private void init(){
 		listview = (ListView) findViewById(R.id.pdfreader_listview);
 		listview.setOnTouchListener(new ZoomListener(listview));
-		waittingDialog = new WaittingDialog(PdfReaderActivity.this);
-		Intent intent = getIntent();
-		path = intent.getStringExtra("path");
-		filename = FileSystem.GetFileName(path);
-		waittingDialog.show();
-		Thread thread = new Thread(new ParseThread());
-		thread.start();
 	}
 
 	private Handler handler = new Handler() {
@@ -74,13 +74,10 @@ public class PdfReaderActivity extends Activity {
 	class ParseThread implements Runnable {
 		@Override
 		public void run() {
-
 			String saveDir = FileSystem.PDF_CACHE + File.separator + filename;
-
-			Message msg = new Message();
 			PdfContext pdfContext = new PdfContext();
 			document = (PdfDocument) pdfContext.openDocument(path);
-			PdfPage page = null;
+			
 			int num = document.getPageCount();
 
 			for (int i = 0; i < num; i++) {
@@ -99,8 +96,10 @@ public class PdfReaderActivity extends Activity {
 				dir.mkdir();
 			}
 
+			PdfPage page = null;
+			String saveImageName = "";
 			for (int i = 0; i < num; i++) {
-				String saveImageName = saveDir + File.separator + filename + i
+				saveImageName = saveDir + File.separator + filename + i
 						+ ".jpg";
 				File file = new File(saveImageName);
 				if (!file.exists()) {
@@ -116,14 +115,29 @@ public class PdfReaderActivity extends Activity {
 								bitmap));
 						bitmaps.set(i, item);
 						msg.what = Constant.PRASE_SUCCESSFUL;
-						handler.sendMessage(msg);
 					} else {
 						msg.what = Constant.PRASE_FAILED;
-						handler.sendMessage(msg);
 					}
 				}
 			}
-
+			PdfReaderActivity.this.OnProgressFinished();
 		}
+	}
+
+	@Override
+	public void OnProgressStart() {
+		Intent intent = getIntent();
+		path = intent.getStringExtra("path");
+		filename = FileSystem.GetFileName(path);
+		waittingDialog = new WaittingDialog(PdfReaderActivity.this);
+		waittingDialog.show();
+		Thread thread = new Thread(new ParseThread());
+		thread.start();
+	}
+
+	@Override
+	public void OnProgressFinished() {
+		
+		handler.sendMessage(msg);
 	}
 }

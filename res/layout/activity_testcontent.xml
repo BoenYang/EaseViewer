@@ -5,38 +5,22 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/btn3"
+        android:id="@+id/copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="testImageToPdfListShow" />
+        android:text="testcopyfiles" />
 
     <Button
-        android:id="@+id/btn4"
+        android:id="@+id/rename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="testSelectDialog" />
+        android:text="testrenamefiles" />
 
     <Button
-        android:id="@+id/cameraBtn"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="testInputNameDialo" />
+        android:text="testdeletefiles" />
 
-    <Button
-        android:id="@+id/screenshot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="screenshot" />
-     <Button
-        android:id="@+id/pdfshow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pdfshow" />
-
-     <Button
-         android:id="@+id/testWattingDialog"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="test waitting dialog" />
 
 </LinearLayout>

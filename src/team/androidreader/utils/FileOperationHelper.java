@@ -5,25 +5,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+
+import team.androidreader.mainview.FileInfo;
 
 public class FileOperationHelper {
 
-	/**
-	 * 
-	 * @param path
-	 */
-	public static void Delete(String path) {
-		File file = new File(path);
-		if (file.isDirectory()) {
-			File[] files = file.listFiles();
-			if (files != null) {
-				for (int i = 0; i < files.length; i++) {
-					Delete(files[i].getAbsolutePath());
-				}
-				file.delete();
-			}
+
+	public static void Delete(List<FileInfo> fileList) {
+		for (FileInfo fileInfo : fileList) {
+			DeleteFile(fileInfo.absolutePath);
 		}
-		file.delete();
+	}
+
+	private static void DeleteFile(String path) {
+		File file = new File(path);
+		if (file.exists()) {
+			boolean directory = file.isDirectory();
+			if (directory) {
+				for (File child : file.listFiles()) {
+					DeleteFile(child.getAbsolutePath());
+				}
+			}
+			file.delete();
+		}
+
 	}
 
 	/**
@@ -45,7 +51,6 @@ public class FileOperationHelper {
 	public static void moveTo(String src, String dst) {
 
 	}
-
 
 	public static String copyFile(String src, String dst) {
 		File srcFile = new File(src);

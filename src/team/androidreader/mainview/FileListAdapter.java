@@ -1,5 +1,6 @@
 package team.androidreader.mainview;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import team.top.activity.R;
@@ -26,6 +27,7 @@ public class FileListAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private ViewHolder viewHolder;
 	private boolean checked[];
+	private List<FileInfo> selected = new ArrayList<FileInfo>();
 
 	class ViewHolder {
 		public ImageView fileIconImageView;
@@ -43,6 +45,10 @@ public class FileListAdapter extends BaseAdapter {
 		layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		checked = new boolean[fileList.size()];
+	}
+
+	public List<FileInfo> getSelected() {
+		return selected;
 	}
 
 	@Override
@@ -89,7 +95,7 @@ public class FileListAdapter extends BaseAdapter {
 			convertView.setTag(viewHolder);
 		}
 		FileInfo file = fileList.get(position);
-		
+
 		viewHolder.checkBox.setOnCheckedChangeListener(new CheckBoxListener(
 				position));
 		viewHolder.checkBox.setChecked(checked[position]);
@@ -124,6 +130,11 @@ public class FileListAdapter extends BaseAdapter {
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
 			checked[position] = isChecked;
+			if (isChecked) {
+				selected.add(fileList.get(position));
+			} else {
+				selected.remove(fileList.get(position));
+			}
 		}
 	}
 
