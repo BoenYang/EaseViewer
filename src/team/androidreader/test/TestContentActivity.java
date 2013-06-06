@@ -1,16 +1,11 @@
 package team.androidreader.test;
 
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
-import team.androidreader.pdf.PdfReaderActivity;
 import team.androidreader.scanner.PhotoPreviewActivity;
-import team.androidreader.scanner.SelectDialog;
-import team.androidreader.utils.FileSystem;
-import team.androidreader.utils.ScreenCapturer;
 import team.top.activity.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,34 +23,27 @@ import android.widget.Button;
 public class TestContentActivity extends Activity {
 
 	public static float curDegrees = 0;// 当前旋转度数
-	private Button btn3;
-	private Button btn4;
-	private Button btn5;
-	private Button btn6;
-	private Button pdfshowBtn;
-	public Button testWaittingBtn;
-
+	private Button copy;
+	private Button delete;
+	private Button rename;
 	String fileName;
 	String filePath;
 
-	// public static String lastImagePath;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_testcontent);
-		btn3 = (Button) findViewById(R.id.btn3);
-		btn4 = (Button) findViewById(R.id.btn4);
-		btn5 = (Button) findViewById(R.id.cameraBtn);
-		btn6 = (Button) findViewById(R.id.screenshot);
-		pdfshowBtn = (Button) findViewById(R.id.pdfshow);
-		testWaittingBtn = (Button) findViewById(R.id.testWattingDialog);
-		btn5.setOnClickListener(new BtnListener());
-		btn4.setOnClickListener(new BtnListener());
-		btn3.setOnClickListener(new BtnListener());
-		btn6.setOnClickListener(new BtnListener());
-		pdfshowBtn.setOnClickListener(new BtnListener());
-		testWaittingBtn.setOnClickListener(new BtnListener());
+		init();
+	}
+
+	private void init() {
+		copy = (Button) findViewById(R.id.copy);
+		delete = (Button) findViewById(R.id.delete);
+		rename = (Button) findViewById(R.id.rename);
+		copy.setOnClickListener(new BtnListener());
+		delete.setOnClickListener(new BtnListener());
+		rename.setOnClickListener(new BtnListener());
 	}
 
 	class BtnListener implements View.OnClickListener {
@@ -64,29 +52,13 @@ public class TestContentActivity extends Activity {
 		public void onClick(View v) {
 			int id = v.getId();
 			switch (id) {
-			case R.id.btn3:
+			case R.id.copy:
+				//FileOperationHelper.copyFile(src, dst)
 				break;
-			case R.id.btn4:
-				SelectDialog selectDialog = new SelectDialog(
-						TestContentActivity.this);
-				selectDialog.show();
+			case R.id.delete:
+				
 				break;
-			case R.id.cameraBtn:
-				takePhoto();
-			case R.id.screenshot:
-				String name = "ScreenShot" + FileSystem.GetTimeFileName();
-				if (ScreenCapturer.TakeScreenShot(TestContentActivity.this,
-						FileSystem.PRTSCR_DIR, name)) {
-					System.out.println("---------------------------");
-					break;
-				}
-			case R.id.pdfshow:
-				Intent intent2 = new Intent();
-				intent2.setClass(TestContentActivity.this,
-						PdfReaderActivity.class);
-				startActivity(intent2);
-				break;
-			case R.id.testWattingDialog:
+			case R.id.rename:
 				break;
 			}
 		}

@@ -7,6 +7,8 @@ import team.androidreader.mainview.FileListHelper;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.top.activity.R;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.GridView;
 
@@ -25,5 +27,19 @@ public class ImageToPdfActivity extends Activity {
 		imageShowAdapter = new ImageShowAdapter(this, fileData,
 				R.layout.item_image);
 		fileGridView.setAdapter(imageShowAdapter);
+	}
+	
+	class SelectDialog extends Dialog{
+
+		public SelectDialog(Context context) {
+			super(context);
+		}
+		
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.dialog_select);
+			setTitle("please select photo");
+		}
 	}
 }

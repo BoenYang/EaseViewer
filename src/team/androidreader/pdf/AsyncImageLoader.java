@@ -68,13 +68,12 @@ public class AsyncImageLoader {
 						BitmapHelper.writeBitmapToSdcard(b, imagePath,
 								CompressFormat.JPEG, 100);
 						bitmap = b;
-						imageCache.put(imagePath, new SoftReference<Bitmap>(
-								bitmap));
 					} else {
 						bitmap = loadBitmapFromSdcrad(imagePath);
-						imageCache.put(imagePath, new SoftReference<Bitmap>(
-								bitmap));
+						
 					}
+					imageCache.put(imagePath, new SoftReference<Bitmap>(
+							bitmap));
 					PdfShowAdapter.bitmaps.set(position, imageCache);
 					Message msg = handler.obtainMessage(0, bitmap);
 					handler.sendMessage(msg);
@@ -91,8 +90,7 @@ public class AsyncImageLoader {
 	 * @return
 	 */
 	public static Bitmap loadBitmapFromSdcrad(String path) {
-		Bitmap bitmap = BitmapFactory.decodeFile(path);
-		return bitmap;
+		return BitmapFactory.decodeFile(path);
 	}
 
 	public interface CallBack {

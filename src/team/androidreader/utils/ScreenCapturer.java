@@ -1,8 +1,5 @@
 package team.androidreader.utils;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;

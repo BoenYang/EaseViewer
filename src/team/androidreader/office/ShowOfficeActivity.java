@@ -8,6 +8,8 @@ import team.androidreader.constant.Constant;
 import team.androidreader.dialog.WaittingDialog;
 import team.androidreader.exception.WriteHtmlExcpetion;
 import team.androidreader.utils.FileSystem;
+import team.androidreader.utils.OnProgressListener;
+import team.top.activity.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,34 +21,33 @@ import android.webkit.WebView;
 import android.widget.ZoomButtonsController;
 
 @SuppressLint("HandlerLeak")
-public class ShowOfficeActivity extends Activity {
+public class ShowOfficeActivity extends Activity implements OnProgressListener{
 
 	private WebView webView;
 	private String htmlPath = "";
 	private String extension;
 	private String path;
-
 	private WaittingDialog waittingDialog;
+	private Message msg = new Message();
 
-	@SuppressLint("SetJavaScriptEnabled")
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		webView = new WebView(this);
-		setContentView(webView);
+		setContentView(R.layout.activity_showoffice);
+		init();
+		this.OnProgressStart();
+	}
+	
+	@SuppressLint("SetJavaScriptEnabled")
+	private void init(){
+		webView = (WebView)findViewById(R.id.officeweb);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
 		webView.getSettings().setBuiltInZoomControls(true);
 		webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 		webView.getSettings().setDefaultTextEncodingName("gbk");
 		setZoomControlGone(webView);
-		Intent intent = getIntent();
-		extension = intent.getStringExtra("extension");
-		path = intent.getStringExtra("path");
-		waittingDialog = new WaittingDialog(ShowOfficeActivity.this);
-		waittingDialog.show();
-		Thread thread = new Thread(new PraseOfficeThread());
-		thread.start();
 	}
 
 	private Handler handler = new Handler() {
@@ -71,9 +72,7 @@ public class ShowOfficeActivity extends Activity {
 	class PraseOfficeThread implements Runnable {
 		@Override
 		public void run() {
-			Message msg = new Message();
-			String fileName = "";
-			fileName = FileSystem.GetFileName(path);
+			String fileName = FileSystem.GetFileName(path);
 			if (extension.equals("doc")) {
 				WordToHtml word2Html = null;
 				try {
@@ -116,13 +115,12 @@ public class ShowOfficeActivity extends Activity {
 				}
 			}
 			msg.what = Constant.PRASE_SUCCESSFUL;
-			handler.sendMessage(msg);
+			ShowOfficeActivity.this.OnProgressFinished();
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setZoomControlGone(View view) {
-		Class classType;
+	private void setZoomControlGone(View view) {
+		Class<WebView> classType;
 		Field field;
 		try {
 			classType = WebView.class;
@@ -172,6 +170,22 @@ public class ShowOfficeActivity extends Activity {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void OnProgressStart() {
+		Intent intent = getIntent();
+		extension = intent.getStringExtra("extension");
+		path = intent.getStringExtra("path");
+		waittingDialog = new WaittingDialog(ShowOfficeActivity.this);
+		waittingDialog.show();
+		Thread thread = new Thread(new PraseOfficeThread());
+		thread.start();
+	}
+
+	@Override
+	public void OnProgressFinished() {
+		handler.sendMessage(msg);
 	}
 
 }

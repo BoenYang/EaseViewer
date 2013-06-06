@@ -12,10 +12,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
-
 	public static SlidingMenu mSlidingMenu;
 	private RightCategoryFragment rightClassifyFragment;
 	private CenterViewPagerFragment centerViewPagerFragment;
@@ -57,9 +57,10 @@ public class MainActivity extends FragmentActivity {
 		t.commit();
 		FileSystem.makeAppDirTree();
 		List<FileInfo> filelist = FileListHelper.GetSortedFiles(
-				FileSystem.SDCARD_PATH, false,SortMethod.name);
+				FileSystem.SDCARD_PATH, false, SortMethod.name);
 		fileListModel = new FileListModel(filelist, FileSystem.SDCARD_PATH);
 		fileListController = new FileListController(fileListModel);
+		
 	}
 
 	/**
@@ -75,16 +76,14 @@ public class MainActivity extends FragmentActivity {
 			if (fileListModel.getCurrentDirectory().equals(
 					FileSystem.SDCARD_PATH)) {
 				exitBy2Click();
-			} else if (fileListModel.getCurrentDirectory().equals("")) {
-				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
-						FileSystem.SDCARD_PATH, false,SortMethod.name);
-				fileListController.handleDirectoryChange(fileList, FileSystem.SDCARD_PATH);
-			} else {
-				centerViewPagerFragment.fileListFragment.onKeyDown(keyCode,
-						event);
+				return true;
 			}
+		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
+			this.openOptionsMenu();
+			System.out.println("menu clicked");
 		}
-		return true;
+		return centerViewPagerFragment.fileListFragment.onKeyDown(keyCode,
+				event);
 	}
 
 	/**
@@ -108,6 +107,14 @@ public class MainActivity extends FragmentActivity {
 			finish();
 			System.exit(0);
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0, 1, 1, "跳转到OtherActivity");
+		menu.add(0, 2, 0, "菜单到SubActivity");
+		System.out.println("-----------------oncreate options menu");
+		return super.onCreateOptionsMenu(menu);
 	}
 
 }

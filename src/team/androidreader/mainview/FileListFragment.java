@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,11 +27,11 @@ import android.widget.ListView;
  * 
  */
 public class FileListFragment extends Fragment implements
-		FileListChangeListener{
+		FileListChangeListener {
 
-	private static ListView listView;
-	private static FileListAdapter adapter;
-	private static View view;
+	private ListView listView;
+	private FileListAdapter adapter;
+	private View view;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -40,14 +42,17 @@ public class FileListFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
+		init();
+		return view;
+	}
+
+	private void init() {
 		MainActivity.fileListModel.addFileListenerChangeListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		adapter = new FileListAdapter(view.getContext(),
 				MainActivity.fileListModel.getFileList(), R.layout.item_file);
-		System.out.println(MainActivity.fileListModel.getFileList().size());
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
-		return view;
 	}
 
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
@@ -60,7 +65,7 @@ public class FileListFragment extends Fragment implements
 					false, SortMethod.name);
 			MainActivity.fileListController.handleDirectoryChange(fileList,
 					parentDir);
-		}
+		} 
 		return true;
 	}
 

@@ -11,6 +11,8 @@ import team.androidreader.mainview.MainActivity;
 import team.androidreader.test.TestContentActivity;
 import team.top.activity.R;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -147,5 +149,20 @@ public class PhotoPreviewActivity extends Activity {
 		mPhoneAlbumCache.put(path, new SoftReference<Bitmap>(bitmap));
 		return bitmap;
 	}
+	
+	class SetNameDialog extends Dialog{
+
+		public SetNameDialog(Context context) {
+			super(context);
+		}
+
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.dialog_setname);
+		}
+
+	}
+
 
 }
