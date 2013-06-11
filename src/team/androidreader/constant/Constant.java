@@ -7,6 +7,7 @@ package team.androidreader.constant;
  * 
  */
 public class Constant {
+	
 	public final static String APP_NAME = "AndroidReader";
 	public final static String APP_VERSION = "1.0";
 	public final static String WORD_CACHE_DIR = "WordCache";

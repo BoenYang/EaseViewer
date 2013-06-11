@@ -1,17 +1,19 @@
 package team.androidreader.mainview;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.itextpdf.text.xml.simpleparser.NewLineHandler;
 
 import team.top.activity.R;
+import android.R.string;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +29,34 @@ public class FileListAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 	private ViewHolder viewHolder;
 	private boolean checked[];
-	private List<FileInfo> selected = new ArrayList<FileInfo>();
+	private static Map<String, Integer> iconMap = new HashMap<String, Integer>();
+
+	static {
+		iconMap.put("mp3", R.drawable.mp3);
+		iconMap.put("ape", R.drawable.ape);
+		iconMap.put("flac", R.drawable.flac);
+		iconMap.put("wmv", R.drawable.wmv);
+		iconMap.put("wav", R.drawable.wav);
+		iconMap.put("wma", R.drawable.wma);
+		iconMap.put("avi", R.drawable.avi);
+		iconMap.put("flac", R.drawable.flac);
+		iconMap.put("rmvb", R.drawable.rmvb);
+		iconMap.put("mkv", R.drawable.mkv);
+		iconMap.put("mp4", R.drawable.mp4);
+		iconMap.put("jpg", R.drawable.jpg);
+		iconMap.put("gif", R.drawable.gif);
+		iconMap.put("bmp", R.drawable.bmp);
+		iconMap.put("png", R.drawable.png);
+		iconMap.put("doc", R.drawable.doc);
+		iconMap.put("ppt", R.drawable.ppt);
+		iconMap.put("xls", R.drawable.xls);
+		iconMap.put("pdf", R.drawable.pdf);
+		iconMap.put("txt", R.drawable.txt);
+		iconMap.put("log", R.drawable.log);
+		iconMap.put("html", R.drawable.html);
+		iconMap.put("zip", R.drawable.zip);
+		iconMap.put("rar", R.drawable.rar);
+	}
 
 	class ViewHolder {
 		public ImageView fileIconImageView;
@@ -45,10 +74,6 @@ public class FileListAdapter extends BaseAdapter {
 		layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		checked = new boolean[fileList.size()];
-	}
-
-	public List<FileInfo> getSelected() {
-		return selected;
 	}
 
 	@Override
@@ -93,18 +118,25 @@ public class FileListAdapter extends BaseAdapter {
 			viewHolder.modifyTimeTextview = (TextView) convertView
 					.findViewById(R.id.fileMofidiedDate);
 			convertView.setTag(viewHolder);
+
 		}
 		FileInfo file = fileList.get(position);
-
-		viewHolder.checkBox.setOnCheckedChangeListener(new CheckBoxListener(
-				position));
 		viewHolder.checkBox.setChecked(checked[position]);
 		viewHolder.fileNameTextView.setText(file.fileName);
 		viewHolder.modifyTimeTextview.setText(file.lastModify);
+		viewHolder.checkBox.setOnClickListener(new CheckBoxOnClickListener(
+				position));
 		if (!file.isDirectory) {
 			viewHolder.fileSizeTextView.setText(file.fileSize);
-			viewHolder.fileIconImageView
-					.setImageResource(R.drawable.file_icon_default);
+			String extension = file.fileName.substring(file.fileName
+					.lastIndexOf('.') + 1);
+			System.out.println(extension);
+			if (!iconMap.containsKey(extension)) {
+				viewHolder.fileIconImageView.setImageResource(R.drawable.unknown);
+			} else {
+				viewHolder.fileIconImageView.setImageResource(iconMap
+						.get(extension));
+			}
 		} else {
 			viewHolder.fileSizeTextView.setText("");
 			viewHolder.fileIconImageView.setImageResource(R.drawable.folder);
@@ -118,22 +150,25 @@ public class FileListAdapter extends BaseAdapter {
 		super.notifyDataSetChanged();
 	}
 
-	class CheckBoxListener implements OnCheckedChangeListener {
+	class CheckBoxOnClickListener implements View.OnClickListener {
 
 		private int position;
 
-		public CheckBoxListener(int pos) {
+		public CheckBoxOnClickListener(int pos) {
 			position = pos;
 		}
 
 		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			checked[position] = isChecked;
-			if (isChecked) {
-				selected.add(fileList.get(position));
+		public void onClick(View v) {
+
+			if (checked[position] == false) {
+				checked[position] = true;
+				MainActivity.fileListModel
+						.addSelectFile(fileList.get(position));
 			} else {
-				selected.remove(fileList.get(position));
+				checked[position] = false;
+				MainActivity.fileListModel.deleteSelectFile(fileList
+						.get(position));
 			}
 		}
 	}

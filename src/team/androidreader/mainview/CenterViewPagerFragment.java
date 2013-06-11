@@ -43,27 +43,6 @@ public class CenterViewPagerFragment extends Fragment {
 		pagerItemList.add(fileListFragment);
 		mAdapter = new MyAdapter(getFragmentManager());
 		mPager.setAdapter(mAdapter);
-		mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int position) {
-
-				if (myPageChangeListener != null)
-					myPageChangeListener.onPageSelected(position);
-
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int position) {
-
-			}
-		});
-		
 		return mView;
 	}
 
@@ -92,19 +71,6 @@ public class CenterViewPagerFragment extends Fragment {
 		});
 	}
 
-	public boolean isFirst() {
-		if (mPager.getCurrentItem() == 0)
-			return true;
-		else
-			return false;
-	}
-
-	public boolean isEnd() {
-		if (mPager.getCurrentItem() == pagerItemList.size() - 1)
-			return true;
-		else
-			return false;
-	}
 
 	public class MyAdapter extends FragmentPagerAdapter {
 		public MyAdapter(FragmentManager fm) {
@@ -129,22 +95,10 @@ public class CenterViewPagerFragment extends Fragment {
 
 		}
 	}
-
-	private MyPageChangeListener myPageChangeListener;
-
-	public void setMyPageChangeListener(MyPageChangeListener l) {
-
-		myPageChangeListener = l;
-
-	}
 	
 	public boolean onKeyDown(int keycode,KeyEvent keyEvent){
 		
 		return fileListFragment.onKeyDown(keycode, keyEvent);
-	}
-
-	public interface MyPageChangeListener {
-		public void onPageSelected(int position);
 	}
 
 }

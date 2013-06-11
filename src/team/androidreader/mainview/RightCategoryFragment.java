@@ -135,7 +135,6 @@ public class RightCategoryFragment extends Fragment {
 				MainActivity.fileListController.handleDirectoryChange(fileList, "");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
-
 			case R.id.categoryApkBtn:
 				// fileList =
 				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
