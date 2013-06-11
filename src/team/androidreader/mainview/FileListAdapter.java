@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.itextpdf.text.xml.simpleparser.NewLineHandler;
-
 import team.top.activity.R;
-import android.R.string;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class FileListAdapter extends BaseAdapter {
 	private ViewHolder viewHolder;
 	private boolean checked[];
 	private static Map<String, Integer> iconMap = new HashMap<String, Integer>();
+	private PackageManager pm;
 
 	static {
 		iconMap.put("mp3", R.drawable.mp3);
@@ -74,6 +76,7 @@ public class FileListAdapter extends BaseAdapter {
 		layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		checked = new boolean[fileList.size()];
+		pm = context.getPackageManager();
 	}
 
 	@Override
@@ -130,12 +133,22 @@ public class FileListAdapter extends BaseAdapter {
 			viewHolder.fileSizeTextView.setText(file.fileSize);
 			String extension = file.fileName.substring(file.fileName
 					.lastIndexOf('.') + 1);
-			System.out.println(extension);
-			if (!iconMap.containsKey(extension)) {
-				viewHolder.fileIconImageView.setImageResource(R.drawable.unknown);
-			} else {
+			if (iconMap.containsKey(extension)) {
 				viewHolder.fileIconImageView.setImageResource(iconMap
 						.get(extension));
+			} else if (extension.equals("apk")) {
+				PackageInfo pkgInfo = pm.getPackageArchiveInfo(
+						file.absolutePath, PackageManager.GET_ACTIVITIES);
+				if (pkgInfo != null) {
+					ApplicationInfo appInfo = pkgInfo.applicationInfo;
+					appInfo.sourceDir = file.absolutePath;
+					appInfo.publicSourceDir = file.absolutePath;
+					Drawable icon1 = pm.getApplicationIcon(appInfo);// 得到图标信息
+					viewHolder.fileIconImageView.setImageDrawable(icon1);
+				}
+			} else {
+				viewHolder.fileIconImageView
+						.setImageResource(R.drawable.unknown);
 			}
 		} else {
 			viewHolder.fileSizeTextView.setText("");

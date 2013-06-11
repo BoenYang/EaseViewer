@@ -11,17 +11,17 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int bg_color=0x7f040004;
-        public static final int bg_color_deep=0x7f040005;
-        public static final int black=0x7f040006;
-        public static final int black_half=0x7f040008;
-        public static final int blue_ICS=0x7f040001;
-        public static final int blue_pure=0x7f040002;
-        public static final int no_color=0x7f040003;
-        public static final int text_color=0x7f040007;
-        public static final int translucent_00=0x7f04000a;
-        public static final int translucent_20=0x7f040009;
-        public static final int white=0x7f040000;
+        public static final int bg_color=0x7f040002;
+        public static final int bg_color_deep=0x7f040003;
+        public static final int black_half=0x7f040005;
+        public static final int black_title=0x7f04000a;
+        public static final int blue_ICS=0x7f040000;
+        public static final int brown=0x7f040008;
+        public static final int brown_pressed=0x7f040009;
+        public static final int no_color=0x7f040001;
+        public static final int text_color=0x7f040004;
+        public static final int translucent_00=0x7f040007;
+        public static final int translucent_20=0x7f040006;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 

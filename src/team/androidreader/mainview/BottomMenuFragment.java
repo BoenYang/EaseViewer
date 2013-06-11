@@ -1,6 +1,5 @@
 package team.androidreader.mainview;
 
-import java.util.Collections;
 import java.util.List;
 
 import team.androidreader.mainview.FileSortHelper.SortMethod;

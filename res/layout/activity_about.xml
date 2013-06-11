@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/title_about"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="9pt" />
     </LinearLayout>
 

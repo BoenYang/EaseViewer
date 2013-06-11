@@ -12,13 +12,14 @@
         <LinearLayout
             android:layout_width="240dp"
             android:layout_height="fill_parent"
-            android:background="@drawable/category_bg_black"
+            android:background="@color/brown"
             android:orientation="vertical" >
 
             <RelativeLayout
                 android:id="@+id/appInfo"
-                android:layout_width="200dp"
+                android:layout_width="240dp"
                 android:layout_height="45dp"
+                android:background="@color/black_title"
                 android:padding="3dp" >
 
                 <ImageView

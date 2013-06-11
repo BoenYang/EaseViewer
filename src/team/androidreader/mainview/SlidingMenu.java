@@ -104,7 +104,7 @@ public class SlidingMenu extends RelativeLayout {
 				R.drawable.shade_bg));
 		bgShade.addView(bgShadeContent, bgParams);
 
-		addView(bgShade, bgParams);
+		//addView(bgShade, bgParams);
 
 		addView(view, aboveParams);
 		mSlidingView = view;
