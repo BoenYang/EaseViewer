@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
         android:layout_marginRight="10dp"
-        android:src="@drawable/file_icon_default" />
+        android:src="@drawable/unknown" />
 
     <TextView
         android:id="@+id/fileName"
@@ -23,8 +23,8 @@
         android:ellipsize="end"
         android:paddingTop="2dp"
         android:singleLine="true"
-        android:text="fileName"
         android:textSize="7pt"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <TextView
@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/fileIcon"
         android:layout_alignLeft="@id/fileName"
-        android:text="2013-06-01"
         android:textSize="4pt" />
 
     <TextView
@@ -43,7 +42,6 @@
         android:layout_alignBottom="@id/fileMofidiedDate"
         android:layout_toRightOf="@id/fileMofidiedDate"
         android:layout_marginLeft="10dp"
-        android:text="1024k"
         android:textSize="4pt"
         android:textStyle="normal" />
 

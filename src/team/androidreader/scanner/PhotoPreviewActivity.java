@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 
-import team.androidreader.mainview.MainActivity;
-import team.androidreader.test.TestContentActivity;
 import team.androidreader.utils.BitmapHelper;
 import team.top.activity.R;
 import android.app.Activity;
@@ -42,25 +40,22 @@ public class PhotoPreviewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_photopreview);
-		findViewById();
-		setListener();
 		init();
 
 	}
 
-	private void findViewById() {
+	private void init() {
 		backBtn = (Button) findViewById(R.id.back);
 		saveBtn = (Button) findViewById(R.id.save);
 		lRoateBtn = (Button) findViewById(R.id.leftRoate);
 		rRoateBtn = (Button) findViewById(R.id.rightRoate);
 		photoPreView = (ImageView) findViewById(R.id.photoPreView);
-	}
-
-	private void setListener() {
 		backBtn.setOnClickListener(new PhotoBtnClickListener());
 		saveBtn.setOnClickListener(new PhotoBtnClickListener());
 		lRoateBtn.setOnClickListener(new PhotoBtnClickListener());
 		rRoateBtn.setOnClickListener(new PhotoBtnClickListener());
+		mPath = getIntent().getStringExtra("path");
+		photoPreView.setImageBitmap(mBitmap);
 	}
 
 	class PhotoBtnClickListener implements View.OnClickListener {
@@ -90,17 +85,9 @@ public class PhotoPreviewActivity extends Activity {
 		}
 	}
 
-	private void init() {
-		mPath = getIntent().getStringExtra("path");
-		// mBitmap = BitmapHelper.createBitmap(mPath,
-		// MainActivity.mScreenWidth, MainActivity.mScreenHeight);
-		// 显示图片
-		photoPreView.setImageBitmap(mBitmap);
-	}
-
+	
 	public static void reSave(String path, float degrees) {
 		Bitmap oldBitmap = BitmapFactory.decodeFile(path);
-		System.out.println(path);
 		Bitmap newBitmap = BitmapHelper.rotate(oldBitmap, degrees);
 		SaveToLocal(newBitmap, path);
 	}

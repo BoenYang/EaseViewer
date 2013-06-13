@@ -3,9 +3,7 @@ package team.androidreader.mainview;
 
 import java.util.ArrayList;
 
-import team.androidreader.test.TestContentActivity;
 import team.top.activity.R;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,15 +27,13 @@ public class CenterViewPagerFragment extends Fragment {
 	private MyAdapter mAdapter;
 	private ViewPager mPager;
 	private ArrayList<Fragment> pagerItemList = new ArrayList<Fragment>();// 中间的fragment存放多页面(fragment对象)
-	public FileListFragment fileListFragment;
-	private Button testOfficeBtn;
+	private FileListFragment fileListFragment;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View mView = inflater.inflate(R.layout.fragment_viewpager, null);
 		showRightBtn = (Button) mView.findViewById(R.id.showRight);
-		testOfficeBtn = (Button)mView.findViewById(R.id.test);
 		mPager = (ViewPager) mView.findViewById(R.id.pager);
 		fileListFragment = new FileListFragment();
 		pagerItemList.add(fileListFragment);
@@ -57,16 +53,6 @@ public class CenterViewPagerFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				((MainActivity) getActivity()).showRight();
-			}
-		});
-		
-		testOfficeBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(getActivity(), TestContentActivity.class);
-				startActivity(intent);
 			}
 		});
 	}

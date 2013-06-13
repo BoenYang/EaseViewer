@@ -8,7 +8,7 @@
         android:id="@+id/head_layout"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="@color/black_title" >
+        android:background="@color/blue_ICS" >
 
         <Button
             android:id="@+id/showRight"
@@ -24,14 +24,6 @@
             android:layout_toLeftOf="@id/showRight"
             android:background="@drawable/action_bar_divider"
             android:focusable="false" />
-
-        <Button
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="testoffice"
-            android:visibility="visible" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

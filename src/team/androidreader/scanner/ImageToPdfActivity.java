@@ -1,40 +1,51 @@
 package team.androidreader.scanner;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import team.androidreader.mainview.FileInfo;
-import team.androidreader.mainview.FileListHelper;
-import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.top.activity.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 public class ImageToPdfActivity extends Activity {
 
 	private ImageShowAdapter imageShowAdapter;
 	private GridView fileGridView;
-	private List<FileInfo> fileData;
+	private List<Bitmap> fileData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_imagetopdf);
-		fileGridView = (GridView) findViewById(R.id.fileGridView);
-		fileData = FileListHelper.GetSortedFiles("/sdcard", false, SortMethod.nosort);
-		imageShowAdapter = new ImageShowAdapter(this, fileData,
-				R.layout.item_image);
-		fileGridView.setAdapter(imageShowAdapter);
+		fileData = new ArrayList<Bitmap>();
+		//BitmapFactory.decodeResource(getResources(), R.id.)
+		//imageShowAdapter = new ImageShowAdapter(this, fileData,
+		//		R.layout.item_image);
+		//fileGridView.setAdapter(imageShowAdapter);
 	}
-	
-	class SelectDialog extends Dialog{
+
+	class OnImageClickListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+
+		}
+	}
+
+	class SelectDialog extends Dialog {
 
 		public SelectDialog(Context context) {
 			super(context);
 		}
-		
+
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

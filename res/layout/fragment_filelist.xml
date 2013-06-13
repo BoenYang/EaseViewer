@@ -1,28 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/bg_color_deep"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <View
+        android:id="@+id/topline"
         android:layout_width="fill_parent"
         android:layout_height="4dp"
         android:background="@drawable/category_dividing_line" />
 
+       <!--  android:listSelector="@android:color/transparent" -->
     <ListView
+        android:layout_below="@id/topline"
         android:id="@+id/filelistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/bg_color_deep"
-        android:cacheColorHint="@color/bg_color_deep"
+        android:background="@android:color/white"
+        android:cacheColorHint="@android:color/white"
         android:divider="@drawable/category_dividing_line_middle"
         android:dividerHeight="2dp"
         android:fadeScrollbars="true"
         android:fastScrollEnabled="true"
         android:scrollbars="none"
-        android:smoothScrollbar="true" />
+        android:smoothScrollbar="true"
+        android:visibility="visible" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/nofileimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/nofile"
+        android:focusable="false"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/nofiletext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nofileimage"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:text="sorry,there is no file here!"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

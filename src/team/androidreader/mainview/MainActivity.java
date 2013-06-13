@@ -72,16 +72,21 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (fileListModel.getCurrentDirectory().equals(
-					FileSystem.SDCARD_PATH)) {
-				exitBy2Click();
+			if(mSlidingMenu.isShowRight){
+				mSlidingMenu.showRightView();
 				return true;
-			} else if (fileListModel.getCurrentDirectory().equals("")) {
-				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
-						FileSystem.SDCARD_PATH, false, SortMethod.name);
-				fileListController.handleDirectoryChange(fileList,
-						FileSystem.SDCARD_PATH);
-				return true;
+			}else{
+				if (fileListModel.getCurrentDirectory().equals(
+						FileSystem.SDCARD_PATH)) {
+					exitBy2Click();
+					return true;
+				} else if (fileListModel.getCurrentDirectory().equals("")) {
+					List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+							FileSystem.SDCARD_PATH, false, SortMethod.name);
+					fileListController.handleDirectoryChange(fileList,
+							FileSystem.SDCARD_PATH);
+					return true;
+				}
 			}
 		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
 		}
@@ -119,6 +124,11 @@ public class MainActivity extends FragmentActivity implements
 			mSlidingMenu.setMenuInvisibke();
 		}
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 	}
 
 }

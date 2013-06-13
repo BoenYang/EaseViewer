@@ -9,6 +9,7 @@ import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -16,8 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 /**
  * 
@@ -30,6 +35,8 @@ public class FileListFragment extends Fragment implements
 	private ListView listView;
 	private FileListAdapter adapter;
 	private View view;
+	private ImageView noFileImageView;
+	private TextView noFileTextView;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -47,10 +54,13 @@ public class FileListFragment extends Fragment implements
 	private void init() {
 		MainActivity.fileListModel.addFileListenerChangeListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
+		noFileImageView = (ImageView) view.findViewById(R.id.nofileimage);
+		noFileTextView = (TextView)view.findViewById(R.id.nofiletext);
 		adapter = new FileListAdapter(view.getContext(),
 				MainActivity.fileListModel.getFileList(), R.layout.item_file);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
+		
 	}
 
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
@@ -63,7 +73,7 @@ public class FileListFragment extends Fragment implements
 					false, SortMethod.name);
 			MainActivity.fileListController.handleDirectoryChange(fileList,
 					parentDir);
-		} 
+		}
 		return true;
 	}
 
@@ -104,6 +114,13 @@ public class FileListFragment extends Fragment implements
 
 	@Override
 	public void onFileListChange(FileListModel fileListModel) {
+		if (fileListModel.getFileList().size() == 0) {
+			noFileImageView.setVisibility(View.VISIBLE);
+			noFileTextView.setVisibility(View.VISIBLE);
+		} else {
+			noFileImageView.setVisibility(View.INVISIBLE);
+			noFileTextView.setVisibility(View.INVISIBLE);
+		}
 		adapter.notifyDataSetChanged();
 	}
 
