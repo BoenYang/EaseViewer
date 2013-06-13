@@ -1,10 +1,7 @@
 package team.androidreader.scanner;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import team.androidreader.mainview.FileInfo;
-import team.androidreader.utils.BitmapHelper;
 import team.top.activity.R;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,26 +13,27 @@ import android.widget.ImageView;
 
 public class ImageShowAdapter extends BaseAdapter {
 
-	private List<FileInfo> data;
+	private List<Bitmap> data;
 	private int layoutId;
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private ViewHolder viewHolder;
-	private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
+	//private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
 
 	class ViewHolder {
 		public ImageView imageView;
 	}
 
-	public ImageShowAdapter(Context context, List<FileInfo> data, int layoutId) {
+	public ImageShowAdapter(Context context, List<Bitmap> data, int layoutId) {
 		this.context = context;
 		this.data = data;
 		this.layoutId = layoutId;
 		this.layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		for (FileInfo fileInfo : data) {
-			bitmaps.add(BitmapHelper.createBitmap(fileInfo.absolutePath, 100, 100));
-		}
+//		for (FileInfo fileInfo : data) {
+//			bitmaps.add(BitmapHelper.createBitmap(fileInfo.absolutePath, 100,
+//					100));
+//		}
 	}
 
 	@Override
@@ -63,19 +61,17 @@ public class ImageShowAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		System.out.println("--------------get view " + position);
-		if(convertView != null){
+		if (convertView != null) {
 			viewHolder = (ViewHolder) convertView.getTag();
-		}else{
+		} else {
 			convertView = layoutInflater.inflate(layoutId, null);
 			viewHolder = new ViewHolder();
-			viewHolder.imageView = (ImageView) convertView.findViewById(R.id.image);
+			viewHolder.imageView = (ImageView) convertView
+					.findViewById(R.id.image);
 			convertView.setTag(viewHolder);
 		}
-		viewHolder.imageView.setImageBitmap(bitmaps.get(position));
+		viewHolder.imageView.setImageBitmap(data.get(position));
 		return convertView;
 	}
-	
-
 
 }

@@ -1,13 +1,18 @@
 package team.androidreader.mainview;
 
+import java.io.File;
 import java.util.List;
 
 import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
+import team.androidreader.scanner.PhotoPreviewActivity;
 import team.androidreader.theme.ChangeThemeActivity;
+import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,18 +37,18 @@ public class RightCategoryFragment extends Fragment {
 	private LinearLayout changeTheme;
 	private LinearLayout help;
 	private LinearLayout about;
-	// private List<FileInfo> officeList;
 	private List<FileInfo> pictureList;
 	private List<FileInfo> musicList;
 	private List<FileInfo> videoList;
-	// private List<FileInfo> zipList;
-	// private List<FileInfo> apkList;
-	// private TextView officeCount;
 	private TextView musicCount;
 	private TextView videoCount;
 	private TextView pictureCount;
-	// private TextView zipCount;
-	// private TextView apkCount;
+//	private List<FileInfo> officeList;
+//	private List<FileInfo> zipList;
+//	private List<FileInfo> apkList;
+//	private TextView officeCount;
+//	private TextView zipCount;
+//	private TextView apkCount;
 	private View view;
 
 	@Override
@@ -86,11 +91,11 @@ public class RightCategoryFragment extends Fragment {
 		// officeList =
 		// fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
 		pictureList = FileListHelper.GetSortedFileByCategory(getActivity(),
-				FileListHelper.FileCategory.PICTURE, false,SortMethod.name);
+				FileListHelper.FileCategory.PICTURE, false, SortMethod.name);
 		musicList = FileListHelper.GetSortedFileByCategory(getActivity(),
-				FileListHelper.FileCategory.MUSIC, false,SortMethod.name);
+				FileListHelper.FileCategory.MUSIC, false, SortMethod.name);
 		videoList = FileListHelper.GetSortedFileByCategory(getActivity(),
-				FileListHelper.FileCategory.VIDEO, false,SortMethod.name);
+				FileListHelper.FileCategory.VIDEO, false, SortMethod.name);
 		// zipList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
 		// true);
 		// apkList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
@@ -122,17 +127,20 @@ public class RightCategoryFragment extends Fragment {
 				break;
 			case R.id.categoryPictureBtn:
 				fileList = pictureList;
-				MainActivity.fileListController.handleDirectoryChange(fileList, "");
+				MainActivity.fileListController.handleDirectoryChange(fileList,
+						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryMusicBtn:
 				fileList = musicList;
-				MainActivity.fileListController.handleDirectoryChange(fileList, "");
+				MainActivity.fileListController.handleDirectoryChange(fileList,
+						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryVideoBtn:
 				fileList = videoList;
-				MainActivity.fileListController.handleDirectoryChange(fileList, "");
+				MainActivity.fileListController.handleDirectoryChange(fileList,
+						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryApkBtn:
@@ -147,21 +155,12 @@ public class RightCategoryFragment extends Fragment {
 				// true);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
-
 			case R.id.functionPic2PdfBtn:
-				// Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				// File file = new File(FileSystem.CAMERA_CACHE + File.separator
-				// + "IMAGE_" + FileSystem.GetNameByTime() + ".jpg");
-				// if (!file.exists()) {
-				// try {
-				// file.createNewFile();
-				// } catch (IOException e) {
-				// e.printStackTrace();
-				// }
-				// }
-				// intent1.putExtra(MediaStore.EXTRA_OUTPUT,
-				// Uri.fromFile(file));
-				// startActivity(intent1);
+				Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				File file = new File(FileSystem.CAMERA_CACHE + File.separator
+						+ "IMAGE_" + FileSystem.GetTimeFileName() + ".jpg");
+				intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+				startActivity(intent1);
 				break;
 			case R.id.functionChangeThemeBtn:
 				Intent intent2 = new Intent();
@@ -184,5 +183,11 @@ public class RightCategoryFragment extends Fragment {
 		}
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), PhotoPreviewActivity.class);
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 }

@@ -315,7 +315,7 @@ public class SlidingMenu extends RelativeLayout {
 		return mDetailView.getWidth();
 	}
 
-	void smoothScrollTo(int dx) {
+	private void smoothScrollTo(int dx) {
 		int duration = 500;
 		if (dx > 0) {
 			isShowRight = true;
@@ -328,6 +328,7 @@ public class SlidingMenu extends RelativeLayout {
 				mSlidingView.getScrollY(), duration);
 
 		invalidate();
+		System.out.println(isShowRight);
 	}
 
 	/* 显示右侧边的view */
@@ -348,6 +349,7 @@ public class SlidingMenu extends RelativeLayout {
 				setCanSliding(tCanSlideLeft, tCanSlideRight);
 			}
 		}
+		
 	}
 
 	public void setMenuVisible() {
