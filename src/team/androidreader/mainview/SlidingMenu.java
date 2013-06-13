@@ -17,6 +17,7 @@ public class SlidingMenu extends RelativeLayout {
 
 	private View mSlidingView;
 	private View mDetailView;
+	private View bottomView;
 	private RelativeLayout bgShade;
 	private int screenWidth;
 	private int screenHeight;
@@ -38,6 +39,16 @@ public class SlidingMenu extends RelativeLayout {
 		init(context);
 	}
 
+	public SlidingMenu(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init(context);
+	}
+
+	public SlidingMenu(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init(context);
+	}
+
 	@SuppressWarnings("deprecation")
 	private void init(Context context) {
 
@@ -53,22 +64,20 @@ public class SlidingMenu extends RelativeLayout {
 		LayoutParams bgParams = new LayoutParams(screenWidth, screenHeight);
 		bgParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		bgShade.setLayoutParams(bgParams);
-
-	}
-
-	public SlidingMenu(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(context);
-	}
-
-	public SlidingMenu(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init(context);
 	}
 
 	public void addViews(View left, View center, View right) {
 		setRightView(right);
 		setCenterView(center);
+	}
+
+	public void setBottomView(View view) {
+		bottomView = view;
+		LayoutParams layoutParams = new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.WRAP_CONTENT);
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		bottomView.setVisibility(INVISIBLE);
+		addView(bottomView, layoutParams);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -95,7 +104,7 @@ public class SlidingMenu extends RelativeLayout {
 				R.drawable.shade_bg));
 		bgShade.addView(bgShadeContent, bgParams);
 
-		addView(bgShade, bgParams);
+		//addView(bgShade, bgParams);
 
 		addView(view, aboveParams);
 		mSlidingView = view;
@@ -177,7 +186,6 @@ public class SlidingMenu extends RelativeLayout {
 							mLastMotionX = x;
 						}
 					}
-
 				} else if (canSlideRight) {
 					float oldScrollX = mSlidingView.getScrollX();
 					if (oldScrollX > 0) {
@@ -190,10 +198,8 @@ public class SlidingMenu extends RelativeLayout {
 						}
 					}
 				}
-
 			}
 			break;
-
 		}
 		return mIsBeingDragged;
 	}
@@ -257,12 +263,12 @@ public class SlidingMenu extends RelativeLayout {
 						bgShade.scrollTo((int) scrollX - 20,
 								mSlidingView.getScrollY());
 				}
-				
-				if(mSlidingView.getScrollX() == 0){
+
+				if (mSlidingView.getScrollX() == 0) {
 					isShowRight = false;
 				}
-				
-				if(mSlidingView.getScrollX() == 400){
+
+				if (mSlidingView.getScrollX() == 400) {
 					isShowRight = true;
 				}
 			}
@@ -344,4 +350,13 @@ public class SlidingMenu extends RelativeLayout {
 		}
 	}
 
+	public void setMenuVisible() {
+		bottomView.setVisibility(VISIBLE);
+		invalidate();
+	}
+
+	public void setMenuInvisibke() {
+		bottomView.setVisibility(INVISIBLE);
+		invalidate();
+	}
 }

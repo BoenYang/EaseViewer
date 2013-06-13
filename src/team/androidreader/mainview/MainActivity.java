@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import team.androidreader.mainview.FileListModel.onSelectedListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
@@ -12,29 +13,23 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements
+		onSelectedListener {
 	public static SlidingMenu mSlidingMenu;
 	private RightCategoryFragment rightClassifyFragment;
 	private CenterViewPagerFragment centerViewPagerFragment;
-	public static int mScreenWidth;
-	public static int mScreenHeight;
 	public static FileListModel fileListModel;
 	public static FileListController fileListController;
+	private BottomMenuFragment bottomMenuFragment;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
-		/**
-		 * 获取屏幕宽度和高度
-		 */
 		DisplayMetrics metric = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metric);
-		mScreenWidth = metric.widthPixels;
-		mScreenHeight = metric.heightPixels;
 		init();
 	}
 
@@ -44,6 +39,8 @@ public class MainActivity extends FragmentActivity {
 				R.layout.frame_right, null));
 		mSlidingMenu.setCenterView(getLayoutInflater().inflate(
 				R.layout.frame_center, null));
+		mSlidingMenu.setBottomView(getLayoutInflater().inflate(
+				R.layout.frame_bottom, null));
 
 		FragmentTransaction t = this.getSupportFragmentManager()
 				.beginTransaction();
@@ -54,13 +51,15 @@ public class MainActivity extends FragmentActivity {
 		centerViewPagerFragment = new CenterViewPagerFragment();
 		t.replace(R.id.center_frame, centerViewPagerFragment);
 
+		bottomMenuFragment = new BottomMenuFragment();
+		t.replace(R.id.bottom_frame, bottomMenuFragment);
 		t.commit();
 		FileSystem.makeAppDirTree();
 		List<FileInfo> filelist = FileListHelper.GetSortedFiles(
 				FileSystem.SDCARD_PATH, false, SortMethod.name);
 		fileListModel = new FileListModel(filelist, FileSystem.SDCARD_PATH);
 		fileListController = new FileListController(fileListModel);
-		
+		fileListModel.addSelectedListener(this);
 	}
 
 	/**
@@ -77,13 +76,16 @@ public class MainActivity extends FragmentActivity {
 					FileSystem.SDCARD_PATH)) {
 				exitBy2Click();
 				return true;
+			} else if (fileListModel.getCurrentDirectory().equals("")) {
+				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+						FileSystem.SDCARD_PATH, false, SortMethod.name);
+				fileListController.handleDirectoryChange(fileList,
+						FileSystem.SDCARD_PATH);
+				return true;
 			}
 		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
-			this.openOptionsMenu();
-			System.out.println("menu clicked");
 		}
-		return centerViewPagerFragment.fileListFragment.onKeyDown(keyCode,
-				event);
+		return centerViewPagerFragment.onKeyDown(keyCode, event);
 	}
 
 	/**
@@ -110,11 +112,13 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, 1, 1, "跳转到OtherActivity");
-		menu.add(0, 2, 0, "菜单到SubActivity");
-		System.out.println("-----------------oncreate options menu");
-		return super.onCreateOptionsMenu(menu);
+	public void onSelected(int selectedCount) {
+		if (selectedCount > 0) {
+			mSlidingMenu.setMenuVisible();
+		} else {
+			mSlidingMenu.setMenuInvisibke();
+		}
+
 	}
 
 }

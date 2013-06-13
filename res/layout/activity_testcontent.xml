@@ -4,23 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/copy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testcopyfiles" />
-
-    <Button
-        android:id="@+id/rename"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testrenamefiles" />
-
-    <Button
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testdeletefiles" />
 
 
 </LinearLayout>

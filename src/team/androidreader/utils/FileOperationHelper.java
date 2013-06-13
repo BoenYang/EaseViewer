@@ -2,7 +2,6 @@ package team.androidreader.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -11,18 +10,35 @@ import team.androidreader.mainview.FileInfo;
 
 public class FileOperationHelper {
 
-
 	public static void Delete(List<FileInfo> fileList) {
 		for (FileInfo fileInfo : fileList) {
 			DeleteFile(fileInfo.absolutePath);
 		}
 	}
 
-	private static void DeleteFile(String path) {
+	public static void Copy(List<FileInfo> fileList, String dst) {
+		for (FileInfo fileInfo : fileList) {
+			copyFile(fileInfo.absolutePath, dst);
+		}
+	}
+
+	public static void Rename(List<FileInfo> fileList, List<String> names) {
+		int size = fileList.size();
+		for (int i = 0; i < size; i++) {
+			RenameFile(fileList.get(i), names.get(i));
+		}
+	}
+
+	public static void Move(List<FileInfo> fileList, String dst) {
+		for (FileInfo fileInfo : fileList) {
+			MoveFile(fileInfo.absolutePath, dst);
+		}
+	}
+
+	public static void DeleteFile(String path) {
 		File file = new File(path);
 		if (file.exists()) {
-			boolean directory = file.isDirectory();
-			if (directory) {
+			if (file.isDirectory()) {
 				for (File child : file.listFiles()) {
 					DeleteFile(child.getAbsolutePath());
 				}
@@ -37,9 +53,10 @@ public class FileOperationHelper {
 	 * @param path
 	 * @param newName
 	 */
-	public static boolean fileRename(String path, String newName) {
-		File file = new File(path);
-		String newPath = path.substring(0, path.lastIndexOf("/") + 1) + newName;
+	public static boolean RenameFile(FileInfo fileInfo, String newName) {
+		File file = new File(fileInfo.absolutePath);
+		String newPath = fileInfo.absolutePath.substring(0,
+				fileInfo.absolutePath.lastIndexOf("/") + 1) + newName;
 		return file.renameTo(new File(newPath));
 	}
 
@@ -48,52 +65,68 @@ public class FileOperationHelper {
 	 * @param oldPath
 	 * @param newPath
 	 */
-	public static void moveTo(String src, String dst) {
-
+	public static void MoveFile(String src, String dst) {
+		copyFile(src, dst);
+		DeleteFile(src);
 	}
 
-	public static String copyFile(String src, String dst) {
-		File srcFile = new File(src);
-		String fileName = src.substring(src.lastIndexOf('/') + 1);
-		String dstFilename = dst + File.separator + fileName;
-		File newFile = new File(dst);
-		String copy_mark = "copy_of_";
-		while (newFile.exists()) {
-			dstFilename = dst + File.separator + copy_mark + fileName;
-			copy_mark += copy_mark;
-			newFile = new File(dstFilename);
+	public static boolean copyFile(String src, String dst) {
+		if(src.equals(dst)){
+			return false;
 		}
-
+		File srcFile = new File(src);
+		String srcFilename = srcFile.getName();
+		String dstFilename = srcFilename;
+		String dstPath = dst + File.separator + dstFilename;
+		File dstFile = new File(dstPath);
 		FileOutputStream ofStream = null;
 		FileInputStream ifStream = null;
+		while (dstFile.exists()) {
+			dstFilename = "copy_of_" + dstFilename;
+			dstFile = new File(dst + File.separator + dstFilename);
+		}
 
-		try {
-			if (!newFile.createNewFile()) {
-				return null;
+		if (srcFile.isDirectory()) {
+			
+			System.out.println("create file " + dstFile.mkdirs());
+			File[] chlids = srcFile.listFiles();
+			for (File file : chlids) {
+				System.out.println("copy " + file.getAbsolutePath() + " to " + dst + File.separator
+						+ dstFilename);
+				copyFile(file.getAbsolutePath(), dstFile.getAbsolutePath() + File.separator
+						+ dstFilename);
 			}
-			ofStream = new FileOutputStream(newFile);
-			ifStream = new FileInputStream(srcFile);
-			int count = 102400;
-			byte[] buffer = new byte[count];
-			int read = 0;
-			while ((read = ifStream.read(buffer, 0, count)) != -1) {
-				ofStream.write(buffer, 0, read);
-			}
-			return dstFilename;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
+			return true;
+		} else {
 			try {
-				if (ofStream != null)
-					ofStream.close();
-				if (ifStream != null)
-					ifStream.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
+				dstFile.createNewFile();
+				ifStream = new FileInputStream(srcFile);
+				ofStream = new FileOutputStream(dstFile);
+				int count = 102400;
+	            byte[] buffer = new byte[count];
+	            int read = 0;
+	            while ((read = ifStream.read(buffer, 0, count)) != -1) {
+	                ofStream.write(buffer, 0, read);
+	            }
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				if(ifStream != null){
+					try {
+						ifStream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if(ofStream != null){
+					try {
+						ofStream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
-		return null;
+		return false;
 	}
 }

@@ -15,6 +15,8 @@ import android.os.Environment;
 
 public class BitmapHelper {
 
+	public static float curDegrees = 0;// 当前旋转度数
+	
 	public static Bitmap createBitmap(String path, int w, int h) {
 		try {
 			BitmapFactory.Options opts = new BitmapFactory.Options();
@@ -209,4 +211,35 @@ public class BitmapHelper {
 		}
 		return degree;
 	}
+	
+	// 左转事件处理
+		public static Bitmap left(Bitmap bitmap) {
+			Matrix matrix = new Matrix();
+			matrix.setRotate(curDegrees = (curDegrees - 90) % 360);
+			Bitmap resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+					bitmap.getHeight(), matrix, true);
+			System.out.println(curDegrees);
+			return resizeBmp;
+		}
+
+		// 右转事件处理
+		public static Bitmap right(Bitmap bitmap) {
+			Matrix matrix = new Matrix();
+			matrix.setRotate(curDegrees = (curDegrees + 90) % 360);
+			Bitmap resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+					bitmap.getHeight(), matrix, true);
+			System.out.println(curDegrees);
+			return resizeBmp;
+		}
+
+		public static Bitmap rotate(Bitmap bitmap, float degrees) {
+			Matrix matrix = new Matrix();
+			// matrix.setRotate(degrees);
+			matrix.preRotate(degrees);
+			System.out.println("------------------------" + degrees);
+			Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+					bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+			return rotateBitmap;
+		}
+
 }

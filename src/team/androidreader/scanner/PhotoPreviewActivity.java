@@ -1,6 +1,5 @@
 package team.androidreader.scanner;
 
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.util.HashMap;
 
 import team.androidreader.mainview.MainActivity;
 import team.androidreader.test.TestContentActivity;
+import team.androidreader.utils.BitmapHelper;
 import team.top.activity.R;
 import android.app.Activity;
 import android.app.Dialog;
@@ -70,18 +70,18 @@ public class PhotoPreviewActivity extends Activity {
 			int id = v.getId();
 			switch (id) {
 			case R.id.save:
-				reSave(mPath, TestContentActivity.curDegrees);
-				//reSave(tempBitmap, TestContentActivity.curDegrees);
+				// reSave(mPath, TestContentActivity.curDegrees);
+				// reSave(tempBitmap, TestContentActivity.curDegrees);
 				break;
 			case R.id.back:
 
 				break;
 			case R.id.leftRoate:
-				tempBitmap = TestContentActivity.left(mBitmap);
+				// tempBitmap = TestContentActivity.left(mBitmap);
 				photoPreView.setImageBitmap(tempBitmap);
 				break;
 			case R.id.rightRoate:
-				tempBitmap = TestContentActivity.right(mBitmap);
+				// tempBitmap = TestContentActivity.right(mBitmap);
 				photoPreView.setImageBitmap(tempBitmap);
 				break;
 			default:
@@ -92,8 +92,8 @@ public class PhotoPreviewActivity extends Activity {
 
 	private void init() {
 		mPath = getIntent().getStringExtra("path");
-		mBitmap = TestContentActivity.createBitmap(mPath,
-				MainActivity.mScreenWidth, MainActivity.mScreenHeight);
+		// mBitmap = BitmapHelper.createBitmap(mPath,
+		// MainActivity.mScreenWidth, MainActivity.mScreenHeight);
 		// 显示图片
 		photoPreView.setImageBitmap(mBitmap);
 	}
@@ -101,14 +101,15 @@ public class PhotoPreviewActivity extends Activity {
 	public static void reSave(String path, float degrees) {
 		Bitmap oldBitmap = BitmapFactory.decodeFile(path);
 		System.out.println(path);
-		Bitmap newBitmap = TestContentActivity.rotate(oldBitmap, degrees);
+		Bitmap newBitmap = BitmapHelper.rotate(oldBitmap, degrees);
 		SaveToLocal(newBitmap, path);
 	}
-	
-//	public static void reSave(Bitmap bitmap, float degrees) {
-//		Bitmap newBitmap = TestContentActivity.rotate(bitmap, degrees);
-//		SaveToLocal(newBitmap, Environment.getExternalStorageDirectory() + "/AndroidReader/123.png");
-//	}
+
+	// public static void reSave(Bitmap bitmap, float degrees) {
+	// Bitmap newBitmap = TestContentActivity.rotate(bitmap, degrees);
+	// SaveToLocal(newBitmap, Environment.getExternalStorageDirectory() +
+	// "/AndroidReader/123.png");
+	// }
 
 	public static boolean SaveToLocal(Bitmap bitmap, String path) {
 		if (!Environment.getExternalStorageState().equals(
@@ -149,8 +150,8 @@ public class PhotoPreviewActivity extends Activity {
 		mPhoneAlbumCache.put(path, new SoftReference<Bitmap>(bitmap));
 		return bitmap;
 	}
-	
-	class SetNameDialog extends Dialog{
+
+	class SetNameDialog extends Dialog {
 
 		public SetNameDialog(Context context) {
 			super(context);
@@ -163,6 +164,5 @@ public class PhotoPreviewActivity extends Activity {
 		}
 
 	}
-
 
 }
