@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import team.androidreader.mainview.FileListModel.onSelectedListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
+import team.androidreader.utils.CustomToast;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.os.Bundle;
@@ -72,10 +73,10 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if(mSlidingMenu.isShowRight){
+			if (mSlidingMenu.isShowRight) {
 				mSlidingMenu.showRightView();
 				return true;
-			}else{
+			} else {
 				if (fileListModel.getCurrentDirectory().equals(
 						FileSystem.SDCARD_PATH)) {
 					exitBy2Click();
@@ -102,7 +103,7 @@ public class MainActivity extends FragmentActivity implements
 		Timer tExit = null;
 		if (isExit == false) {
 			isExit = true; // 准备退出
-			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.press_again, Toast.LENGTH_SHORT).show();
 			tExit = new Timer();
 			tExit.schedule(new TimerTask() {
 				@Override

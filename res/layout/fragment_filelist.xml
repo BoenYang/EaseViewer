@@ -11,17 +11,18 @@
         android:layout_height="4dp"
         android:background="@drawable/category_dividing_line" />
 
-       <!--  android:listSelector="@android:color/transparent" -->
+    <!-- android:listSelector="@android:color/transparent" -->
+
     <ListView
-        android:layout_below="@id/topline"
         android:id="@+id/filelistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/topline"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/white"
         android:cacheColorHint="@android:color/white"
-        android:divider="@drawable/category_dividing_line_middle"
+        android:divider="@drawable/divider_listview"
         android:dividerHeight="2dp"
         android:fadeScrollbars="true"
         android:fastScrollEnabled="true"
@@ -31,8 +32,8 @@
 
     <ImageView
         android:id="@+id/nofileimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:background="@drawable/nofile"
         android:focusable="false"
@@ -45,7 +46,7 @@
         android:layout_below="@+id/nofileimage"
         android:layout_centerHorizontal="true"
         android:focusable="false"
-        android:text="sorry,there is no file here!"
+        android:text="@string/nofile"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:visibility="invisible" />

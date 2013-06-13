@@ -43,12 +43,12 @@ public class RightCategoryFragment extends Fragment {
 	private TextView musicCount;
 	private TextView videoCount;
 	private TextView pictureCount;
-//	private List<FileInfo> officeList;
-//	private List<FileInfo> zipList;
-//	private List<FileInfo> apkList;
-//	private TextView officeCount;
-//	private TextView zipCount;
-//	private TextView apkCount;
+	// private List<FileInfo> officeList;
+	// private List<FileInfo> zipList;
+	// private List<FileInfo> apkList;
+	// private TextView officeCount;
+	// private TextView zipCount;
+	// private TextView apkCount;
 	private View view;
 
 	@Override

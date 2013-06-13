@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <LinearLayout
+        android:id="@+id/title_about"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/blue_ICS"
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/back_btn_about"
             android:layout_width="55dp"
             android:layout_height="45dp"
             android:background="@drawable/back_button" />
@@ -34,13 +35,35 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
+        android:layout_below="@id/title_about"
         android:background="@drawable/category_dividing_line" />
+
+    <ImageView
+        android:id="@+id/logo_about"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/ic_launcher" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:text="write some thing here" />
+        android:layout_below="@+id/logo_about"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/app_info"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/copy_right"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
+</RelativeLayout>

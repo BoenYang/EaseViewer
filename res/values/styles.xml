@@ -14,11 +14,17 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="@android:windowAnimationStyle">@style/Animation</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="NoTitle" parent="AppBaseTheme">
-        <item name="android:windowNoTitle">true</item>
+    <!-- Activity Animation. -->
+    <style name="Animation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/no_anim</item>
+        <item name="android:activityCloseEnterAnimation">@anim/no_anim</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_to_right</item>
     </style>
 
     <style name="CategoryButtonStyle">

@@ -38,7 +38,7 @@
                     android:layout_marginBottom="2dp"
                     android:layout_toRightOf="@+id/appLogo"
                     android:text="@string/app_name"
-                    android:textColor="@color/text_color"
+                    android:textColor="@android:color/white"
                     android:textSize="7pt" />
 
                 <TextView
@@ -48,8 +48,8 @@
                     android:layout_alignBottom="@id/appLogo"
                     android:layout_alignLeft="@id/appName"
                     android:layout_below="@+id/appName"
-                    android:text="Ver 0.1 alpha"
-                    android:textColor="@color/text_color"
+                    android:text="@string/app_version"
+                    android:textColor="@android:color/white"
                     android:textSize="4pt" />
             </RelativeLayout>
 

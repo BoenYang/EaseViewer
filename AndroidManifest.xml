@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="team.top.activity"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -17,20 +17,18 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:logo="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         <activity
             android:name="team.androidreader.mainview.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/NoTitle" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="team.androidreader.office.ShowOfficeActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.office.ShowOfficeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -41,9 +39,7 @@
                 <data android:mimeType="application/xls" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="team.androidreader.txt.TextReaderActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.txt.TextReaderActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -56,33 +52,19 @@
                 <data android:mimeType="application/java" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="team.androidreader.test.TestContentActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.test.TestContentActivity" >
         </activity>
-        <activity
-            android:name="team.androidreader.mainview.SplashActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.mainview.SplashActivity" >
         </activity>
-        <activity
-            android:name="team.androidreader.theme.ChangeThemeActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.theme.ChangeThemeActivity" >
         </activity>
-        <activity
-            android:name="team.androidreader.helpabout.HelpActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.helpabout.HelpActivity" >
         </activity>
-        <activity
-            android:name="team.androidreader.scanner.ImageToPdfActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.scanner.ImageToPdfActivity" >
         </activity>
-        <activity
-            android:name="team.androidreader.scanner.PhotoPreviewActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.scanner.PhotoPreviewActivity" >
         </activity>
-        <activity
-            android:name="team.androidreader.pdf.PdfReaderActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.pdf.PdfReaderActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -92,9 +74,7 @@
                 <data android:mimeType="application-pdf/pdf" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="team.androidreader.helpabout.AboutActivity"
-            android:theme="@style/NoTitle" >
+        <activity android:name="team.androidreader.helpabout.AboutActivity" >
         </activity>
     </application>
 

@@ -154,7 +154,7 @@ public class FileListHelper {
 			mSize = formatedSize + "B";
 			break;
 		case 1:
-			mSize = formatedSize + "kB";
+			mSize = formatedSize + "KB";
 			break;
 		case 2:
 			mSize = formatedSize + "MB";
