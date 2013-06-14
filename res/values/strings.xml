@@ -23,5 +23,8 @@
     <string name="title_about">About</string>
     <string name="press_again">Press again to exit EaseViewer</string>
     <string name="nofile">Sorry, no file here...</string>
+    <string name="preference_function_intoduce">Introduction</string>
+    <string name="preference_advice">Feedback</string>
+    <string name="preference_about_team">Github</string>
 
 </resources>

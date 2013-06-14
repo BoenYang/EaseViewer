@@ -6,7 +6,6 @@ import java.util.TimerTask;
 
 import team.androidreader.mainview.FileListModel.onSelectedListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
-import team.androidreader.utils.CustomToast;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.os.Bundle;

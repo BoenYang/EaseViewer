@@ -62,6 +62,7 @@
                 android:id="@+id/mlist"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 android:scrollbars="none" >
 
                 <LinearLayout
@@ -81,14 +82,14 @@
 
                         <View
                             android:layout_width="fill_parent"
-                            android:layout_height="2dp"
+                            android:layout_height="1dp"
                             android:background="@drawable/category_dividing_line" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/categoryOfficeBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -105,13 +106,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/categoryPictureBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -128,13 +129,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/categoryMusicBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -151,13 +152,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/categoryVideoBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -174,13 +175,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/categoryApkBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -197,13 +198,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/categoryZipBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -220,7 +221,7 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
@@ -234,14 +235,14 @@
 
                         <View
                             android:layout_width="fill_parent"
-                            android:layout_height="2dp"
+                            android:layout_height="1dp"
                             android:background="@drawable/category_dividing_line" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/functionPic2PdfBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -254,13 +255,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/functionChangeThemeBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -273,7 +274,7 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
@@ -287,14 +288,14 @@
 
                         <View
                             android:layout_width="fill_parent"
-                            android:layout_height="2dp"
+                            android:layout_height="1dp"
                             android:background="@drawable/category_dividing_line" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/moreHelpBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -307,13 +308,13 @@
 
                     <View
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:background="@drawable/category_dividing_line_middle" />
 
                     <LinearLayout
                         android:id="@+id/moreAboutBtn"
                         style="@style/CategoryButtonStyle"
-                        android:background="@drawable/category_button" >
+                        android:background="@drawable/button_category" >
 
                         <ImageView
                             style="@style/CategoryButtonIconStyle"
@@ -323,11 +324,6 @@
                             style="@style/CategoryButtonTextStyle"
                             android:text="@string/more_about" />
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="2dp"
-                        android:background="@drawable/category_dividing_line_middle" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

@@ -23,5 +23,8 @@
     <string name="title_about">关于</string>
     <string name="press_again">再次点击退出简阅</string>
     <string name="nofile">抱歉，这里空空如也。。。</string>
+    <string name="preference_function_intoduce">功能介绍</string>
+    <string name="preference_advice">反馈建议</string>
+    <string name="preference_about_team">项目主页</string>
 
 </resources>
