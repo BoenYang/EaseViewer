@@ -23,7 +23,7 @@ public class MyApplication extends Application {
 
 	private HttpClient httpClient;
 	public boolean isLogin = false;
-	public static int Choosed = -1;
+	//public static int Choosed = -1;
 
 	@Override
 	public void onCreate() {

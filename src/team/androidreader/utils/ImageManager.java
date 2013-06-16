@@ -11,6 +11,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 
+import team.androidreader.scanner.DiskLruCache;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
