@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
 
     <LinearLayout
-        android:id="@+id/title_theme"
+        android:id="@+id/title_choosePic"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/holo_blue_dark"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/back_btn_theme"
+            android:id="@+id/back_btn_choosePic"
             android:layout_width="55dp"
             android:layout_height="45dp"
             android:background="@drawable/button_back" />
@@ -28,16 +28,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/title_theme"
+            android:text="@string/title_choosePic"
             android:textColor="@android:color/white"
             android:textSize="9pt" />
     </LinearLayout>
 
     <View
-        android:id="@+id/divider_theme"
+        android:id="@+id/divider_choosePic"
         android:layout_width="fill_parent"
         android:layout_height="4dp"
-        android:layout_below="@id/title_theme"
+        android:layout_below="@id/title_choosePic"
         android:background="@drawable/category_dividing_line" />
+
+    <GridView
+        android:id="@+id/myGrid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider_choosePic"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="6dp"
+        android:horizontalSpacing="12dp"
+        android:listSelector="#00000000"
+        android:numColumns="4"
+        android:verticalSpacing="12dp" />
 
 </RelativeLayout>

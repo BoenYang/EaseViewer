@@ -21,6 +21,9 @@
     <string name="more_help">帮助</string>
     <string name="more_about">关于</string>
     <string name="title_about">关于</string>
+    <string name="title_choosePic">图片转PDF</string>
+    <string name="title_help">帮助</string>
+    <string name="title_theme">主题</string>
     <string name="press_again">再次点击退出简阅</string>
     <string name="nofile">抱歉，这里空空如也。。。</string>
     <string name="preference_function_intoduce">功能介绍</string>

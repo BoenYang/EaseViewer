@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import team.androidreader.mainview.FileListModel.onSelectedListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
+import team.androidreader.utils.MyApplication;
 import team.top.activity.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -85,10 +86,15 @@ public class MainActivity extends FragmentActivity implements
 							FileSystem.SDCARD_PATH, false, SortMethod.name);
 					fileListController.handleDirectoryChange(fileList,
 							FileSystem.SDCARD_PATH);
+					MyApplication.setChoosed(-1);
 					return true;
 				}
 			}
 		} else if (keyCode == KeyEvent.KEYCODE_MENU) {
+			if (!mSlidingMenu.isShowRight) {
+				mSlidingMenu.showRightView();
+			}
+			return true;
 		}
 		return centerViewPagerFragment.onKeyDown(keyCode, event);
 	}
@@ -102,7 +108,8 @@ public class MainActivity extends FragmentActivity implements
 		Timer tExit = null;
 		if (isExit == false) {
 			isExit = true; // 准备退出
-			Toast.makeText(this, R.string.press_again, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.press_again, Toast.LENGTH_SHORT)
+					.show();
 			tExit = new Timer();
 			tExit.schedule(new TimerTask() {
 				@Override

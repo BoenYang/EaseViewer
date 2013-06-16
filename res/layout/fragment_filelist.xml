@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <View
-        android:id="@+id/topline"
+        android:id="@+id/divder_filelist"
         android:layout_width="fill_parent"
         android:layout_height="4dp"
         android:background="@drawable/category_dividing_line" />
@@ -17,7 +17,7 @@
         android:id="@+id/filelistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topline"
+        android:layout_below="@id/divder_filelist"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/white"

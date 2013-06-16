@@ -14,5 +14,9 @@
     <color name="holo_blue_light">#ff33b5e5</color>
     <color name="holo_blue_dark">#ff0099cc</color>
     <color name="holo_blue_bright">#ff00ddff</color>
+    
+    <color name="black_overlay">#66000000</color>
+    <color name="none_color">#00000000</color>
+    <color name="bule_overlay">#660D92DD</color>
 
 </resources>

@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white" >
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/title_help"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/holo_blue_dark"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/back_btn_help"
+            android:layout_width="55dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_back" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/action_bar_divider"
+            android:focusable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_help"
+            android:textColor="@android:color/white"
+            android:textSize="9pt" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider_help"
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/title_help"
+        android:background="@drawable/category_dividing_line" />
+
+</RelativeLayout>

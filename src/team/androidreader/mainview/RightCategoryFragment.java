@@ -1,18 +1,17 @@
 package team.androidreader.mainview;
 
-import java.io.File;
 import java.util.List;
 
 import team.androidreader.helpabout.AboutActivity;
+import team.androidreader.helpabout.HelpActivity;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
+import team.androidreader.scanner.Activity_Multichooser;
 import team.androidreader.scanner.PhotoPreviewActivity;
 import team.androidreader.theme.ChangeThemeActivity;
-import team.androidreader.utils.FileSystem;
+import team.androidreader.utils.MyApplication;
 import team.top.activity.R;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +26,12 @@ import android.widget.TextView;
  */
 public class RightCategoryFragment extends Fragment {
 
-	private LinearLayout officeCategory;
-	private LinearLayout pictureCategory;
-	private LinearLayout musicCategory;
-	private LinearLayout videoCategory;
-	private LinearLayout zipCategory;
-	private LinearLayout apkCategory;
+	public static LinearLayout officeCategory;
+	public static LinearLayout pictureCategory;
+	public static LinearLayout musicCategory;
+	public static LinearLayout videoCategory;
+	public static LinearLayout zipCategory;
+	public static LinearLayout apkCategory;
 	private LinearLayout picture2pdf;
 	private LinearLayout changeTheme;
 	private LinearLayout help;
@@ -123,43 +122,54 @@ public class RightCategoryFragment extends Fragment {
 			List<FileInfo> fileList = null;
 			switch (id) {
 			case R.id.categoryOfficeBtn:
+				MyApplication.Choosed = 0;
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryPictureBtn:
+				MyApplication.Choosed = 1;
 				fileList = pictureList;
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryMusicBtn:
+				MyApplication.Choosed = 2;
 				fileList = musicList;
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryVideoBtn:
+				MyApplication.Choosed = 3;
 				fileList = videoList;
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryApkBtn:
+				MyApplication.Choosed = 4;
 				// fileList =
 				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
 				// true);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryZipBtn:
+				MyApplication.Choosed = 5;
 				// fileList =
 				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
 				// true);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.functionPic2PdfBtn:
-				Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				File file = new File(FileSystem.CAMERA_CACHE + File.separator
-						+ "IMAGE_" + FileSystem.GetTimeFileName() + ".jpg");
-				intent1.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+				// Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				// File file = new File(FileSystem.CAMERA_CACHE + File.separator
+				// + "IMAGE_" + FileSystem.GetTimeFileName() + ".jpg");
+				// intent1.putExtra(MediaStore.EXTRA_OUTPUT,
+				// Uri.fromFile(file));
+				// startActivity(intent1);
+
+				Intent intent1 = new Intent();
+				intent1.setClass(getActivity(), Activity_Multichooser.class);
 				startActivity(intent1);
 				break;
 			case R.id.functionChangeThemeBtn:
@@ -169,7 +179,7 @@ public class RightCategoryFragment extends Fragment {
 				break;
 			case R.id.moreHelpBtn:
 				Intent intent3 = new Intent();
-				intent3.setClass(getActivity(), ChangeThemeActivity.class);
+				intent3.setClass(getActivity(), HelpActivity.class);
 				startActivity(intent3);
 				break;
 			case R.id.moreAboutBtn:
@@ -180,8 +190,11 @@ public class RightCategoryFragment extends Fragment {
 			default:
 				break;
 			}
+			MyApplication.setChoosed(MyApplication.Choosed);
 		}
 	}
+
+
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

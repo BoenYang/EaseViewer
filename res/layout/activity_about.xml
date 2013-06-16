@@ -34,15 +34,16 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/divider_about"
         android:layout_width="fill_parent"
-        android:layout_height="2dp"
+        android:layout_height="4dp"
         android:layout_below="@id/title_about"
         android:background="@drawable/category_dividing_line" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/title_about"
+        android:layout_below="@id/divider_about"
         android:overScrollMode="never"
         android:scrollbars="none" >
 
