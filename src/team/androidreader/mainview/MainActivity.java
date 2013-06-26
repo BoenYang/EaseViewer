@@ -1,6 +1,5 @@
 package team.androidreader.mainview;
 
-import java.security.MessageDigest;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
