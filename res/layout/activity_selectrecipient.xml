@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/title_mailcount"
+        android:id="@+id/title_recipientaddr"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/holo_blue_dark"
@@ -26,10 +26,10 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/mailcountlistview"
+        android:id="@+id/recipientaddrlistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_mailcount"
+        android:layout_below="@id/title_recipientaddr"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
@@ -48,13 +48,22 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/addcount"
-            android:layout_width="fill_parent"
+            android:id="@+id/addrecipient"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="fill_parent"
-            android:text="addcount" />
+            android:text="addrecipient" />
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/ok"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:text="ok" />
     </LinearLayout>
 
 </RelativeLayout>

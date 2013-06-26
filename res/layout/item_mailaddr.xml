@@ -6,7 +6,7 @@
     
     <TextView
         android:background="@drawable/bg_file_item"
-        android:id="@+id/item_count" 
+        android:id="@+id/item_addr" 
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:textSize="15sp"

@@ -83,6 +83,11 @@
         </activity>
         <activity android:name="team.androidreader.mail.SelectedMailActicity" >
         </activity>
+        <activity android:name="team.androidreader.mail.SelectRecipientActivity" >
+        </activity>
+        <activity android:name="team.androidreader.mail.SendActivity" >
+        </activity>
+        <service android:name="team.androidreader.mail.MailSendService"></service>
     </application>
 
 </manifest>

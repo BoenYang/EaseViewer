@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/title_useraddr"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/holo_blue_dark"
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_back" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/action_bar_divider"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/useraddrlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_useraddr"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white"
+        android:cacheColorHint="@android:color/white"
+        android:divider="@drawable/divider_listview"
+        android:dividerHeight="1dp"
+        android:fadeScrollbars="true"
+        android:fastScrollEnabled="true"
+        android:listSelector="#00000000"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:smoothScrollbar="true"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/adduseraddr"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="adduseraddr" />
+    </LinearLayout>
+
+</RelativeLayout>
