@@ -23,7 +23,8 @@ public class MyApplication extends Application {
 
 	private HttpClient httpClient;
 	public boolean isLogin = false;
-	public static int Choosed = -1;
+
+	// public static int Choosed = -1;
 
 	@Override
 	public void onCreate() {
@@ -83,99 +84,99 @@ public class MyApplication extends Application {
 			RightCategoryFragment.officeCategory
 					.setBackgroundResource(R.color.brown_pressed);
 			RightCategoryFragment.pictureCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.musicCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.videoCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.apkCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.zipCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			break;
 		case 1:
 			RightCategoryFragment.officeCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.pictureCategory
 					.setBackgroundResource(R.color.brown_pressed);
 			RightCategoryFragment.musicCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.videoCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.apkCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.zipCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			break;
 		case 2:
 			RightCategoryFragment.officeCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.pictureCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.musicCategory
 					.setBackgroundResource(R.color.brown_pressed);
 			RightCategoryFragment.videoCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.apkCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.zipCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			break;
 		case 3:
 			RightCategoryFragment.officeCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.pictureCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.musicCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.videoCategory
 					.setBackgroundResource(R.color.brown_pressed);
 			RightCategoryFragment.apkCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.zipCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			break;
 		case 4:
 			RightCategoryFragment.officeCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.pictureCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.musicCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.videoCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.apkCategory
 					.setBackgroundResource(R.color.brown_pressed);
 			RightCategoryFragment.zipCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			break;
 		case 5:
 			RightCategoryFragment.officeCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.pictureCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.musicCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.videoCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.apkCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.zipCategory
 					.setBackgroundResource(R.color.brown_pressed);
 			break;
 		default:
 			RightCategoryFragment.officeCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.pictureCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.musicCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.videoCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.apkCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			RightCategoryFragment.zipCategory
-					.setBackgroundResource(R.color.brown);
+					.setBackgroundResource(R.drawable.button_category);
 			break;
 		}
 	}

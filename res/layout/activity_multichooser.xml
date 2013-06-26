@@ -41,15 +41,22 @@
         android:background="@drawable/category_dividing_line" />
 
     <GridView
-        android:id="@+id/myGrid"
+        android:id="@+id/Grid_chooser"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider_choosePic"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="6dp"
-        android:horizontalSpacing="12dp"
-        android:listSelector="#00000000"
-        android:numColumns="4"
-        android:verticalSpacing="12dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_select_grid"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@null"
+        android:numColumns="3"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="15dp" />
 
 </RelativeLayout>

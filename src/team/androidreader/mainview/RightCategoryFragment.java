@@ -122,39 +122,39 @@ public class RightCategoryFragment extends Fragment {
 			List<FileInfo> fileList = null;
 			switch (id) {
 			case R.id.categoryOfficeBtn:
-				MyApplication.Choosed = 0;
+				MyApplication.setChoosed(0);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryPictureBtn:
-				MyApplication.Choosed = 1;
+				MyApplication.setChoosed(1);
 				fileList = pictureList;
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryMusicBtn:
-				MyApplication.Choosed = 2;
+				MyApplication.setChoosed(2);
 				fileList = musicList;
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryVideoBtn:
-				MyApplication.Choosed = 3;
+				MyApplication.setChoosed(3);
 				fileList = videoList;
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						"");
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryApkBtn:
-				MyApplication.Choosed = 4;
+				MyApplication.setChoosed(4);
 				// fileList =
 				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
 				// true);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryZipBtn:
-				MyApplication.Choosed = 5;
+				MyApplication.setChoosed(5);
 				// fileList =
 				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
 				// true);
@@ -190,11 +190,8 @@ public class RightCategoryFragment extends Fragment {
 			default:
 				break;
 			}
-			MyApplication.setChoosed(MyApplication.Choosed);
 		}
 	}
-
-
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
