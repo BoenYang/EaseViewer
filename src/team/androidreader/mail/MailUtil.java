@@ -1,7 +1,6 @@
 package team.androidreader.mail;
 
 import java.io.UnsupportedEncodingException;
-import java.security.NoSuchProviderException;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;

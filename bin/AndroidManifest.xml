@@ -81,6 +81,8 @@
         </activity>
         <activity android:name="team.androidreader.helpabout.AboutActivity" >
         </activity>
+        <activity android:name="team.androidreader.mail.SelectedMailActicity" >
+        </activity>
     </application>
 
 </manifest>

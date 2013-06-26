@@ -16,10 +16,10 @@ import android.widget.Button;
 public class BottomMenuFragment extends Fragment {
 
 	private View view;
-	private Button copy;
 	private Button delete;
-	private Button move;
-	private Button rename;
+	private Button choice;
+	private Button selectAll;
+	private boolean selectedAll = false;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -35,14 +35,12 @@ public class BottomMenuFragment extends Fragment {
 	}
 
 	private void init() {
-		copy = (Button) view.findViewById(R.id.copy);
 		delete = (Button) view.findViewById(R.id.delete);
-		move = (Button) view.findViewById(R.id.move);
-		rename = (Button) view.findViewById(R.id.rename);
-		copy.setOnClickListener(new BtnListener());
 		delete.setOnClickListener(new BtnListener());
-		move.setOnClickListener(new BtnListener());
-		rename.setOnClickListener(new BtnListener());
+		selectAll = (Button) view.findViewById(R.id.selectall);
+		selectAll.setOnClickListener(new BtnListener());
+		choice = (Button) view.findViewById(R.id.choice);
+		choice.setOnClickListener(new BtnListener());
 	}
 
 	class BtnListener implements OnClickListener {
@@ -51,7 +49,17 @@ public class BottomMenuFragment extends Fragment {
 		public void onClick(View v) {
 			int id = v.getId();
 			switch (id) {
-			case R.id.copy:
+			case R.id.selectall:
+				if(selectedAll){
+					MainActivity.fileListModel.selectedAll(false);
+					selectAll.setText("selectedall");
+					MainActivity.fileListModel.setSelectedNum(0);
+					selectedAll = false;
+				}else{
+					MainActivity.fileListModel.selectedAll(true);
+					selectAll.setText("cancelall");
+					selectedAll = true;
+				}
 				break;
 			case R.id.delete:
 				FileSortHelper fileSortHelper = new FileSortHelper();
@@ -64,9 +72,11 @@ public class BottomMenuFragment extends Fragment {
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						MainActivity.fileListModel.getCurrentDirectory());
 				break;
-			case R.id.rename:
+			case R.id.choice:
+				ChoiceDialog choiceDialog = new ChoiceDialog(view.getContext());
+				choiceDialog.show();
 				break;
-			case R.id.move:
+			default:
 				break;
 			}
 		}

@@ -136,7 +136,7 @@ public class FileListHelper {
 	private static String GetTimeByLong(long time) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time);
-		return calendar.get(Calendar.YEAR) + "-" + calendar.get(Calendar.MONTH)
+		return calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH)+1)
 				+ "-" + calendar.get(Calendar.DAY_OF_MONTH);
 	}
 
