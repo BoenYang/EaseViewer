@@ -193,8 +193,6 @@ public class RightCategoryFragment extends Fragment {
 		}
 	}
 
-
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Intent intent = new Intent();

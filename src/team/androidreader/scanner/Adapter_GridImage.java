@@ -14,13 +14,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-public class GridImageAdapter extends BaseAdapter {
+public class Adapter_GridImage extends BaseAdapter {
 
 	private Context mContext;
 	private ArrayList<String> dataList;
 	private DisplayMetrics dm;
 
-	public GridImageAdapter(Context c, ArrayList<String> dataList) {
+	public Adapter_GridImage(Context c, ArrayList<String> dataList) {
 
 		mContext = c;
 		this.dataList = dataList;
@@ -50,27 +50,29 @@ public class GridImageAdapter extends BaseAdapter {
 		ImageView imageView;
 		if (convertView == null) {
 			imageView = new ImageView(mContext);
-			imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.MATCH_PARENT, dipToPx(65)));
-			imageView.setAdjustViewBounds(true);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY); 
+			imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
+			imageView.setAdjustViewBounds(false);
+			imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 		} else
 			imageView = (ImageView) convertView;
+		
 		String path;
-		if (dataList != null && position<dataList.size() )
+		if (dataList != null && position < dataList.size())
 			path = dataList.get(position);
 		else
 			path = "camera_default";
-		Log.i("path", "path:"+path+"::position"+position);
+		
+		Log.i("path", "path:" + path + "::position" + position);
+		
 		if (path.contains("default"))
-			imageView.setImageResource(R.drawable.camera_default);
-		else{
-            ImageManager.from(mContext).displayImage(imageView, path,R.drawable.camera_default,100,100);
+			imageView.setImageResource(R.drawable.pic_add_btn);
+		else {
+			ImageManager.from(mContext).displayImage(imageView, path,
+					R.drawable.camera_default, 100, 100);
 		}
+		
 		return imageView;
 	}
-	
-	public int dipToPx(int dip) {
-		return (int) (dip * dm.density + 0.5f);
-	}
+
 
 }

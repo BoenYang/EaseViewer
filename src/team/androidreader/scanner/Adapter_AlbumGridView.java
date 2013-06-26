@@ -15,7 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
 
-public class AlbumGridViewAdapter extends BaseAdapter implements
+public class Adapter_AlbumGridView extends BaseAdapter implements
 		OnClickListener {
 
 	private Context mContext;
@@ -23,7 +23,7 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 	private ArrayList<String> selectedDataList;
 	private DisplayMetrics dm;
 
-	public AlbumGridViewAdapter(Context c, ArrayList<String> dataList,
+	public Adapter_AlbumGridView(Context c, ArrayList<String> dataList,
 			ArrayList<String> selectedDataList) {
 
 		mContext = c;
@@ -79,10 +79,10 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 		else
 			path = "camera_default";
 		if (path.contains("default")) {
-			viewHolder.imageView.setImageResource(R.drawable.camera_default);
+			viewHolder.imageView.setImageResource(R.drawable.pic_add_btn);
 		} else {
 			ImageManager.from(mContext).displayImage(viewHolder.imageView,
-					path, R.drawable.camera_default, 100, 100);
+					path, R.drawable.pic_add_btn, 100, 100);
 		}
 		viewHolder.toggleButton.setTag(position);
 		viewHolder.toggleButton.setOnClickListener(this);

@@ -29,5 +29,8 @@
     <string name="preference_function_intoduce">功能介绍</string>
     <string name="preference_advice">反馈建议</string>
     <string name="preference_about_team">项目主页</string>
+    <string name="dialog_choose_image">图片来源</string>
+    <string name="dialog_choose_from_camera">拍照获取</string>
+    <string name="dialog_choose_from_media">图库选择</string>
 
 </resources>
