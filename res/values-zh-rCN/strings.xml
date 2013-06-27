@@ -32,5 +32,8 @@
     <string name="dialog_choose_image">图片来源</string>
     <string name="dialog_choose_from_camera">拍照获取</string>
     <string name="dialog_choose_from_media">图库选择</string>
+    <string name="name_pdf">文件名:</string>
+    <string name="generate_pdf">生成PDF</string>
+    <string name="null_fileName">请输入文件名!</string>
 
 </resources>

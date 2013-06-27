@@ -102,8 +102,8 @@ public class Activity_Album extends Activity {
 						if (selectedDataList.size() >= 10) {
 							toggleButton.setChecked(false);
 							if (!removePath(path)) {
-								Toast.makeText(Activity_Album.this, "只能选择10张图片",
-										200).show();
+								Toast.makeText(Activity_Album.this,
+										"只能选择10张图片", 200).show();
 							}
 							return;
 						}
@@ -163,7 +163,6 @@ public class Activity_Album extends Activity {
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
-				// intent.putArrayListExtra("dataList", dataList);
 				bundle.putStringArrayList("dataList", selectedDataList);
 				intent.putExtras(bundle);
 				setResult(RESULT_OK, intent);

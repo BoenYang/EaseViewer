@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_chooser"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
@@ -45,18 +46,47 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider_choosePic"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/bg_select_grid"
-        android:columnWidth="90dp"
+        android:background="@drawable/bg_rounded_rect"
+        android:columnWidth="100dp"
         android:gravity="center"
         android:horizontalSpacing="10dp"
-        android:listSelector="@null"
+        android:listSelector="@drawable/bg_rounded_rect"
         android:numColumns="3"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:stretchMode="columnWidth"
         android:verticalSpacing="15dp" />
+
+    <EditText
+        android:id="@+id/name_pdf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Grid_chooser"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_rounded_rect"
+        android:hint="@string/name_pdf"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btn_generate_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/name_pdf"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_flat_btn"
+        android:padding="10dp"
+        android:text="@string/generate_pdf"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
 </RelativeLayout>

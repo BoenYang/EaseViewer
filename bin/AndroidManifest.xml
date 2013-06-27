@@ -67,7 +67,9 @@
         </activity>
         <activity android:name="team.androidreader.scanner.Activity_Album" >
         </activity>
-        <activity android:name="team.androidreader.scanner.Activity_Multichooser" >
+        <activity
+            android:name="team.androidreader.scanner.Activity_Multichooser"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity android:name="team.androidreader.pdf.PdfReaderActivity" >
             <intent-filter>

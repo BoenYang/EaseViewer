@@ -171,13 +171,13 @@ public class ImageManager {
 				&& imageView.getTag().toString().equals(url)) {
 			return;
 		}
-		if (resId >= 0) {
-			if (imageView.getBackground() == null) {
-				imageView.setBackgroundResource(resId);
-			}
-			imageView.setImageDrawable(null);
-
-		}
+		// if (resId >= 0) {
+		// if (imageView.getBackground() == null) {
+		// imageView.setBackgroundResource(resId);
+		// }
+		// imageView.setImageDrawable(null);
+		//
+		// }
 		if (url == null || url.equals("")) {
 			return;
 		}
@@ -220,6 +220,7 @@ public class ImageManager {
 		if (imageView == null) {
 			return;
 		}
+
 		if (resId >= 0) {
 
 			if (imageView.getBackground() == null) {
@@ -228,6 +229,7 @@ public class ImageManager {
 			imageView.setImageDrawable(null);
 
 		}
+
 		if (url == null || url.equals("")) {
 			return;
 		}
@@ -319,7 +321,8 @@ public class ImageManager {
 					if (url == null)
 						return;
 					// 如果本地url即读取sd相册图片，则直接读取，不用经过DiskCache
-					if (url.toLowerCase().contains("dcim")) {
+					if (url.toLowerCase().contains("dcim")
+							|| url.toLowerCase().contains("sdcard")) {
 
 						tBitmap = null;
 						BitmapFactory.Options opt = new BitmapFactory.Options();
@@ -369,8 +372,7 @@ public class ImageManager {
 								BitmapFactory.decodeByteArray(data, 0,
 										data.length, opt);
 								int bitmapSize = opt.outHeight * opt.outWidth
-										* 4;// pixels*3 if it's RGB and pixels*4
-											// if it's ARGB
+										* 4;
 								if (bitmapSize > 1000 * 1200)
 									opt.inSampleSize = 2;
 								opt.inJustDecodeBounds = false;
