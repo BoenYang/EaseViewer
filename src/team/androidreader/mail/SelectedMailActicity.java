@@ -59,7 +59,7 @@ public class SelectedMailActicity extends Activity {
 		addressListView.setAdapter(adapter);
 		inputDialog = new Dialog(SelectedMailActicity.this);
 		inputDialog.setTitle("请输入您的邮箱");
-		inputDialog.setContentView(R.layout.dialog_adduseraddress);
+		inputDialog.setContentView(R.layout.dialog_input);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
 		ensure.setOnClickListener(new BtnListener());

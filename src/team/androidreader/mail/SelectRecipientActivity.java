@@ -25,7 +25,6 @@ import android.widget.Toast;
 public class SelectRecipientActivity extends Activity {
 
 	private String userAddr;
-	private String mail;
 	private ListView repipientListView;
 	private List<String> recipientList;
 	private RecipientShowAdapter adapter;
@@ -60,7 +59,7 @@ public class SelectRecipientActivity extends Activity {
 		repipientListView.setAdapter(adapter);
 		inputDialog = new Dialog(this);
 		inputDialog.setTitle("请输入收件人邮箱");
-		inputDialog.setContentView(R.layout.dialog_adduseraddress);
+		inputDialog.setContentView(R.layout.dialog_input);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		ensure.setOnClickListener(new BtnListener());
@@ -76,11 +75,16 @@ public class SelectRecipientActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				if(selectedRecipient.size() == 0){
+					Toast.makeText(SelectRecipientActivity.this, "请选择收件人", Toast.LENGTH_SHORT).show();
+					return ;
+				}
 				Intent intent = new Intent();
 				intent.setClass(SelectRecipientActivity.this, SendActivity.class);
 				intent.putExtra("useraddress", userAddr);
 				Bundle bundle = new Bundle();
 				bundle.putStringArrayList("recipients", (ArrayList<String>)selectedRecipient);
+				intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
@@ -125,7 +129,6 @@ public class SelectRecipientActivity extends Activity {
 		public RecipientShowAdapter(Context context) {
 			layoutInflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
 		}
 
 		@Override
@@ -163,15 +166,10 @@ public class SelectRecipientActivity extends Activity {
 				viewHolder.checkBox = (CheckBox) convertView
 						.findViewById(R.id.recipientSelected);
 				convertView.setTag(viewHolder);
-
 			}
-
-			String mail = recipientList.get(position);
-			System.out.println(viewHolder.checkBox);
+			viewHolder.mail.setText(recipientList.get(position));
 			viewHolder.checkBox
 				.setChecked(selected.get(position));
-
-			viewHolder.mail.setText(mail);
 			viewHolder.checkBox.setOnClickListener(new CheckBoxOnClickListener(
 					position));
 			return convertView;

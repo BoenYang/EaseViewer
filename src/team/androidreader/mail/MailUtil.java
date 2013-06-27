@@ -34,7 +34,7 @@ public class MailUtil {
 		this.server = server;
 	}
 
-	public void sendEmail(String email, String subject, String body,
+	public boolean sendEmail(String email, String subject, String body,
 			List<FileInfo> fileList) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", server);
@@ -71,10 +71,13 @@ public class MailUtil {
 			msg.saveChanges();
 			transport.sendMessage(msg, msg.getAllRecipients());
 			transport.close();
+			return true;
 		} catch (MessagingException e) {
 			e.printStackTrace();
+			return false;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			return false;
 		}
 
 	}

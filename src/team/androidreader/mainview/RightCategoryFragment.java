@@ -5,7 +5,7 @@ import java.util.List;
 import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.helpabout.HelpActivity;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
-import team.androidreader.scanner.Activity_Multichooser;
+import team.androidreader.scanner.ImageToPdfActivity;
 import team.androidreader.scanner.PhotoPreviewActivity;
 import team.androidreader.theme.ChangeThemeActivity;
 import team.androidreader.utils.MyApplication;
@@ -169,7 +169,7 @@ public class RightCategoryFragment extends Fragment {
 				// startActivity(intent1);
 
 				Intent intent1 = new Intent();
-				intent1.setClass(getActivity(), Activity_Multichooser.class);
+				intent1.setClass(getActivity(), ImageToPdfActivity.class);
 				startActivity(intent1);
 				break;
 			case R.id.functionChangeThemeBtn:

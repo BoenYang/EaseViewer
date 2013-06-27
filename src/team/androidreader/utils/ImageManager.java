@@ -320,34 +320,26 @@ public class ImageManager {
 					String url = imageRef.url;
 					if (url == null)
 						return;
-					// 如果本地url即读取sd相册图片，则直接读取，不用经过DiskCache
-					if (url.toLowerCase().contains("dcim")) {
 
+					BitmapFactory.Options opt = new BitmapFactory.Options();
+					opt.inSampleSize = 1;
+					opt.inJustDecodeBounds = true;
+					BitmapFactory.decodeFile(url, opt);
+					int bitmapSize = opt.outHeight * opt.outWidth * 4;
+					opt.inSampleSize = bitmapSize / (1000 * 2000);
+					opt.inJustDecodeBounds = false;
+					tBitmap = BitmapFactory.decodeFile(url, opt);
+					if (imageRef.width != 0 && imageRef.height != 0) {
+						bitmap = ThumbnailUtils.extractThumbnail(tBitmap,
+								imageRef.width, imageRef.height,
+								ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+						isFromNet = true;
+					} else {
+						bitmap = tBitmap;
 						tBitmap = null;
-						BitmapFactory.Options opt = new BitmapFactory.Options();
-						opt.inSampleSize = 1;
-						opt.inJustDecodeBounds = true;
-						BitmapFactory.decodeFile(url, opt);
-						int bitmapSize = opt.outHeight * opt.outWidth * 4;
-						opt.inSampleSize = bitmapSize / (1000 * 2000);
-						opt.inJustDecodeBounds = false;
-						tBitmap = BitmapFactory.decodeFile(url, opt);
-						if (imageRef.width != 0 && imageRef.height != 0) {
-							bitmap = ThumbnailUtils.extractThumbnail(tBitmap,
-									imageRef.width, imageRef.height,
-									ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-							isFromNet = true;
-						} else {
-							bitmap = tBitmap;
-							tBitmap = null;
-						}
-
-					} else
-						bitmap = mDiskCache.get(url);
+					}
 
 					if (bitmap != null) {
-						// ToolUtil.log("从disk缓存读取");
-						// 写入map缓存
 						if (imageRef.width != 0 && imageRef.height != 0) {
 							if (mMemoryCache.get(url + imageRef.width
 									+ imageRef.height) == null)
@@ -357,57 +349,6 @@ public class ImageManager {
 							if (mMemoryCache.get(url) == null)
 								mMemoryCache.put(url, bitmap);
 						}
-
-					} else {
-						try {
-							byte[] data = loadByteArrayFromNetwork(url);
-
-							if (data != null) {
-
-								BitmapFactory.Options opt = new BitmapFactory.Options();
-								opt.inSampleSize = 1;
-
-								opt.inJustDecodeBounds = true;
-								BitmapFactory.decodeByteArray(data, 0,
-										data.length, opt);
-								int bitmapSize = opt.outHeight * opt.outWidth
-										* 4;// pixels*3 if it's RGB and pixels*4
-											// if it's ARGB
-								if (bitmapSize > 1000 * 1200)
-									opt.inSampleSize = 2;
-								opt.inJustDecodeBounds = false;
-								tBitmap = BitmapFactory.decodeByteArray(data,
-										0, data.length, opt);
-								if (imageRef.width != 0 && imageRef.height != 0) {
-									bitmap = ThumbnailUtils
-											.extractThumbnail(
-													tBitmap,
-													imageRef.width,
-													imageRef.height,
-													ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-								} else {
-									bitmap = tBitmap;
-									tBitmap = null;
-								}
-
-								if (bitmap != null && url != null) {
-									// 写入SD卡
-									if (imageRef.width != 0
-											&& imageRef.height != 0) {
-										mDiskCache.put(url + imageRef.width
-												+ imageRef.height, bitmap);
-										mMemoryCache.put(url + imageRef.width
-												+ imageRef.height, bitmap);
-									} else {
-										mDiskCache.put(url, bitmap);
-										mMemoryCache.put(url, bitmap);
-									}
-									isFromNet = true;
-								}
-							}
-						} catch (OutOfMemoryError e) {
-						}
-
 					}
 
 				}

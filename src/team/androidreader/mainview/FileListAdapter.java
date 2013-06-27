@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import team.androidreader.mainview.FileListModel.onSelectedAllListener;
 import team.top.activity.R;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

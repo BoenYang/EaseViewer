@@ -70,7 +70,6 @@ public class Activity_Multichooser extends Activity {
 							intent.putExtra(MediaStore.EXTRA_OUTPUT,
 									Uri.fromFile(image_file));
 							startActivityForResult(intent, 1);
-							// startActivity(intent);
 						}
 					});
 
@@ -126,7 +125,7 @@ public class Activity_Multichooser extends Activity {
 		//capture by camera test
 		if (requestCode == 1) {
 			String path = image_file.getPath();
-			dataList.add(path);
+			dataList.add(dataList.size()-1,path);
 			gridImageAdapter.notifyDataSetChanged();
 		}
 

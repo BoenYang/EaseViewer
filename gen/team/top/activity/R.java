@@ -153,14 +153,14 @@ public final class R {
         public static final int center_frame=0x7f0a0059;
         public static final int choice=0x7f0a003a;
         public static final int confirm=0x7f0a0068;
-        public static final int copy=0x7f0a0031;
+        public static final int copy=0x7f0a002f;
         public static final int delete=0x7f0a003b;
         public static final int divder_filelist=0x7f0a003c;
         public static final int divider_about=0x7f0a0002;
         public static final int divider_choosePic=0x7f0a0018;
         public static final int divider_help=0x7f0a0013;
         public static final int divider_theme=0x7f0a0010;
-        public static final int ensure=0x7f0a0030;
+        public static final int ensure=0x7f0a0033;
         public static final int fileGridView=0x7f0a0014;
         public static final int fileIcon=0x7f0a005b;
         public static final int fileMofidiedDate=0x7f0a005d;
@@ -197,14 +197,14 @@ public final class R {
         public static final int progressbar=0x7f0a000d;
         public static final int recipientSelected=0x7f0a0064;
         public static final int recipientaddrlistview=0x7f0a0024;
-        public static final int rename=0x7f0a0032;
+        public static final int rename=0x7f0a0030;
         public static final int rightRoate=0x7f0a001f;
         public static final int right_frame=0x7f0a005a;
         public static final int save=0x7f0a001c;
         public static final int scrollview=0x7f0a000a;
         public static final int selectall=0x7f0a0039;
         public static final int selected_image_layout=0x7f0a000b;
-        public static final int send=0x7f0a0033;
+        public static final int send=0x7f0a0031;
         public static final int sendmail=0x7f0a002c;
         public static final int showRight=0x7f0a0056;
         public static final int slidingMenu=0x7f0a0015;
@@ -221,7 +221,7 @@ public final class R {
         public static final int tvattach=0x7f0a002a;
         public static final int tvboby=0x7f0a0029;
         public static final int tvsubject=0x7f0a0027;
-        public static final int useraddress=0x7f0a002f;
+        public static final int useraddress=0x7f0a0032;
         public static final int useraddrlistview=0x7f0a0021;
         public static final int waitingProgressBar=0x7f0a0038;
     }
@@ -241,8 +241,8 @@ public final class R {
         public static final int activity_showoffice=0x7f03000c;
         public static final int activity_textreader=0x7f03000d;
         public static final int choose_imageview=0x7f03000e;
-        public static final int dialog_adduseraddress=0x7f03000f;
-        public static final int dialog_choice=0x7f030010;
+        public static final int dialog_choice=0x7f03000f;
+        public static final int dialog_input=0x7f030010;
         public static final int dialog_select=0x7f030011;
         public static final int dialog_setname=0x7f030012;
         public static final int dialog_waitting=0x7f030013;

@@ -1,5 +1,6 @@
 package team.androidreader.mail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import team.top.activity.R;
@@ -12,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SendActivity extends Activity {
 
@@ -20,10 +22,10 @@ public class SendActivity extends Activity {
 	private TextView attach;
 	private Button send;
 	private String userAddress;
-	private List<String> recipients;
 	private Dialog inputDialog;
 	private Button ensure;
 	private EditText address;
+	private List<String> recipients;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +33,8 @@ public class SendActivity extends Activity {
 		setContentView(R.layout.activity_sendmail);
 		Intent intent = getIntent();
 		userAddress = intent.getStringExtra("useraddress");
-		Bundle bundle = intent.getExtras();
-		recipients = bundle.getStringArrayList("recipients");
+		Bundle recipientsBundle = intent.getExtras();
+		recipients = recipientsBundle.getStringArrayList("recipients");
 		init();
 	}
 
@@ -43,7 +45,7 @@ public class SendActivity extends Activity {
 		send = (Button)findViewById(R.id.sendmail);
 		inputDialog = new Dialog(SendActivity.this);
 		inputDialog.setTitle("请输入您的邮箱密码");
-		inputDialog.setContentView(R.layout.dialog_adduseraddress);
+		inputDialog.setContentView(R.layout.dialog_input);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
 		
@@ -64,10 +66,22 @@ public class SendActivity extends Activity {
 				String servlet = userAddress.substring(userAddress.indexOf('@')+1,userAddress.lastIndexOf('.'));
 				String passwd = address.getText().toString();
 				Intent intent = new Intent();
+				Bundle bundle = new Bundle();
+				if(passwd.equals("")){
+					Toast.makeText(SendActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+					return ;
+				}
+				bundle.putStringArrayList("recipients", (ArrayList<String>)recipients);
+				intent.putExtra("subject", subContent);
+				intent.putExtra("body", bodyContent);
+				intent.putExtra("servlet", servlet);
+				intent.putExtra("passwd", passwd);
+				intent.putExtra("useraddress", userAddress);
+				intent.putExtras(bundle);
 				intent.setClass(SendActivity.this, MailSendService.class);
-				startService(intent);
 				inputDialog.cancel();
-				finish();
+				startService(intent);
+				//finish();
 			}
 		});
 	}
