@@ -32,5 +32,32 @@
     <string name="dialog_choose_image">图片来源</string>
     <string name="dialog_choose_from_camera">拍照获取</string>
     <string name="dialog_choose_from_media">图库选择</string>
-
+    
+    <string name="titile_select_useraddr">选择发件人</string>
+    <string name="select_useraddr_add_btn">添加发件人</string>
+	<string name="title_select_recipient">选择收件人</string>
+	<string name="select_recipient_add_btn">添加收件人</string>
+	<string name="ok_btn">确定</string>
+	<string name="bottom_selectall">全选</string>
+	<string name="bottom_cancelall">全不选</string>
+	<string name="bottom_delete">删除</string>
+	<string name="bottom_choice">选项</string>
+	<string name="choice_copy">复制</string>
+	<string name="choice_move">移动</string>
+	<string name="choice_sendbymail">以邮件发送</string>
+	<string name="choice_rename">重命名</string>
+	<string name="mail_format_incorrect">对不起，您输入的邮箱格式不正确</string>
+	<string name="write_failed">对不起,写入数据库失败</string>
+	<string name="not_support">对不起，暂时不支持此邮箱</string>
+	<string name="promot_select_recipient">请选择收件人</string>
+	<string name="add_recupient_dialog_title">请输入收件人邮箱</string>
+	<string name="add_addresser_dialog_title">请输入发件人邮箱</string>
+	<string name="passwd_input_dialog_title">请输入您的邮箱密码</string>
+	<string name="net_work_connect_failed">网络连接错误</string>
+	<string name="passwd_incorrect">密码错误</string>
+	<string name="promot_enter_passwd">请输入密码</string>
+	  <string name="send_subject">标题</string>
+    <string name="send_body">正文</string>
+    <string name="send_attach">附件</string>
+    <string name="send_btn">发送</string>
 </resources>

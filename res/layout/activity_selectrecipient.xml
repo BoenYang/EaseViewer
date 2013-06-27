@@ -23,6 +23,14 @@
             android:layout_gravity="center"
             android:background="@drawable/action_bar_divider"
             android:focusable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_select_recipient"
+            android:textColor="@android:color/white"
+            android:textSize="9pt" />
     </LinearLayout>
 
     <ListView
@@ -54,16 +62,16 @@
         <Button
             android:id="@+id/addrecipient"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="fill_parent"
-            android:text="addrecipient" />
+            android:layout_weight="1"
+            android:text="@string/select_recipient_add_btn" />
 
         <Button
-            android:layout_weight="1"
             android:id="@+id/ok"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:text="ok" />
+            android:layout_weight="1"
+            android:text="@string/ok_btn" />
     </LinearLayout>
 
 </RelativeLayout>

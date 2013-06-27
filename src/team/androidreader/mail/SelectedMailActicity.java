@@ -32,6 +32,7 @@ public class SelectedMailActicity extends Activity {
 	public final static String FORMAT ="\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
 	private ADO ado;
 	public static Map<String, String> supportMail = new HashMap<String, String>();
+	private String mailServlet;
 	
 	static{
 		supportMail.put("126", "smtp.126.com");
@@ -58,7 +59,7 @@ public class SelectedMailActicity extends Activity {
 				R.layout.item_mailaddr, R.id.item_addr, addressList);
 		addressListView.setAdapter(adapter);
 		inputDialog = new Dialog(SelectedMailActicity.this);
-		inputDialog.setTitle("请输入您的邮箱");
+		inputDialog.setTitle(R.string.add_addresser_dialog_title);
 		inputDialog.setContentView(R.layout.dialog_input);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
@@ -82,6 +83,7 @@ public class SelectedMailActicity extends Activity {
 			Intent intent = new Intent();
 			intent.setClass(SelectedMailActicity.this, SelectRecipientActivity.class);
 			intent.putExtra("useraddress", addressList.get(position));
+			intent.putExtra("servlet", supportMail.get(mailServlet));
 			startActivity(intent);
 		}
 	}
@@ -93,17 +95,17 @@ public class SelectedMailActicity extends Activity {
 			String temp = address.getText().toString();
 			
 			if(!temp.matches(FORMAT)){
-				Toast.makeText(SelectedMailActicity.this, "对不起，您输入的邮箱格式不正确", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SelectedMailActicity.this, R.string.mail_format_incorrect, Toast.LENGTH_SHORT).show();
 				return ;
 			}
-			String mail = temp.substring(temp.indexOf('@')+1,temp.lastIndexOf('.'));
-			if(!supportMail.containsKey(mail.toLowerCase())){
-				Toast.makeText(SelectedMailActicity.this, "对不起，暂时不支持您输入的邮箱", Toast.LENGTH_SHORT).show();
+			mailServlet = temp.substring(temp.indexOf('@')+1,temp.lastIndexOf('.'));
+			if(!supportMail.containsKey(mailServlet.toLowerCase())){
+				Toast.makeText(SelectedMailActicity.this, R.string.not_support, Toast.LENGTH_SHORT).show();
 				return ;
 			}
 			ADO ado = new ADO(SelectedMailActicity.this);
 			if(!ado.addUserMail(temp)){
-				Toast.makeText(SelectedMailActicity.this, "对不起,写入数据库失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SelectedMailActicity.this, R.string.write_failed, Toast.LENGTH_SHORT).show();
 				return ;
 			}
 			inputDialog.cancel();

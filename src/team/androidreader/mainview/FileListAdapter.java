@@ -124,6 +124,9 @@ public class FileListAdapter extends BaseAdapter{
 		FileInfo file = fileList.get(position);
 		viewHolder.checkBox
 				.setChecked(MainActivity.fileListModel.getSeletct()[position]);
+		if(MainActivity.fileListModel.getOpeartion() != FileListController.DEFAULT){
+			viewHolder.checkBox.setVisibility(View.GONE);
+		}
 		viewHolder.fileNameTextView.setText(file.fileName);
 		viewHolder.modifyTimeTextview.setText(file.lastModify);
 		viewHolder.checkBox.setOnClickListener(new CheckBoxOnClickListener(
@@ -154,14 +157,6 @@ public class FileListAdapter extends BaseAdapter{
 			viewHolder.fileIconImageView.setImageResource(R.drawable.folder);
 		}
 		return convertView;
-	}
-
-	@Override
-	public void notifyDataSetChanged() {
-		// checked = new boolean[fileList.size()];
-		// MainActivity.fileListModel.setSeletct(checked);
-		// MainActivity.fileListModel.clearSelectFIles();
-		super.notifyDataSetChanged();
 	}
 
 	class CheckBoxOnClickListener implements View.OnClickListener {

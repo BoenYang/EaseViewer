@@ -25,6 +25,7 @@ import android.widget.Toast;
 public class SelectRecipientActivity extends Activity {
 
 	private String userAddr;
+	private String mailServlet;
 	private ListView repipientListView;
 	private List<String> recipientList;
 	private RecipientShowAdapter adapter;
@@ -49,6 +50,7 @@ public class SelectRecipientActivity extends Activity {
 		init();
 		Intent intent = getIntent();
 		userAddr = intent.getStringExtra("useraddress");
+		mailServlet = intent.getStringExtra("servlet");
 	}
 
 	private void init() {
@@ -58,7 +60,7 @@ public class SelectRecipientActivity extends Activity {
 		adapter = new RecipientShowAdapter(this);
 		repipientListView.setAdapter(adapter);
 		inputDialog = new Dialog(this);
-		inputDialog.setTitle("请输入收件人邮箱");
+		inputDialog.setTitle(R.string.add_recupient_dialog_title);
 		inputDialog.setContentView(R.layout.dialog_input);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
@@ -76,12 +78,13 @@ public class SelectRecipientActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if(selectedRecipient.size() == 0){
-					Toast.makeText(SelectRecipientActivity.this, "请选择收件人", Toast.LENGTH_SHORT).show();
+					Toast.makeText(SelectRecipientActivity.this, R.string.promot_select_recipient, Toast.LENGTH_SHORT).show();
 					return ;
 				}
 				Intent intent = new Intent();
 				intent.setClass(SelectRecipientActivity.this, SendActivity.class);
 				intent.putExtra("useraddress", userAddr);
+				intent.putExtra("servlet", mailServlet);
 				Bundle bundle = new Bundle();
 				bundle.putStringArrayList("recipients", (ArrayList<String>)selectedRecipient);
 				intent.putExtras(bundle);
@@ -98,16 +101,16 @@ public class SelectRecipientActivity extends Activity {
 			String temp = address.getText().toString();
 			
 			if(!temp.matches(SelectedMailActicity.FORMAT)){
-				Toast.makeText(SelectRecipientActivity.this, "对不起，您输入的邮箱格式不正确", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SelectRecipientActivity.this, R.string.mail_format_incorrect, Toast.LENGTH_SHORT).show();
 				return ;
 			}
 			String mail = temp.substring(temp.indexOf('@')+1,temp.lastIndexOf('.'));
 			if(!SelectedMailActicity.supportMail.containsKey(mail.toLowerCase())){
-				Toast.makeText(SelectRecipientActivity.this, "对不起，暂时不支持此邮箱", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SelectRecipientActivity.this, R.string.not_support, Toast.LENGTH_SHORT).show();
 				return ;
 			}
 			if(!ado.addRecipientMail(temp)){
-				Toast.makeText(SelectRecipientActivity.this, "对不起,写入数据库失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SelectRecipientActivity.this, R.string.write_failed, Toast.LENGTH_SHORT).show();
 				return ;
 			}
 			inputDialog.cancel();

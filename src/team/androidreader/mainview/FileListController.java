@@ -7,6 +7,10 @@ public class FileListController {
 	private FileListModel fileListModel;
 	public static final int ADD = 1;
 	public static final int DELETE = 2;
+	
+	public static final int MOVE =3;
+	public static final int COPY = 4;
+	public static final int DEFAULT = 5;
 
 	public FileListController(FileListModel fileListModel) {
 		this.fileListModel = fileListModel;
@@ -26,6 +30,10 @@ public class FileListController {
 		} else if (model == DELETE) {
 			fileListModel.deleteSelectFile(fileInfo);
 		}
+	}
+	
+	public void handFileOperationChange(int model){
+		fileListModel.setModel(model);
 	}
 
 }

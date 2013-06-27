@@ -127,9 +127,6 @@ public class MainActivity extends FragmentActivity implements
 		} else {
 			mSlidingMenu.setMenuInvisibke();
 		}
-		for (FileInfo fileInfo : fileListModel.getSelectFiles()) {
-			System.out.println(fileInfo.absolutePath);
-		}
 	}
 
 	@Override

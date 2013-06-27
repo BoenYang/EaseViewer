@@ -37,6 +37,7 @@ public class FileListFragment extends Fragment implements
 	private TextView noFileTextView;
 	private boolean checked[];
 
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);

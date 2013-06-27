@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import android.R.interpolator;
+
 public class FileListModel {
 	
 	public interface FileListChangeListener {
@@ -18,6 +20,10 @@ public class FileListModel {
 		public void onSelectedAll();
 	}
 	
+	public interface onOperationModelChangListener{
+		public void onModelChange(int model);
+	}
+	
 	private List<FileInfo> fileList = new ArrayList<FileInfo>();
 	private List<FileInfo> selectFiles = new ArrayList<FileInfo>();
 	private String currentDirectory;
@@ -25,9 +31,13 @@ public class FileListModel {
 	private FileListChangeListener listener;
 	private onSelectedListener selectedListener;
 	private onSelectedAllListener onSelectedAllListener;
+	private onOperationModelChangListener onOperationModelChangListener;
 	private boolean seletct[];
 	private int selectedNum;
+	private int opeartion = FileListController.DEFAULT;
 	
+
+
 	public FileListModel(List<FileInfo> filelist,String currentDir){
 		this.fileList.clear();
 		this.fileList.addAll(filelist);
@@ -64,6 +74,10 @@ public class FileListModel {
 		onSelectedAllListener = listener;
 	}
 	
+	public void addFileOperationChangeListener(onOperationModelChangListener listener){
+		this.onOperationModelChangListener = listener;
+	}
+	
 	public int getSelectedNum() {
 		return selectedNum;
 	}
@@ -89,6 +103,8 @@ public class FileListModel {
 	
 	public void clearSelectFIles(){
 		selectFiles.removeAll(selectFiles);
+		Arrays.fill(seletct, false);
+		setSelectedNum(0);
 	}
 	
 	public boolean[] getSeletct() {
@@ -104,5 +120,12 @@ public class FileListModel {
 		onSelectedAllListener.onSelectedAll();
 	}
 	
+	public void setModel(int model){
+		opeartion = model;
+		this.onOperationModelChangListener.onModelChange(model);
+	}
 	
+	public int getOpeartion() {
+		return opeartion;
+	}
 }

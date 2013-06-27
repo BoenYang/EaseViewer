@@ -10,20 +10,20 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:text="selectall" />
+        android:text="@string/bottom_selectall" />
 
     <Button
         android:id="@+id/choice"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:text="choice" />
+        android:text="@string/bottom_choice" />
 
     <Button
         android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:text="delete" />
+        android:text="@string/bottom_delete" />
 
 </LinearLayout>

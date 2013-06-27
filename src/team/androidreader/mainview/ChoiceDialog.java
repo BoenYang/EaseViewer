@@ -14,6 +14,7 @@ public class ChoiceDialog extends Dialog {
 	private Button sendBymail;
 	private Button copy;
 	private Button rename;
+	private Button move;
 
 	public ChoiceDialog(Context context) {
 		super(context);
@@ -30,9 +31,11 @@ public class ChoiceDialog extends Dialog {
 		sendBymail = (Button) findViewById(R.id.send);
 		copy = (Button) findViewById(R.id.copy);
 		rename = (Button) findViewById(R.id.rename);
+		move = (Button) findViewById(R.id.move);
 		sendBymail.setOnClickListener(new BtnListener());
 		rename.setOnClickListener(new BtnListener());
 		copy.setOnClickListener(new BtnListener());
+		move.setOnClickListener(new BtnListener());
 	}
 
 	class BtnListener implements android.view.View.OnClickListener {
@@ -47,13 +50,17 @@ public class ChoiceDialog extends Dialog {
 				getContext().startActivity(intent);
 				break;
 			case R.id.copy:
+				MainActivity.fileListController.handFileOperationChange(FileListController.COPY);
 				break;
 			case R.id.rename:
+				break;
+			case R.id.move:
+				MainActivity.fileListController.handFileOperationChange(FileListController.MOVE);
 				break;
 			default:
 				break;
 			}
+			cancel();
 		}
-
 	}
 }
