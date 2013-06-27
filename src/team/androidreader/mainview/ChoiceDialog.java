@@ -53,6 +53,9 @@ public class ChoiceDialog extends Dialog {
 				MainActivity.fileListController.handFileOperationChange(FileListController.COPY);
 				break;
 			case R.id.rename:
+				Intent intent2 = new Intent();
+				intent2.setClass(getContext(), RenameActivity.class);
+				getContext().startActivity(intent2);
 				break;
 			case R.id.move:
 				MainActivity.fileListController.handFileOperationChange(FileListController.MOVE);

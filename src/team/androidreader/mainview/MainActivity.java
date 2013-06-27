@@ -134,4 +134,13 @@ public class MainActivity extends FragmentActivity implements
 		super.onResume();
 	}
 
+	@Override
+	protected void onRestart() {
+		List<FileInfo> fileList = FileListHelper.GetSortedFiles(
+				fileListModel.getCurrentDirectory(), false, SortMethod.name);
+		fileListController.handleDirectoryChange(fileList,
+				fileListModel.getCurrentDirectory());
+		super.onRestart();
+	}
+
 }

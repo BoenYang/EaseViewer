@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="team.androidreader.utils.MyApplication"
@@ -90,7 +90,12 @@
         </activity>
         <activity android:name="team.androidreader.mail.SendActivity" >
         </activity>
-        <service android:name="team.androidreader.mail.MailSendService"></service>
+
+        <service android:name="team.androidreader.mail.MailSendService" >
+        </service>
+
+        <activity android:name="team.androidreader.mainview.RenameActivity" >
+        </activity>
     </application>
 
 </manifest>
