@@ -11,6 +11,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 
+import team.androidreader.scanner.DiskLruCache;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -320,11 +322,11 @@ public class ImageManager {
 					String url = imageRef.url;
 					if (url == null)
 						return;
+
 					// 如果本地url即读取sd相册图片，则直接读取，不用经过DiskCache
 					if (url.toLowerCase().contains("dcim")
 							|| url.toLowerCase().contains("sdcard")) {
 
-						tBitmap = null;
 						BitmapFactory.Options opt = new BitmapFactory.Options();
 						opt.inSampleSize = 1;
 						opt.inJustDecodeBounds = true;
@@ -343,82 +345,27 @@ public class ImageManager {
 							tBitmap = null;
 						}
 
-					} else
-						bitmap = mDiskCache.get(url);
-
-					if (bitmap != null) {
-						// ToolUtil.log("从disk缓存读取");
-						// 写入map缓存
-						if (imageRef.width != 0 && imageRef.height != 0) {
-							if (mMemoryCache.get(url + imageRef.width
-									+ imageRef.height) == null)
-								mMemoryCache.put(url + imageRef.width
-										+ imageRef.height, bitmap);
-						} else {
-							if (mMemoryCache.get(url) == null)
-								mMemoryCache.put(url, bitmap);
-						}
-
-					} else {
-						try {
-							byte[] data = loadByteArrayFromNetwork(url);
-
-							if (data != null) {
-
-								BitmapFactory.Options opt = new BitmapFactory.Options();
-								opt.inSampleSize = 1;
-
-								opt.inJustDecodeBounds = true;
-								BitmapFactory.decodeByteArray(data, 0,
-										data.length, opt);
-								int bitmapSize = opt.outHeight * opt.outWidth
-										* 4;
-								if (bitmapSize > 1000 * 1200)
-									opt.inSampleSize = 2;
-								opt.inJustDecodeBounds = false;
-								tBitmap = BitmapFactory.decodeByteArray(data,
-										0, data.length, opt);
-								if (imageRef.width != 0 && imageRef.height != 0) {
-									bitmap = ThumbnailUtils
-											.extractThumbnail(
-													tBitmap,
-													imageRef.width,
-													imageRef.height,
-													ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-								} else {
-									bitmap = tBitmap;
-									tBitmap = null;
-								}
-
-								if (bitmap != null && url != null) {
-									// 写入SD卡
-									if (imageRef.width != 0
-											&& imageRef.height != 0) {
-										mDiskCache.put(url + imageRef.width
-												+ imageRef.height, bitmap);
-										mMemoryCache.put(url + imageRef.width
-												+ imageRef.height, bitmap);
-									} else {
-										mDiskCache.put(url, bitmap);
-										mMemoryCache.put(url, bitmap);
-									}
-									isFromNet = true;
-								}
+						if (bitmap != null) {
+							if (imageRef.width != 0 && imageRef.height != 0) {
+								if (mMemoryCache.get(url + imageRef.width
+										+ imageRef.height) == null)
+									mMemoryCache.put(url + imageRef.width
+											+ imageRef.height, bitmap);
+							} else {
+								if (mMemoryCache.get(url) == null)
+									mMemoryCache.put(url, bitmap);
 							}
-						} catch (OutOfMemoryError e) {
 						}
 
 					}
 
-				}
-
-				if (mImageManagerHandler != null) {
-					Message message = mImageManagerHandler.obtainMessage(
-							MSG_REPLY, bitmap);
-					mImageManagerHandler.sendMessage(message);
+					if (mImageManagerHandler != null) {
+						Message message = mImageManagerHandler.obtainMessage(
+								MSG_REPLY, bitmap);
+						mImageManagerHandler.sendMessage(message);
+					}
 				}
 				break;
-
 			case MSG_STOP: // 收到终止指令
 				Looper.myLooper().quit();
 				break;
@@ -503,7 +450,6 @@ public class ImageManager {
 	 * @return
 	 */
 	private byte[] loadByteArrayFromNetwork(String url) {
-
 		try {
 
 			HttpGet method = new HttpGet(url);
@@ -546,7 +492,6 @@ public class ImageManager {
 	 * Activity#onStop后，ListView不会有残余请求。
 	 */
 	public void stop() {
-
 		// 清空请求队列
 		mImageQueue.clear();
 

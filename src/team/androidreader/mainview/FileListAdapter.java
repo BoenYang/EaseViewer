@@ -22,14 +22,13 @@ import android.widget.TextView;
  * @author ybw
  * 
  */
-public class FileListAdapter extends BaseAdapter {
+public class FileListAdapter extends BaseAdapter{
 
 	private Context context;
 	private List<FileInfo> fileList;
 	private int layoutId;
 	private LayoutInflater layoutInflater;
 	private ViewHolder viewHolder;
-	private boolean checked[];
 	private static Map<String, Integer> iconMap = new HashMap<String, Integer>();
 	private PackageManager pm;
 
@@ -75,7 +74,6 @@ public class FileListAdapter extends BaseAdapter {
 		this.layoutId = layoutId;
 		layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		checked = new boolean[fileList.size()];
 		pm = context.getPackageManager();
 	}
 
@@ -124,7 +122,11 @@ public class FileListAdapter extends BaseAdapter {
 
 		}
 		FileInfo file = fileList.get(position);
-		viewHolder.checkBox.setChecked(checked[position]);
+		viewHolder.checkBox
+				.setChecked(MainActivity.fileListModel.getSeletct()[position]);
+		if(MainActivity.fileListModel.getOpeartion() != FileListController.DEFAULT){
+			viewHolder.checkBox.setVisibility(View.GONE);
+		}
 		viewHolder.fileNameTextView.setText(file.fileName);
 		viewHolder.modifyTimeTextview.setText(file.lastModify);
 		viewHolder.checkBox.setOnClickListener(new CheckBoxOnClickListener(
@@ -157,12 +159,6 @@ public class FileListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	@Override
-	public void notifyDataSetChanged() {
-		checked = new boolean[fileList.size()];
-		super.notifyDataSetChanged();
-	}
-
 	class CheckBoxOnClickListener implements View.OnClickListener {
 
 		private int position;
@@ -174,16 +170,16 @@ public class FileListAdapter extends BaseAdapter {
 		@Override
 		public void onClick(View v) {
 
-			if (checked[position] == false) {
-				checked[position] = true;
-				MainActivity.fileListModel
-						.addSelectFile(fileList.get(position));
+			boolean[] select = MainActivity.fileListModel.getSeletct();
+			if (select[position] == false) {
+				select[position] = true;
+				MainActivity.fileListController.handSelectFile(
+						fileList.get(position), FileListController.ADD);
 			} else {
-				checked[position] = false;
-				MainActivity.fileListModel.deleteSelectFile(fileList
-						.get(position));
+				select[position] = false;
+				MainActivity.fileListController.handSelectFile(
+						fileList.get(position), FileListController.DELETE);
 			}
 		}
 	}
-
 }

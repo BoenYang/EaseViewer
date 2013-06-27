@@ -11,6 +11,14 @@
         android:background="@color/holo_blue_dark" >
 
         <Button
+            android:id="@+id/opeartion"
+            android:layout_width="55dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:text="粘帖"
+            android:visibility="invisible" />
+
+        <Button
             android:id="@+id/showRight"
             android:layout_width="55dp"
             android:layout_height="45dp"

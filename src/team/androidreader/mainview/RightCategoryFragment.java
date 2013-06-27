@@ -6,6 +6,7 @@ import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.helpabout.HelpActivity;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.scanner.Activity_Multichooser;
+import team.androidreader.scanner.ImageToPdfActivity;
 import team.androidreader.scanner.PhotoPreviewActivity;
 import team.androidreader.theme.ChangeThemeActivity;
 import team.androidreader.utils.MyApplication;
@@ -161,13 +162,6 @@ public class RightCategoryFragment extends Fragment {
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.functionPic2PdfBtn:
-				// Intent intent1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				// File file = new File(FileSystem.CAMERA_CACHE + File.separator
-				// + "IMAGE_" + FileSystem.GetTimeFileName() + ".jpg");
-				// intent1.putExtra(MediaStore.EXTRA_OUTPUT,
-				// Uri.fromFile(file));
-				// startActivity(intent1);
-
 				Intent intent1 = new Intent();
 				intent1.setClass(getActivity(), Activity_Multichooser.class);
 				startActivity(intent1);

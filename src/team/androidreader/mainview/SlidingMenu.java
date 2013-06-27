@@ -33,6 +33,7 @@ public class SlidingMenu extends RelativeLayout {
 	private boolean tCanSlideRight = false;
 	private boolean hasClickRight = false;
 	public boolean isShowRight;
+	private boolean isShowBottom;
 
 	public SlidingMenu(Context context) {
 		super(context);
@@ -104,8 +105,6 @@ public class SlidingMenu extends RelativeLayout {
 				R.drawable.shade_bg));
 		bgShade.addView(bgShadeContent, bgParams);
 
-		//addView(bgShade, bgParams);
-
 		addView(view, aboveParams);
 		mSlidingView = view;
 		mSlidingView.bringToFront();
@@ -161,11 +160,9 @@ public class SlidingMenu extends RelativeLayout {
 			mLastMotionY = y;
 			mIsBeingDragged = false;
 			if (canSlideLeft) {
-				// mMenuView.setVisibility(View.VISIBLE);
 				mDetailView.setVisibility(View.INVISIBLE);
 			}
 			if (canSlideRight) {
-				// mMenuView.setVisibility(View.INVISIBLE);
 				mDetailView.setVisibility(View.VISIBLE);
 			}
 			break;
@@ -217,94 +214,95 @@ public class SlidingMenu extends RelativeLayout {
 		final float x = ev.getX();
 		final float y = ev.getY();
 
-		switch (action) {
-		case MotionEvent.ACTION_DOWN:
-			if (!mScroller.isFinished()) {
-				mScroller.abortAnimation();
-			}
-			mLastMotionX = x;
-			mLastMotionY = y;
-
-			if (mSlidingView.getScrollX() == getDetailViewWidth()) {
-				return false;
-			}
-
-			break;
-		case MotionEvent.ACTION_MOVE:
-			if (mIsBeingDragged) {
-				final float deltaX = mLastMotionX - x;
+		if (!isShowBottom) {
+			switch (action) {
+			case MotionEvent.ACTION_DOWN:
+				if (!mScroller.isFinished()) {
+					mScroller.abortAnimation();
+				}
 				mLastMotionX = x;
-				float oldScrollX = mSlidingView.getScrollX();
-				float scrollX = oldScrollX + deltaX;
-				if (canSlideLeft) {
-					if (scrollX > 0)
-						scrollX = 0;
-				}
-				if (canSlideRight) {
-					if (scrollX < 0)
-						scrollX = 0;
-				}
-				if (deltaX > 0 && oldScrollX > 0) { // right view
-					final float rightBound = getDetailViewWidth();
-					final float leftBound = 0;
-					if (scrollX < leftBound) {
-						scrollX = leftBound;
-					} else if (scrollX > rightBound) {
-						scrollX = rightBound;
-					}
-				}
-				if (mSlidingView != null) {
-					mSlidingView.scrollTo((int) scrollX,
-							mSlidingView.getScrollY());
-					if (scrollX < 0)
-						bgShade.scrollTo((int) scrollX + 20,
-								mSlidingView.getScrollY());
-					else
-						bgShade.scrollTo((int) scrollX - 20,
-								mSlidingView.getScrollY());
+				mLastMotionY = y;
+
+				if (mSlidingView.getScrollX() == getDetailViewWidth()) {
+					return false;
 				}
 
-				if (mSlidingView.getScrollX() == 0) {
-					isShowRight = false;
-				}
-
-				if (mSlidingView.getScrollX() == 400) {
-					isShowRight = true;
-				}
-			}
-			break;
-		case MotionEvent.ACTION_CANCEL:
-		case MotionEvent.ACTION_UP:
-			if (mIsBeingDragged) {
-				final VelocityTracker velocityTracker = mVelocityTracker;
-				velocityTracker.computeCurrentVelocity(100);
-				float xVelocity = velocityTracker.getXVelocity();// 滑动的速度
-				int oldScrollX = mSlidingView.getScrollX();
-				int dx = 0;
-				if (oldScrollX >= 0 && canSlideRight) {
-					if (xVelocity < -VELOCITY) {
-						dx = getDetailViewWidth() - oldScrollX;
-					} else if (xVelocity > VELOCITY) {
-						dx = -oldScrollX;
-						if (hasClickRight) {
-							hasClickRight = false;
-							setCanSliding(tCanSlideLeft, tCanSlideRight);
-						}
-					} else if (oldScrollX > getDetailViewWidth() / 2) {
-						dx = getDetailViewWidth() - oldScrollX;
-					} else if (oldScrollX <= getDetailViewWidth() / 2) {
-						dx = -oldScrollX;
-						if (hasClickRight) {
-							hasClickRight = false;
-							setCanSliding(tCanSlideLeft, tCanSlideRight);
+				break;
+			case MotionEvent.ACTION_MOVE:
+				if (mIsBeingDragged) {
+					final float deltaX = mLastMotionX - x;
+					mLastMotionX = x;
+					float oldScrollX = mSlidingView.getScrollX();
+					float scrollX = oldScrollX + deltaX;
+					if (canSlideLeft) {
+						if (scrollX > 0)
+							scrollX = 0;
+					}
+					if (canSlideRight) {
+						if (scrollX < 0)
+							scrollX = 0;
+					}
+					if (deltaX > 0 && oldScrollX > 0) { // right view
+						final float rightBound = getDetailViewWidth();
+						final float leftBound = 0;
+						if (scrollX < leftBound) {
+							scrollX = leftBound;
+						} else if (scrollX > rightBound) {
+							scrollX = rightBound;
 						}
 					}
+					if (mSlidingView != null) {
+						mSlidingView.scrollTo((int) scrollX,
+								mSlidingView.getScrollY());
+						if (scrollX < 0)
+							bgShade.scrollTo((int) scrollX + 20,
+									mSlidingView.getScrollY());
+						else
+							bgShade.scrollTo((int) scrollX - 20,
+									mSlidingView.getScrollY());
+					}
+
+					if (mSlidingView.getScrollX() == 0) {
+						isShowRight = false;
+					}
+
+					if (mSlidingView.getScrollX() == 400) {
+						isShowRight = true;
+					}
 				}
-				smoothScrollTo(dx);
+				break;
+			case MotionEvent.ACTION_CANCEL:
+			case MotionEvent.ACTION_UP:
+				if (mIsBeingDragged) {
+					final VelocityTracker velocityTracker = mVelocityTracker;
+					velocityTracker.computeCurrentVelocity(100);
+					float xVelocity = velocityTracker.getXVelocity();// 滑动的速度
+					int oldScrollX = mSlidingView.getScrollX();
+					int dx = 0;
+					if (oldScrollX >= 0 && canSlideRight) {
+						if (xVelocity < -VELOCITY) {
+							dx = getDetailViewWidth() - oldScrollX;
+						} else if (xVelocity > VELOCITY) {
+							dx = -oldScrollX;
+							if (hasClickRight) {
+								hasClickRight = false;
+								setCanSliding(tCanSlideLeft, tCanSlideRight);
+							}
+						} else if (oldScrollX > getDetailViewWidth() / 2) {
+							dx = getDetailViewWidth() - oldScrollX;
+						} else if (oldScrollX <= getDetailViewWidth() / 2) {
+							dx = -oldScrollX;
+							if (hasClickRight) {
+								hasClickRight = false;
+								setCanSliding(tCanSlideLeft, tCanSlideRight);
+							}
+						}
+					}
+					smoothScrollTo(dx);
+				}
+				break;
 			}
-			break;
 		}
-
 		return true;
 	}
 
@@ -316,19 +314,20 @@ public class SlidingMenu extends RelativeLayout {
 	}
 
 	private void smoothScrollTo(int dx) {
-		int duration = 500;
-		if (dx > 0) {
-			isShowRight = true;
-		}
-		if (dx < 0) {
-			isShowRight = false;
-		}
-		int oldScrollX = mSlidingView.getScrollX();
-		mScroller.startScroll(oldScrollX, mSlidingView.getScrollY(), dx,
-				mSlidingView.getScrollY(), duration);
+		if (!isShowBottom) {
+			int duration = 500;
+			if (dx > 0) {
+				isShowRight = true;
+			}
+			if (dx < 0) {
+				isShowRight = false;
+			}
+			int oldScrollX = mSlidingView.getScrollX();
+			mScroller.startScroll(oldScrollX, mSlidingView.getScrollY(), dx,
+					mSlidingView.getScrollY(), duration);
 
-		invalidate();
-		System.out.println(isShowRight);
+			invalidate();
+		}
 	}
 
 	/* 显示右侧边的view */
@@ -349,16 +348,18 @@ public class SlidingMenu extends RelativeLayout {
 				setCanSliding(tCanSlideLeft, tCanSlideRight);
 			}
 		}
-		
+
 	}
 
 	public void setMenuVisible() {
 		bottomView.setVisibility(VISIBLE);
+		isShowBottom = true;
 		invalidate();
 	}
 
 	public void setMenuInvisibke() {
 		bottomView.setVisibility(INVISIBLE);
+		isShowBottom = false;
 		invalidate();
 	}
 }

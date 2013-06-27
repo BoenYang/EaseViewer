@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.DocumentException;
-
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.app.Activity;
@@ -17,13 +14,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.DocumentException;
 
 public class Activity_Multichooser extends Activity {
 
@@ -128,19 +127,14 @@ public class Activity_Multichooser extends Activity {
 								FileSystem.SDCARD_PATH + File.separator + name
 										+ ".pdf");
 					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (BadElementException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (MalformedURLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (DocumentException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -168,8 +162,8 @@ public class Activity_Multichooser extends Activity {
 		}
 		// capture by camera test
 		if (requestCode == 1) {
-			String path = image_file.getPath();
-			if (image_file.exists()) {
+			if (image_file != null && image_file.exists()) {
+				String path = image_file.getPath();
 				dataList.add(dataList.size() - 1, path);
 				if (dataList.size() > 10) {
 					removeOneData(dataList, "camera_default");

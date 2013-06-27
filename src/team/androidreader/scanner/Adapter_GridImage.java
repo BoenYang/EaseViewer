@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import team.androidreader.utils.ImageManager;
 import team.top.activity.R;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,7 +39,9 @@ public class Adapter_GridImage extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ImageView imageView;
 		if (convertView == null) {
+			System.out.println("create image");
 			imageView = new ImageView(mContext);
 			imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
 			imageView.setAdjustViewBounds(true);
@@ -55,10 +56,10 @@ public class Adapter_GridImage extends BaseAdapter {
 			path = dataList.get(position);
 		else
 			path = "camera_default";
-		Log.i("path", "path:" + path + "::position" + position);
-
 		if (path.contains("default"))
+		{
 			imageView.setImageResource(R.drawable.pic_add_btn);
+		}
 		else {
 			ImageManager.from(mContext).displayImage(imageView, path, -1, 100,
 					100);

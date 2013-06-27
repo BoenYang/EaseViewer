@@ -1,8 +1,9 @@
 package team.androidreader.scanner;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import team.androidreader.mainview.FileInfo;
+import team.androidreader.mainview.FileListHelper;
 import team.top.activity.R;
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,11 +25,12 @@ public class ImageToPdfActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_imagetopdf);
-		fileData = new ArrayList<Bitmap>();
-		//BitmapFactory.decodeResource(getResources(), R.id.)
-		//imageShowAdapter = new ImageShowAdapter(this, fileData,
-		//		R.layout.item_image);
-		//fileGridView.setAdapter(imageShowAdapter);
+		fileGridView = (GridView)findViewById(R.id.fileGridView);
+		List<FileInfo> fileInfos = FileListHelper.GetFiles("/sdcard/Camera", false);
+		System.out.println(fileInfos.size());
+		imageShowAdapter = new ImageShowAdapter(this, fileInfos,
+				R.layout.item_image);
+		fileGridView.setAdapter(imageShowAdapter);
 	}
 
 	class OnImageClickListener implements OnItemClickListener {

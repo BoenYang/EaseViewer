@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvsubject"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:text="@string/send_subject"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/subject"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvsubject" />
+
+    <TextView
+        android:id="@+id/tvboby"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/subject"
+        android:text="@string/send_body"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_below="@id/tvboby"
+        android:text="@string/send_attach"
+        android:id="@+id/tvattach"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp" />
+
+    <EditText
+        android:id="@+id/body"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvattach" />
+
+    <Button
+        android:id="@+id/sendmail"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/send_btn" />
+
+</RelativeLayout>

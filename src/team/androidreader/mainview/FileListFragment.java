@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.List;
 
 import team.androidreader.mainview.FileListModel.FileListChangeListener;
+import team.androidreader.mainview.FileListModel.onSelectedAllListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -17,12 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 /**
  * 
@@ -30,13 +28,15 @@ import android.widget.RelativeLayout.LayoutParams;
  * 
  */
 public class FileListFragment extends Fragment implements
-		FileListChangeListener {
+		FileListChangeListener , onSelectedAllListener{
 
 	private ListView listView;
 	private FileListAdapter adapter;
 	private View view;
 	private ImageView noFileImageView;
 	private TextView noFileTextView;
+	private boolean checked[];
+
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -53,14 +53,17 @@ public class FileListFragment extends Fragment implements
 
 	private void init() {
 		MainActivity.fileListModel.addFileListenerChangeListener(this);
+		MainActivity.fileListModel.addSelectedAllListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		noFileImageView = (ImageView) view.findViewById(R.id.nofileimage);
-		noFileTextView = (TextView)view.findViewById(R.id.nofiletext);
+		noFileTextView = (TextView) view.findViewById(R.id.nofiletext);
+		checked = new boolean[MainActivity.fileListModel.getFileList().size()];
+		MainActivity.fileListModel.setSeletct(checked);
 		adapter = new FileListAdapter(view.getContext(),
 				MainActivity.fileListModel.getFileList(), R.layout.item_file);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ItemOnClickListener());
-		
+
 	}
 
 	public boolean onKeyDown(int keycode, KeyEvent keyEvent) {
@@ -121,6 +124,11 @@ public class FileListFragment extends Fragment implements
 			noFileImageView.setVisibility(View.INVISIBLE);
 			noFileTextView.setVisibility(View.INVISIBLE);
 		}
+		adapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onSelectedAll() {
 		adapter.notifyDataSetChanged();
 	}
 

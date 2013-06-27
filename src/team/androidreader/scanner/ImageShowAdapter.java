@@ -1,7 +1,10 @@
 package team.androidreader.scanner;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import team.androidreader.mainview.FileInfo;
+import team.androidreader.utils.BitmapHelper;
 import team.top.activity.R;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,27 +16,28 @@ import android.widget.ImageView;
 
 public class ImageShowAdapter extends BaseAdapter {
 
-	private List<Bitmap> data;
+	private List<FileInfo> data;
 	private int layoutId;
 	private Context context;
 	private LayoutInflater layoutInflater;
 	private ViewHolder viewHolder;
-	//private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
+	private List<Bitmap> bitmaps = new ArrayList<Bitmap>();
 
 	class ViewHolder {
 		public ImageView imageView;
 	}
 
-	public ImageShowAdapter(Context context, List<Bitmap> data, int layoutId) {
+	public ImageShowAdapter(Context context, List<FileInfo> data, int layoutId) {
 		this.context = context;
 		this.data = data;
 		this.layoutId = layoutId;
 		this.layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		for (FileInfo fileInfo : data) {
-//			bitmaps.add(BitmapHelper.createBitmap(fileInfo.absolutePath, 100,
-//					100));
-//		}
+		for (FileInfo fileInfo : data) {
+			bitmaps.add(BitmapHelper.createBitmap(fileInfo.absolutePath, 100,
+					100));
+			System.out.println(fileInfo.absolutePath);
+		}
 	}
 
 	@Override
@@ -70,7 +74,7 @@ public class ImageShowAdapter extends BaseAdapter {
 					.findViewById(R.id.image);
 			convertView.setTag(viewHolder);
 		}
-		viewHolder.imageView.setImageBitmap(data.get(position));
+		viewHolder.imageView.setImageBitmap(bitmaps.get(position));
 		return convertView;
 	}
 
