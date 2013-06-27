@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.R.interpolator;
-
 public class FileListModel {
 	
 	public interface FileListChangeListener {
@@ -35,8 +33,6 @@ public class FileListModel {
 	private boolean seletct[];
 	private int selectedNum;
 	private int opeartion = FileListController.DEFAULT;
-	
-
 
 	public FileListModel(List<FileInfo> filelist,String currentDir){
 		this.fileList.clear();

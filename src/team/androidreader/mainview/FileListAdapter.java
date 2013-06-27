@@ -126,6 +126,8 @@ public class FileListAdapter extends BaseAdapter{
 				.setChecked(MainActivity.fileListModel.getSeletct()[position]);
 		if(MainActivity.fileListModel.getOpeartion() != FileListController.DEFAULT){
 			viewHolder.checkBox.setVisibility(View.GONE);
+		}else{
+			viewHolder.checkBox.setVisibility(View.VISIBLE);
 		}
 		viewHolder.fileNameTextView.setText(file.fileName);
 		viewHolder.modifyTimeTextview.setText(file.lastModify);

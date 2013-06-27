@@ -92,6 +92,7 @@ public class FileListFragment extends Fragment implements
 						file.absolutePath, false, SortMethod.name);
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						file.absolutePath);
+				MainActivity.fileListModel.clearSelectFIles();
 			} else {
 				openFile(file);
 			}

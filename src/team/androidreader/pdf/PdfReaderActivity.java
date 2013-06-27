@@ -137,7 +137,6 @@ public class PdfReaderActivity extends Activity implements OnProgressListener{
 
 	@Override
 	public void OnProgressFinished() {
-		
 		handler.sendMessage(msg);
 	}
 }
