@@ -24,7 +24,7 @@ AndroidReader
 
 ##### &ensp;&ensp;Project introduction <br />
  
-> This project is bulid for the competition of the China Software Cup, it has the basic file management functions and > > it can also read the common office documents and transfer to some other file format.
+> This project is bulid for the competition of the China Software Cup, it has the basic file management functions and it can also read the common office documents and transfer to some other file format.
  
 ##### &ensp;&ensp;Major contributors <br />
  
