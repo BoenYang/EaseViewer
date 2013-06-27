@@ -173,13 +173,13 @@ public class ImageManager {
 				&& imageView.getTag().toString().equals(url)) {
 			return;
 		}
-		if (resId >= 0) {
-			if (imageView.getBackground() == null) {
-				imageView.setBackgroundResource(resId);
-			}
-			imageView.setImageDrawable(null);
-
-		}
+		// if (resId >= 0) {
+		// if (imageView.getBackground() == null) {
+		// imageView.setBackgroundResource(resId);
+		// }
+		// imageView.setImageDrawable(null);
+		//
+		// }
 		if (url == null || url.equals("")) {
 			return;
 		}
@@ -222,6 +222,7 @@ public class ImageManager {
 		if (imageView == null) {
 			return;
 		}
+
 		if (resId >= 0) {
 
 			if (imageView.getBackground() == null) {
@@ -230,6 +231,7 @@ public class ImageManager {
 			imageView.setImageDrawable(null);
 
 		}
+
 		if (url == null || url.equals("")) {
 			return;
 		}
@@ -321,45 +323,49 @@ public class ImageManager {
 					if (url == null)
 						return;
 
-					BitmapFactory.Options opt = new BitmapFactory.Options();
-					opt.inSampleSize = 1;
-					opt.inJustDecodeBounds = true;
-					BitmapFactory.decodeFile(url, opt);
-					int bitmapSize = opt.outHeight * opt.outWidth * 4;
-					opt.inSampleSize = bitmapSize / (1000 * 2000);
-					opt.inJustDecodeBounds = false;
-					tBitmap = BitmapFactory.decodeFile(url, opt);
-					if (imageRef.width != 0 && imageRef.height != 0) {
-						bitmap = ThumbnailUtils.extractThumbnail(tBitmap,
-								imageRef.width, imageRef.height,
-								ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
-						isFromNet = true;
-					} else {
-						bitmap = tBitmap;
-						tBitmap = null;
-					}
+					// 如果本地url即读取sd相册图片，则直接读取，不用经过DiskCache
+					if (url.toLowerCase().contains("dcim")
+							|| url.toLowerCase().contains("sdcard")) {
 
-					if (bitmap != null) {
+						BitmapFactory.Options opt = new BitmapFactory.Options();
+						opt.inSampleSize = 1;
+						opt.inJustDecodeBounds = true;
+						BitmapFactory.decodeFile(url, opt);
+						int bitmapSize = opt.outHeight * opt.outWidth * 4;
+						opt.inSampleSize = bitmapSize / (1000 * 2000);
+						opt.inJustDecodeBounds = false;
+						tBitmap = BitmapFactory.decodeFile(url, opt);
 						if (imageRef.width != 0 && imageRef.height != 0) {
-							if (mMemoryCache.get(url + imageRef.width
-									+ imageRef.height) == null)
-								mMemoryCache.put(url + imageRef.width
-										+ imageRef.height, bitmap);
+							bitmap = ThumbnailUtils.extractThumbnail(tBitmap,
+									imageRef.width, imageRef.height,
+									ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+							isFromNet = true;
 						} else {
-							if (mMemoryCache.get(url) == null)
-								mMemoryCache.put(url, bitmap);
+							bitmap = tBitmap;
+							tBitmap = null;
 						}
+
+						if (bitmap != null) {
+							if (imageRef.width != 0 && imageRef.height != 0) {
+								if (mMemoryCache.get(url + imageRef.width
+										+ imageRef.height) == null)
+									mMemoryCache.put(url + imageRef.width
+											+ imageRef.height, bitmap);
+							} else {
+								if (mMemoryCache.get(url) == null)
+									mMemoryCache.put(url, bitmap);
+							}
+						}
+
 					}
 
-				}
-
-				if (mImageManagerHandler != null) {
-					Message message = mImageManagerHandler.obtainMessage(
-							MSG_REPLY, bitmap);
-					mImageManagerHandler.sendMessage(message);
+					if (mImageManagerHandler != null) {
+						Message message = mImageManagerHandler.obtainMessage(
+								MSG_REPLY, bitmap);
+						mImageManagerHandler.sendMessage(message);
+					}
 				}
 				break;
-
 			case MSG_STOP: // 收到终止指令
 				Looper.myLooper().quit();
 				break;
@@ -444,7 +450,6 @@ public class ImageManager {
 	 * @return
 	 */
 	private byte[] loadByteArrayFromNetwork(String url) {
-
 		try {
 
 			HttpGet method = new HttpGet(url);
@@ -487,7 +492,6 @@ public class ImageManager {
 	 * Activity#onStop后，ListView不会有残余请求。
 	 */
 	public void stop() {
-
 		// 清空请求队列
 		mImageQueue.clear();
 

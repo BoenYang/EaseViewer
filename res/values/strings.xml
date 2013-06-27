@@ -32,6 +32,7 @@
     <string name="dialog_choose_image">Picture Source</string>
     <string name="dialog_choose_from_camera">Take by Camera</string>
     <string name="dialog_choose_from_media">Select from Media</string>
+
     
     <string name="titile_select_useraddr">选择发件人</string>
     <string name="select_useraddr_add_btn">添加发件人</string>
@@ -60,5 +61,9 @@
     <string name="send_body">正文:</string>
     <string name="send_attach">附件:</string>
     <string name="send_btn">发送</string>
+
+    <string name="name_pdf">File Name:</string>
+    <string name="generate_pdf">Generate PDF</string>
+    <string name="null_fileName">Please enter the file name!</string>
 
 </resources>

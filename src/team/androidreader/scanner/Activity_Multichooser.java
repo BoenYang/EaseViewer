@@ -1,6 +1,9 @@
 package team.androidreader.scanner;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import team.androidreader.utils.FileSystem;
@@ -14,16 +17,22 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.DocumentException;
 
 public class Activity_Multichooser extends Activity {
 
 	private GridView gridView;
 	private ArrayList<String> dataList = new ArrayList<String>();
 	private Adapter_GridImage gridImageAdapter;
-	boolean add;
-	Dialog dialog;
-	File image_file;
+	private Dialog dialog;
+	private File image_file;
+	private EditText fileName;
+	private Button generatePDF;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +44,8 @@ public class Activity_Multichooser extends Activity {
 	}
 
 	private void init() {
+		fileName = (EditText) findViewById(R.id.name_pdf);
+		generatePDF = (Button) findViewById(R.id.btn_generate_pdf);
 		gridView = (GridView) findViewById(R.id.Grid_chooser);
 		dataList.add("camera_default");
 		gridImageAdapter = new Adapter_GridImage(this, dataList);
@@ -46,8 +57,7 @@ public class Activity_Multichooser extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if ((dataList.size() < 10 && position == dataList.size() - 1)
-						|| (dataList.size() == 10 && add == true)) {
+				if (dataList.get(position).contains("camera_default")) {
 					dialog = new Dialog(Activity_Multichooser.this,
 							R.style.MyDialog);
 					dialog.setContentView(R.layout.dialog_select);
@@ -101,6 +111,35 @@ public class Activity_Multichooser extends Activity {
 				}
 			}
 		});
+
+		generatePDF.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String name = fileName.getText().toString().trim();
+				if (name.equals("")) {
+					Toast.makeText(getApplicationContext(),
+							R.string.null_fileName, Toast.LENGTH_SHORT).show();
+				} else {
+					removeOneData(dataList, "camera_default");
+					try {
+						PngToPdf.convertPngToPdf(dataList,
+								FileSystem.SDCARD_PATH + File.separator + name
+										+ ".pdf");
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (BadElementException e) {
+						e.printStackTrace();
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					} catch (DocumentException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 
 	@Override
@@ -113,7 +152,6 @@ public class Activity_Multichooser extends Activity {
 						.getSerializable("dataList");
 				if (tDataList != null) {
 					if (tDataList.size() < 10) {
-						add = true;
 						tDataList.add("camera_default");
 					}
 					dataList.clear();
@@ -122,13 +160,26 @@ public class Activity_Multichooser extends Activity {
 				}
 			}
 		}
-		//capture by camera test
+		// capture by camera test
 		if (requestCode == 1) {
-			String path = image_file.getPath();
-			dataList.add(dataList.size()-1,path);
-			gridImageAdapter.notifyDataSetChanged();
+			if (image_file != null && image_file.exists()) {
+				String path = image_file.getPath();
+				dataList.add(dataList.size() - 1, path);
+				if (dataList.size() > 10) {
+					removeOneData(dataList, "camera_default");
+				}
+				gridImageAdapter.notifyDataSetChanged();
+			}
 		}
+	}
 
+	private void removeOneData(ArrayList<String> arrayList, String s) {
+		for (int i = 0; i < arrayList.size(); i++) {
+			if (arrayList.get(i).equals(s)) {
+				arrayList.remove(i);
+				return;
+			}
+		}
 	}
 
 	private ArrayList<String> getIntentArrayList(ArrayList<String> dataList) {
@@ -140,9 +191,7 @@ public class Activity_Multichooser extends Activity {
 				tDataList.add(s);
 			}
 		}
-
 		return tDataList;
-
 	}
 
 }
