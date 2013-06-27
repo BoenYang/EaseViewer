@@ -12,6 +12,16 @@
         -->
     </style>
 
+    <style name="THEME_WHITE">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="THEME_BLACK">
+        <item name="android:background">@android:color/black</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:windowNoTitle">true</item>

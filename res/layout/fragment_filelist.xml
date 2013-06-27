@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white"
     android:orientation="vertical" >
 
     <View
@@ -19,8 +18,7 @@
         android:layout_below="@id/divder_filelist"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@android:color/white"
-        android:cacheColorHint="@android:color/white"
+        android:cacheColorHint="#00000000"
         android:divider="@drawable/divider_listview"
         android:dividerHeight="1dp"
         android:fadeScrollbars="true"

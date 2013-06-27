@@ -3,6 +3,7 @@ package team.androidreader.mainview;
 import java.util.ArrayList;
 
 import team.androidreader.mainview.FileListModel.onOperationModelChangListener;
+import team.androidreader.theme.SetBackgroundImage;
 import team.top.activity.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * 
@@ -30,12 +33,21 @@ public class CenterViewPagerFragment extends Fragment implements
 	private ViewPager mPager;
 	private ArrayList<Fragment> pagerItemList = new ArrayList<Fragment>();// 中间的fragment存放多页面(fragment对象)
 	private FileListFragment fileListFragment;
+	View mView;
+
+
+	RelativeLayout title_main;
+	RelativeLayout layout_main;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View mView = inflater.inflate(R.layout.fragment_viewpager, null);
+		mView = inflater.inflate(R.layout.fragment_viewpager, null);
 		init(mView);
+		title_main = (RelativeLayout) mView.findViewById(R.id.title_main);
+		layout_main = (RelativeLayout) mView.findViewById(R.id.layout_main);
+		SetBackgroundImage
+				.setBackGround(getActivity(), title_main, layout_main);
 		return mView;
 	}
 
@@ -122,6 +134,13 @@ public class CenterViewPagerFragment extends Fragment implements
 			MainActivity.fileListModel.clearSelectFIles();
 		}
 
+	}
+
+	public void setBg() {
+		SetBackgroundImage
+				.setBackGround(getActivity(), title_main, layout_main);
+		title_main.invalidate();
+		layout_main.invalidate();
 	}
 
 }

@@ -6,13 +6,18 @@ import java.util.TimerTask;
 
 import team.androidreader.mainview.FileListModel.onSelectedListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
+import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.FileSystem;
 import team.androidreader.utils.MyApplication;
 import team.top.activity.R;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements
@@ -23,11 +28,27 @@ public class MainActivity extends FragmentActivity implements
 	public static FileListModel fileListModel;
 	public static FileListController fileListController;
 	private BottomMenuFragment bottomMenuFragment;
+//	private LayoutInflater layoutInflater;
+
+//	RelativeLayout title_main;
+//	RelativeLayout layout_main;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
+		// layoutInflater = (LayoutInflater) getApplicationContext()
+		// .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		// View mView = layoutInflater.inflate(R.layout.fragment_viewpager,
+		// null);
+//		title_main = (RelativeLayout) getLayoutInflater().inflate(
+//				R.layout.fragment_viewpager, null)
+//				.findViewById(R.id.title_main);
+//		layout_main = (RelativeLayout) getLayoutInflater().inflate(
+//				R.layout.fragment_viewpager, null).findViewById(
+//				R.id.layout_main);
+//		SetBackgroundImage.setBackGround(MainActivity.this, title_main,
+//				layout_main);
 		init();
 	}
 
@@ -48,6 +69,7 @@ public class MainActivity extends FragmentActivity implements
 
 		centerViewPagerFragment = new CenterViewPagerFragment();
 		t.replace(R.id.center_frame, centerViewPagerFragment);
+		
 
 		bottomMenuFragment = new BottomMenuFragment();
 		t.replace(R.id.bottom_frame, bottomMenuFragment);
@@ -132,6 +154,13 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
+	}
+
+	@Override
+	protected void onRestart() {
+		System.out.println("on restart");
+		centerViewPagerFragment.setBg();
+		super.onRestart();
 	}
 
 }

@@ -65,5 +65,6 @@
     <string name="name_pdf">File Name:</string>
     <string name="generate_pdf">Generate PDF</string>
     <string name="null_fileName">Please enter the file name!</string>
+    <string name="null_pic">Please choose a picture or more!</string>
 
 </resources>

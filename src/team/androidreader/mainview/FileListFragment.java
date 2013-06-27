@@ -6,6 +6,7 @@ import java.util.List;
 import team.androidreader.mainview.FileListModel.FileListChangeListener;
 import team.androidreader.mainview.FileListModel.onSelectedAllListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
+import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -38,6 +40,7 @@ public class FileListFragment extends Fragment implements
 	private boolean checked[];
 
 
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -47,6 +50,7 @@ public class FileListFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
+
 		init();
 		return view;
 	}

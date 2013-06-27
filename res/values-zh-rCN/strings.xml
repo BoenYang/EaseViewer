@@ -62,5 +62,6 @@
     <string name="name_pdf">文件名:</string>
     <string name="generate_pdf">生成PDF</string>
     <string name="null_fileName">请输入文件名!</string>
+    <string name="null_pic">请选择一或多张的图片!</string>
 
 </resources>
