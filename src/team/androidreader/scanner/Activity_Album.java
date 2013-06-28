@@ -44,10 +44,8 @@ public class Activity_Album extends Activity {
 		Bundle bundle = intent.getExtras();
 		selectedDataList = (ArrayList<String>) bundle
 				.getSerializable("dataList");
-
 		init();
 		initListener();
-
 	}
 
 	private void init() {
@@ -126,7 +124,6 @@ public class Activity_Album extends Activity {
 										if (off > 0) {
 											scrollview.smoothScrollTo(off, 0);
 										}
-
 									}
 								}, 100);
 
@@ -143,7 +140,6 @@ public class Activity_Album extends Activity {
 											public void onClick(View v) {
 												toggleButton.setChecked(false);
 												removePath(path);
-
 											}
 										});
 								okButton.setText("完成("
@@ -152,7 +148,6 @@ public class Activity_Album extends Activity {
 						} else {
 							removePath(path);
 						}
-
 					}
 				});
 
@@ -228,7 +223,6 @@ public class Activity_Album extends Activity {
 				dataList.addAll(tmpList);
 				gridImageAdapter.notifyDataSetChanged();
 				return;
-
 			};
 
 		}.execute();
@@ -274,19 +268,15 @@ public class Activity_Album extends Activity {
 	@Override
 	public void onBackPressed() {
 		finish();
-		// super.onBackPressed();
 	}
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
 		super.finish();
-		// ImageManager.from(AlbumActivity.this).recycle(dataList);
 	}
 
 	@Override
 	protected void onDestroy() {
-
 		super.onDestroy();
 	}
 

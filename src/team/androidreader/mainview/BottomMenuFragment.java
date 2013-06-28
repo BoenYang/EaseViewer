@@ -7,6 +7,9 @@ import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileOperationHelper;
 import team.androidreader.utils.OnProgressListener;
 import team.top.activity.R;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -60,6 +63,7 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 					MainActivity.fileListModel.selectedAll(false);
 					selectAll.setText(R.string.bottom_selectall);
 					MainActivity.fileListModel.setSelectedNum(0);
+					MainActivity.fileListModel.clearSelectFIles();
 					selectedAll = false;
 				} else {
 					MainActivity.fileListModel.selectedAll(true);
@@ -67,8 +71,8 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 					selectedAll = true;
 				}
 				break;
-			case R.id.delete:
-				BottomMenuFragment.this.OnProgressStart();
+			case R.id.delete:	
+				confirm();
 				break;
 			case R.id.choice:
 				ChoiceDialog choiceDialog = new ChoiceDialog(view.getContext());
@@ -80,6 +84,33 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 		}
 	}
 
+	private void confirm() {
+			AlertDialog.Builder builder = new Builder(
+					view.getContext());
+			builder.setMessage("确认删除？");
+
+			builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+					BottomMenuFragment.this.OnProgressStart();
+					waittingDialog.setText(R.string.dialog_waitting_delete);
+				}
+			});
+
+			builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+
+			builder.create().show();
+
+	}
+	
 	class DeleteThread implements Runnable {
 
 		@Override

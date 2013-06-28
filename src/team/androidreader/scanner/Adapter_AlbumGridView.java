@@ -82,7 +82,7 @@ public class Adapter_AlbumGridView extends BaseAdapter implements
 			viewHolder.imageView.setImageResource(R.drawable.pic_add_btn);
 		} else {
 			ImageManager.from(mContext).displayImage(viewHolder.imageView,
-					path, R.drawable.pic_add_btn, 100, 100);
+					path, R.drawable.default_img, 100, 100);
 		}
 		viewHolder.toggleButton.setTag(position);
 		viewHolder.toggleButton.setOnClickListener(this);

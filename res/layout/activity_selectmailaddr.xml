@@ -16,14 +16,14 @@
             android:layout_width="55dp"
             android:layout_height="45dp"
             android:background="@drawable/button_back" />
-  
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:background="@drawable/action_bar_divider"
             android:focusable="false" />
-        
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,6 +62,9 @@
             android:id="@+id/adduseraddr"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_flat_btn"
             android:text="adduseraddr" />
     </LinearLayout>
 

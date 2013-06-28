@@ -49,7 +49,6 @@ public class FileListFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_filelist, null);
-
 		init();
 		return view;
 	}
@@ -117,6 +116,7 @@ public class FileListFragment extends Fragment implements
 		intent.setDataAndType(Uri.fromFile(new File(fileInfo.absolutePath)),
 				type);
 		startActivity(intent);
+		
 	}
 
 	@Override

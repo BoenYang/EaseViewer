@@ -43,7 +43,6 @@ public class CenterViewPagerFragment extends Fragment implements
 	private WaittingDialog waitDialog;
 	View mView;
 
-
 	RelativeLayout title_main;
 	RelativeLayout layout_main;
 
@@ -106,9 +105,7 @@ public class CenterViewPagerFragment extends Fragment implements
 				fragment = pagerItemList.get(position);
 			else
 				fragment = pagerItemList.get(0);
-
 			return fragment;
-
 		}
 	}
 
@@ -119,10 +116,14 @@ public class CenterViewPagerFragment extends Fragment implements
 
 	@Override
 	public void onModelChange(int model) {
-		selectedFiles = new ArrayList<FileInfo>();
-		selectedFiles.addAll(MainActivity.fileListModel.getSelectFiles());
+		if (model != FileListController.DEFAULT) {
+			selectedFiles = new ArrayList<FileInfo>();
+			selectedFiles.addAll(MainActivity.fileListModel.getSelectFiles());
+			operation.setVisibility(View.VISIBLE);
+		} else {
+			operation.setVisibility(View.GONE);
+		}
 		MainActivity.fileListModel.setSelectedNum(0);
-		operation.setVisibility(View.VISIBLE);
 		String currDir = MainActivity.fileListModel.getCurrentDirectory();
 		List<FileInfo> filelist = FileListHelper.GetSortedFiles(currDir, false,
 				SortMethod.name);
@@ -150,14 +151,17 @@ public class CenterViewPagerFragment extends Fragment implements
 			switch (model) {
 			case FileListController.COPY:
 				FileOperationHelper.Copy(selectedFiles, currDir);
+				waitDialog.setText(R.string.dialog_waitting_copy);
 				break;
 			case FileListController.MOVE:
 				FileOperationHelper.Move(selectedFiles, currDir);
+				waitDialog.setText(R.string.dialog_waitting_move);
 				break;
 			default:
 				break;
 			}
-			CenterViewPagerFragment.this.OnProgressFinished();
+			handler.sendEmptyMessage(0);
+
 		}
 	}
 
@@ -168,24 +172,17 @@ public class CenterViewPagerFragment extends Fragment implements
 
 	@Override
 	public void OnProgressFinished() {
-		handler.sendEmptyMessage(0);
+		waitDialog.cancel();
 	}
 
 	Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
-			waitDialog.cancel();
-			String currDir = MainActivity.fileListModel.getCurrentDirectory();
 			MainActivity.fileListController
 					.handFileOperationChange(FileListController.DEFAULT);
-			MainActivity.fileListModel.clearSelectFIles();
-			List<FileInfo> filelist = FileListHelper.GetSortedFiles(currDir,
-					false, SortMethod.name);
-			MainActivity.fileListController.handleDirectoryChange(filelist,
-					currDir);
+			CenterViewPagerFragment.this.OnProgressFinished();
 		}
-
 	};
 
 	public void setBg() {

@@ -5,8 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.TextView;
 
 public class WaittingDialog extends Dialog{
+	
+	private TextView textView;
 
 	public WaittingDialog(Context context) {
 		super(context);
@@ -22,5 +25,14 @@ public class WaittingDialog extends Dialog{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dialog_waitting);
+		textView = (TextView)findViewById(R.id.textwaitting);
+	}
+	
+	public void setText(String string){
+		textView.setText(string);
+	}
+	
+	public void setText(int resId){
+		textView.setText(resId);
 	}
 }

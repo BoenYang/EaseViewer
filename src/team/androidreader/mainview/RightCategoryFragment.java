@@ -6,8 +6,6 @@ import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.helpabout.HelpActivity;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.scanner.Activity_Multichooser;
-import team.androidreader.scanner.ImageToPdfActivity;
-import team.androidreader.scanner.PhotoPreviewActivity;
 import team.androidreader.theme.ChangeThemeActivity;
 import team.androidreader.utils.MyApplication;
 import team.top.activity.R;
@@ -185,13 +183,6 @@ public class RightCategoryFragment extends Fragment {
 				break;
 			}
 		}
-	}
-
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Intent intent = new Intent();
-		intent.setClass(getActivity(), PhotoPreviewActivity.class);
-		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 }

@@ -3,8 +3,6 @@ package team.androidreader.mainview;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itextpdf.text.xml.simpleparser.NewLineHandler;
-
 import team.androidreader.utils.FileOperationHelper;
 import team.top.activity.R;
 import android.app.Activity;

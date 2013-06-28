@@ -182,6 +182,9 @@ public class FileListAdapter extends BaseAdapter{
 				MainActivity.fileListController.handSelectFile(
 						fileList.get(position), FileListController.DELETE);
 			}
+			if(MainActivity.fileListModel.getSelectFiles().size() != select.length){
+			
+			}
 		}
 	}
 }

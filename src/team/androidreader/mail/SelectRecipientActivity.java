@@ -65,6 +65,7 @@ public class SelectRecipientActivity extends Activity {
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		ensure.setOnClickListener(new BtnListener());
+		
 		addrecipient.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -73,6 +74,7 @@ public class SelectRecipientActivity extends Activity {
 				address.setText("");
 			}
 		});
+		
 		ok.setOnClickListener(new OnClickListener() {
 			
 			@Override

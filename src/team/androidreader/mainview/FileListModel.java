@@ -113,6 +113,12 @@ public class FileListModel {
 
 	public void selectedAll(boolean flag){
 		Arrays.fill(seletct, flag);
+		if(flag){
+			selectFiles.addAll(fileList);
+			setSelectedNum(fileList.size());
+		}else{
+			clearSelectFIles();
+		}
 		onSelectedAllListener.onSelectedAll();
 	}
 	

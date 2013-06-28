@@ -66,5 +66,13 @@
     <string name="generate_pdf">Generate PDF</string>
     <string name="null_fileName">Please enter the file name!</string>
     <string name="null_pic">Please choose a picture or more!</string>
+    
+    <string name="dialog_waitting_info">请稍候....</string>
+    <string name="dialog_waitting_move">正在移动</string>
+    <string name="dialog_waitting_delete">正在删除</string>
+    <string name="dialog_waitting_copy">正在复制</string>
+    <string name="dialog_waitting_check">正在检查密码</string>
+    <string name="dialog_waitting_generate">正在生成PDF</string>
+    <string name="promot_cannot_senddir">对不起，不能发送目录</string>
 
 </resources>

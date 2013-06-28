@@ -21,7 +21,6 @@ public class FileListController {
 		fileListModel.setCurrentDirectory(dir);
 		boolean[] checked = new boolean[fileList.size()];
 		fileListModel.setSeletct(checked);
-		fileListModel.clearSelectFIles();
 	}
 
 	public void handSelectFile(FileInfo fileInfo, int model) {
@@ -34,6 +33,10 @@ public class FileListController {
 	
 	public void handFileOperationChange(int model){
 		fileListModel.setModel(model);
+	}
+	
+	public void handSelectAll(boolean flag){
+		fileListModel.selectedAll(flag);
 	}
 
 }

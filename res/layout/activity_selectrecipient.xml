@@ -63,14 +63,20 @@
             android:id="@+id/addrecipient"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_flat_btn"
+            android:padding="5dp"
             android:text="@string/select_recipient_add_btn" />
 
         <Button
             android:id="@+id/ok"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_flat_btn"
+            android:padding="5dp"
             android:text="@string/ok_btn" />
     </LinearLayout>
 

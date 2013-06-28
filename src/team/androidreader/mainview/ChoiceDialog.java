@@ -1,5 +1,7 @@
 package team.androidreader.mainview;
 
+import java.util.List;
+
 import team.androidreader.mail.SelectedMailActicity;
 import team.top.activity.R;
 import android.app.Dialog;
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ChoiceDialog extends Dialog {
 
@@ -45,6 +48,13 @@ public class ChoiceDialog extends Dialog {
 			int id = v.getId();
 			switch (id) {
 			case R.id.send:
+				List<FileInfo> files = MainActivity.fileListModel.getSelectFiles();
+				for (int i = 0; i < files.size(); i++) {
+					if(files.get(i).isDirectory){
+						Toast.makeText(getContext(), R.string.promot_cannot_senddir, Toast.LENGTH_SHORT).show();
+						return ;
+					}
+				}
 				Intent intent = new Intent();
 				intent.setClass(getContext(), SelectedMailActicity.class);
 				getContext().startActivity(intent);

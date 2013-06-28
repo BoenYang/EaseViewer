@@ -17,18 +17,24 @@
         android:orientation="horizontal" >
 
         <Button
-            android:text="cancel"
             android:id="@+id/cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_flat_btn"
+            android:padding="5dp"
+            android:text="cancel" />
 
         <Button
-            android:text="save"
             android:id="@+id/save"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_flat_btn"
+            android:padding="5dp"
+            android:text="save" />
     </LinearLayout>
 
 </RelativeLayout>
