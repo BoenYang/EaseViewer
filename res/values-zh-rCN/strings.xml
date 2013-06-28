@@ -70,5 +70,6 @@
     <string name="dialog_waitting_check">正在检查密码</string>
     <string name="dialog_waitting_generate">正在生成PDF</string>
     <string name="promot_cannot_senddir">对不起，不能发送目录</string>
+    <string name="dialog_waitting_loading">正在打开文件</string>
 
 </resources>

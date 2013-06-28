@@ -15,7 +15,7 @@ public class FileListModel {
 	}
 
 	public interface onSelectedAllListener{
-		public void onSelectedAll();
+		public void onSelectedAll(boolean flag);
 	}
 	
 	public interface onOperationModelChangListener{
@@ -119,7 +119,7 @@ public class FileListModel {
 		}else{
 			clearSelectFIles();
 		}
-		onSelectedAllListener.onSelectedAll();
+		onSelectedAllListener.onSelectedAll(flag);
 	}
 	
 	public void setModel(int model){

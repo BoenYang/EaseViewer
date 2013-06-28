@@ -25,8 +25,8 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 	private View view;
 	private Button delete;
 	private Button choice;
-	private Button selectAll;
-	private boolean selectedAll = false;
+	public static Button selectAll;
+	public static boolean selectedAll = false;
 	private WaittingDialog waittingDialog;
 
 	@Override
@@ -62,12 +62,13 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 				if (selectedAll) {
 					MainActivity.fileListModel.selectedAll(false);
 					selectAll.setText(R.string.bottom_selectall);
-					MainActivity.fileListModel.setSelectedNum(0);
 					MainActivity.fileListModel.clearSelectFIles();
 					selectedAll = false;
 				} else {
+					MainActivity.fileListModel.getSelectFiles().clear();
 					MainActivity.fileListModel.selectedAll(true);
 					selectAll.setText(R.string.bottom_cancelall);
+					System.out.println(MainActivity.fileListModel.getSelectedNum());
 					selectedAll = true;
 				}
 				break;

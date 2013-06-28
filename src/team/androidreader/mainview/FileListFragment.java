@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.List;
 
 import team.androidreader.mainview.FileListModel.FileListChangeListener;
-import team.androidreader.mainview.FileListModel.onSelectedAllListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
@@ -20,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -29,7 +27,7 @@ import android.widget.TextView;
  * 
  */
 public class FileListFragment extends Fragment implements
-		FileListChangeListener , onSelectedAllListener{
+		FileListChangeListener{
 
 	private ListView listView;
 	private FileListAdapter adapter;
@@ -55,7 +53,6 @@ public class FileListFragment extends Fragment implements
 
 	private void init() {
 		MainActivity.fileListModel.addFileListenerChangeListener(this);
-		MainActivity.fileListModel.addSelectedAllListener(this);
 		listView = (ListView) view.findViewById(R.id.filelistview);
 		noFileImageView = (ImageView) view.findViewById(R.id.nofileimage);
 		noFileTextView = (TextView) view.findViewById(R.id.nofiletext);
@@ -128,11 +125,6 @@ public class FileListFragment extends Fragment implements
 			noFileImageView.setVisibility(View.INVISIBLE);
 			noFileTextView.setVisibility(View.INVISIBLE);
 		}
-		adapter.notifyDataSetChanged();
-	}
-
-	@Override
-	public void onSelectedAll() {
 		adapter.notifyDataSetChanged();
 	}
 

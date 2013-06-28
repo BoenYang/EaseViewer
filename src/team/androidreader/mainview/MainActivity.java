@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 import team.androidreader.mainview.FileListModel.onSelectedListener;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileSystem;

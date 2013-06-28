@@ -179,6 +179,7 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener{
 		path = intent.getStringExtra("path");
 		waittingDialog = new WaittingDialog(ShowOfficeActivity.this);
 		waittingDialog.show();
+		waittingDialog.setText(R.string.dialog_waitting_loading);
 		Thread thread = new Thread(new PraseOfficeThread());
 		thread.start();
 	}

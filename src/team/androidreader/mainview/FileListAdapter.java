@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import team.androidreader.mainview.FileListModel.onSelectedAllListener;
 import team.top.activity.R;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -22,7 +23,7 @@ import android.widget.TextView;
  * @author ybw
  * 
  */
-public class FileListAdapter extends BaseAdapter{
+public class FileListAdapter extends BaseAdapter implements onSelectedAllListener{
 
 	private Context context;
 	private List<FileInfo> fileList;
@@ -75,6 +76,7 @@ public class FileListAdapter extends BaseAdapter{
 		layoutInflater = (LayoutInflater) this.context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		pm = context.getPackageManager();
+		MainActivity.fileListModel.addSelectedAllListener(this);
 	}
 
 	@Override
@@ -182,9 +184,20 @@ public class FileListAdapter extends BaseAdapter{
 				MainActivity.fileListController.handSelectFile(
 						fileList.get(position), FileListController.DELETE);
 			}
-			if(MainActivity.fileListModel.getSelectFiles().size() != select.length){
 			
+			if(MainActivity.fileListModel.getSelectedNum() < select.length){
+				BottomMenuFragment.selectedAll = false;
+				BottomMenuFragment.selectAll.setText(R.string.bottom_selectall);
+			}else{
+				BottomMenuFragment.selectedAll = true;
+				BottomMenuFragment.selectAll.setText(R.string.bottom_cancelall);
 			}
+			BottomMenuFragment.selectAll.invalidate();
 		}
+	}
+
+	@Override
+	public void onSelectedAll(boolean flag) {
+		notifyDataSetChanged();
 	}
 }
