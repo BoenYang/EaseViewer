@@ -185,6 +185,7 @@ public class FileListAdapter extends BaseAdapter implements onSelectedAllListene
 						fileList.get(position), FileListController.DELETE);
 			}
 			
+			
 			if(MainActivity.fileListModel.getSelectedNum() < select.length){
 				BottomMenuFragment.selectedAll = false;
 				BottomMenuFragment.selectAll.setText(R.string.bottom_selectall);

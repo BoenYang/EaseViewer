@@ -103,6 +103,7 @@ public class MainActivity extends FragmentActivity implements
 		return centerViewPagerFragment.onKeyDown(keyCode, event);
 	}
 
+
 	/**
 	 * 双击退出函数
 	 */
@@ -143,12 +144,19 @@ public class MainActivity extends FragmentActivity implements
 
 	@Override
 	protected void onRestart() {
-		List<FileInfo> fileList = FileListHelper.GetSortedFiles(
-				fileListModel.getCurrentDirectory(), false, SortMethod.name);
-		fileListController.handleDirectoryChange(fileList,
-				fileListModel.getCurrentDirectory());
-		centerViewPagerFragment.setBg();
 		super.onRestart();
+		String currDir = fileListModel.getCurrentDirectory();
+		List<FileInfo> fileList = null;
+		if(currDir.equals("")){
+			fileList = FileListHelper.GetSortedFileByCategory(this, MainActivity.fileListModel.getFileCategory(), false, SortMethod.name);
+		}else{
+			fileList = FileListHelper.GetSortedFiles(
+					currDir, false, SortMethod.name);
+		}
+		fileListController.handleDirectoryChange(fileList,
+				currDir);
+		fileListModel.setSelectedNum(0);
+		centerViewPagerFragment.setBg();
 	}
 
 }

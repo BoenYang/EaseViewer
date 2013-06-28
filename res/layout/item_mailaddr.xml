@@ -3,15 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+
     <TextView
-        android:background="@drawable/bg_file_item"
-        android:id="@+id/item_addr" 
+        android:id="@+id/item_addr"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:textSize="15sp"
-        android:textColor="@android:color/black"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_file_item"
         android:gravity="center_vertical"
-        android:text="fdsafd"/>
+        android:padding="10dp"
+        android:text="fdsafd"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
 </LinearLayout>

@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * 
@@ -44,18 +45,15 @@ public class CenterViewPagerFragment extends Fragment implements
 	View mView;
 
 	RelativeLayout title_main;
-	RelativeLayout layout_main;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.fragment_viewpager, null);
 		init(mView);
-		waitDialog = new WaittingDialog(mView.getContext());
+		waitDialog = new WaittingDialog(mView.getContext(), R.style.MyDialog);
 		title_main = (RelativeLayout) mView.findViewById(R.id.title_main);
-		layout_main = (RelativeLayout) mView.findViewById(R.id.layout_main);
-		SetBackgroundImage
-				.setBackGround(getActivity(), title_main, layout_main);
+		SetBackgroundImage.setBackGround(getActivity(), title_main);
 		return mView;
 	}
 
@@ -125,8 +123,15 @@ public class CenterViewPagerFragment extends Fragment implements
 		}
 		MainActivity.fileListModel.setSelectedNum(0);
 		String currDir = MainActivity.fileListModel.getCurrentDirectory();
-		List<FileInfo> filelist = FileListHelper.GetSortedFiles(currDir, false,
-				SortMethod.name);
+		List<FileInfo> filelist = null;
+		if (currDir.equals("")) {
+			filelist = FileListHelper.GetSortedFileByCategory(getActivity(),
+					MainActivity.fileListModel.getFileCategory(), false,
+					SortMethod.name);
+		} else {
+			filelist = FileListHelper.GetSortedFiles(currDir, false,
+					SortMethod.name);
+		}
 		MainActivity.fileListController
 				.handleDirectoryChange(filelist, currDir);
 	}
@@ -135,10 +140,7 @@ public class CenterViewPagerFragment extends Fragment implements
 
 		@Override
 		public void onClick(View v) {
-			Thread thread = new Thread(new OperationThread());
-			thread.start();
 			CenterViewPagerFragment.this.OnProgressStart();
-			operation.setVisibility(View.GONE);
 		}
 	}
 
@@ -147,15 +149,17 @@ public class CenterViewPagerFragment extends Fragment implements
 		@Override
 		public void run() {
 			String currDir = MainActivity.fileListModel.getCurrentDirectory();
+			if (currDir.equals("")) {
+				handler.sendEmptyMessage(-1);
+				return;
+			}
 			int model = MainActivity.fileListModel.getOpeartion();
 			switch (model) {
 			case FileListController.COPY:
 				FileOperationHelper.Copy(selectedFiles, currDir);
-				waitDialog.setText(R.string.dialog_waitting_copy);
 				break;
 			case FileListController.MOVE:
 				FileOperationHelper.Move(selectedFiles, currDir);
-				waitDialog.setText(R.string.dialog_waitting_move);
 				break;
 			default:
 				break;
@@ -168,17 +172,30 @@ public class CenterViewPagerFragment extends Fragment implements
 	@Override
 	public void OnProgressStart() {
 		waitDialog.show();
+		int model = MainActivity.fileListModel.getOpeartion();
+		if (model == FileListController.COPY) {
+			waitDialog.setText(R.string.dialog_waitting_copy);
+		} else if (model == FileListController.MOVE) {
+			waitDialog.setText(R.string.dialog_waitting_move);
+		}
+		Thread thread = new Thread(new OperationThread());
+		thread.start();
 	}
 
 	@Override
 	public void OnProgressFinished() {
 		waitDialog.cancel();
+		operation.setVisibility(View.GONE);
 	}
 
 	Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
+			if (msg.what == -1) {
+				Toast.makeText(getActivity(), "不能在这里粘帖", Toast.LENGTH_SHORT)
+						.show();
+			}
 			MainActivity.fileListController
 					.handFileOperationChange(FileListController.DEFAULT);
 			CenterViewPagerFragment.this.OnProgressFinished();
@@ -186,10 +203,8 @@ public class CenterViewPagerFragment extends Fragment implements
 	};
 
 	public void setBg() {
-		SetBackgroundImage
-				.setBackGround(getActivity(), title_main, layout_main);
+		SetBackgroundImage.setBackGround(getActivity(), title_main);
 		title_main.invalidate();
-		layout_main.invalidate();
 	}
 
 }

@@ -13,6 +13,7 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/back_btn_selectrecipient"
             android:layout_width="55dp"
             android:layout_height="45dp"
             android:background="@drawable/button_back" />
@@ -55,29 +56,33 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/addrecipient"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_flat_btn"
-            android:padding="5dp"
-            android:text="@string/select_recipient_add_btn" />
+            android:padding="10dp"
+            android:text="@string/select_recipient_add_btn"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/ok"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@drawable/bg_flat_btn"
-            android:padding="5dp"
-            android:text="@string/ok_btn" />
+            android:padding="10dp"
+            android:text="@string/ok_btn"
+            android:textColor="@android:color/black"
+            android:textSize="15sp" />
     </LinearLayout>
 
 </RelativeLayout>

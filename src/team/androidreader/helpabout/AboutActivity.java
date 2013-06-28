@@ -14,16 +14,14 @@ public class AboutActivity extends Activity {
 
 	private Button backButton;
 	LinearLayout title_about;
-	RelativeLayout layout_about;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 		backButton = (Button) findViewById(R.id.back_btn_about);
-		title_about = (LinearLayout)findViewById(R.id.title_about);
-		layout_about = (RelativeLayout)findViewById(R.id.layout_about);
-		SetBackgroundImage.setBackGround(AboutActivity.this, title_about, layout_about);
+		title_about = (LinearLayout) findViewById(R.id.title_about);
+		SetBackgroundImage.setBackGround(AboutActivity.this, title_about);
 		initListener();
 	}
 

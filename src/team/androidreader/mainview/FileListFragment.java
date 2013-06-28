@@ -27,7 +27,7 @@ import android.widget.TextView;
  * 
  */
 public class FileListFragment extends Fragment implements
-		FileListChangeListener{
+		FileListChangeListener {
 
 	private ListView listView;
 	private FileListAdapter adapter;
@@ -35,8 +35,6 @@ public class FileListFragment extends Fragment implements
 	private ImageView noFileImageView;
 	private TextView noFileTextView;
 	private boolean checked[];
-
-
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -91,18 +89,12 @@ public class FileListFragment extends Fragment implements
 						file.absolutePath, false, SortMethod.name);
 				MainActivity.fileListController.handleDirectoryChange(fileList,
 						file.absolutePath);
-				MainActivity.fileListModel.clearSelectFIles();
 			} else {
 				openFile(file);
 			}
 		}
 	}
 
-	/**
-	 * 打开文件
-	 * 
-	 * @param file
-	 */
 	private void openFile(FileInfo fileInfo) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -113,7 +105,6 @@ public class FileListFragment extends Fragment implements
 		intent.setDataAndType(Uri.fromFile(new File(fileInfo.absolutePath)),
 				type);
 		startActivity(intent);
-		
 	}
 
 	@Override

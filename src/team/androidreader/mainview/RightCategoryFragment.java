@@ -4,6 +4,7 @@ import java.util.List;
 
 import team.androidreader.helpabout.AboutActivity;
 import team.androidreader.helpabout.HelpActivity;
+import team.androidreader.mainview.FileListHelper.FileCategory;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.scanner.Activity_Multichooser;
 import team.androidreader.theme.ChangeThemeActivity;
@@ -41,12 +42,12 @@ public class RightCategoryFragment extends Fragment {
 	private TextView musicCount;
 	private TextView videoCount;
 	private TextView pictureCount;
-	// private List<FileInfo> officeList;
-	// private List<FileInfo> zipList;
-	// private List<FileInfo> apkList;
-	// private TextView officeCount;
-	// private TextView zipCount;
-	// private TextView apkCount;
+	private List<FileInfo> officeList;
+	private List<FileInfo> zipList;
+	private List<FileInfo> apkList;
+	private TextView officeCount;
+	private TextView zipCount;
+	private TextView apkCount;
 	private View view;
 
 	@Override
@@ -86,30 +87,30 @@ public class RightCategoryFragment extends Fragment {
 		changeTheme.setOnClickListener(new FileCategorySelectListener());
 		help.setOnClickListener(new FileCategorySelectListener());
 		about.setOnClickListener(new FileCategorySelectListener());
-		// officeList =
-		// fileListHelper.GetAllFiles(FileListHelper.FileCategory.DOC, true);
+		officeList = FileListHelper.GetSortedFileByCategory(getActivity(),
+				FileListHelper.FileCategory.DOC, false, SortMethod.name);
 		pictureList = FileListHelper.GetSortedFileByCategory(getActivity(),
 				FileListHelper.FileCategory.PICTURE, false, SortMethod.name);
 		musicList = FileListHelper.GetSortedFileByCategory(getActivity(),
 				FileListHelper.FileCategory.MUSIC, false, SortMethod.name);
 		videoList = FileListHelper.GetSortedFileByCategory(getActivity(),
 				FileListHelper.FileCategory.VIDEO, false, SortMethod.name);
-		// zipList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
-		// true);
-		// apkList = fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
-		// true);
+		zipList = FileListHelper.GetSortedFileByCategory(getActivity(),
+				FileListHelper.FileCategory.ZIP, false, SortMethod.name);
+		apkList = FileListHelper.GetSortedFileByCategory(getActivity(),
+				FileListHelper.FileCategory.APK, false, SortMethod.name);
 		musicCount = (TextView) view.findViewById(R.id.categoryMusicCount);
 		videoCount = (TextView) view.findViewById(R.id.categoryVideoCount);
 		pictureCount = (TextView) view.findViewById(R.id.categoryPictureCount);
-		// officeCount = (TextView)view.findViewById(R.id.categoryOfficeCount);
-		// zipCount = (TextView)view.findViewById(R.id.categoryZipCount);
-		// apkCount = (TextView)view.findViewById(R.id.categoryApkCount);
+		officeCount = (TextView) view.findViewById(R.id.categoryOfficeCount);
+		zipCount = (TextView) view.findViewById(R.id.categoryZipCount);
+		apkCount = (TextView) view.findViewById(R.id.categoryApkCount);
 		musicCount.setText("(" + musicList.size() + ")");
 		videoCount.setText("(" + videoList.size() + ")");
 		pictureCount.setText("(" + pictureList.size() + ")");
-		// officeCount.setText("(" + musicList.size() +")");
-		// zipCount.setText("(" + musicList.size() +")");
-		// apkCount.setText("(" + musicList.size() +")");
+		officeCount.setText("(" + musicList.size() + ")");
+		zipCount.setText("(" + musicList.size() + ")");
+		apkCount.setText("(" + musicList.size() + ")");
 
 	}
 
@@ -122,41 +123,44 @@ public class RightCategoryFragment extends Fragment {
 			switch (id) {
 			case R.id.categoryOfficeBtn:
 				MyApplication.setChoosed(0);
+				MainActivity.fileListController.handleDirectoryChange(
+						officeList, "");
+				MainActivity.fileListModel.setFileCategory(FileCategory.DOC);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryPictureBtn:
 				MyApplication.setChoosed(1);
-				fileList = pictureList;
-				MainActivity.fileListController.handleDirectoryChange(fileList,
-						"");
+				MainActivity.fileListController.handleDirectoryChange(
+						pictureList, "");
+				MainActivity.fileListModel.setFileCategory(FileCategory.PICTURE);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryMusicBtn:
 				MyApplication.setChoosed(2);
-				fileList = musicList;
-				MainActivity.fileListController.handleDirectoryChange(fileList,
-						"");
+				MainActivity.fileListController.handleDirectoryChange(
+						musicList, "");
+				MainActivity.fileListModel.setFileCategory(FileCategory.MUSIC);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryVideoBtn:
 				MyApplication.setChoosed(3);
-				fileList = videoList;
-				MainActivity.fileListController.handleDirectoryChange(fileList,
-						"");
+				MainActivity.fileListController.handleDirectoryChange(
+						videoList, "");
+				MainActivity.fileListModel.setFileCategory(FileCategory.VIDEO);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryApkBtn:
 				MyApplication.setChoosed(4);
-				// fileList =
-				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.APK,
-				// true);
+				MainActivity.fileListController.handleDirectoryChange(apkList,
+						"");
+				MainActivity.fileListModel.setFileCategory(FileCategory.APK);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.categoryZipBtn:
 				MyApplication.setChoosed(5);
-				// fileList =
-				// fileListHelper.GetAllFiles(FileListHelper.FileCategory.ZIP,
-				// true);
+				MainActivity.fileListController.handleDirectoryChange(zipList,
+						"");
+				MainActivity.fileListModel.setFileCategory(FileCategory.ZIP);
 				MainActivity.mSlidingMenu.showRightView();
 				break;
 			case R.id.functionPic2PdfBtn:

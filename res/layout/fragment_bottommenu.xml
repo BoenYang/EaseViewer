@@ -12,8 +12,10 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:background="@drawable/bg_flat_btn"
-        android:padding="5dp"
-        android:text="@string/bottom_selectall" />
+        android:padding="10dp"
+        android:text="@string/bottom_selectall"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/choice"
@@ -22,8 +24,10 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:background="@drawable/bg_flat_btn"
-        android:padding="5dp"
-        android:text="@string/bottom_choice" />
+        android:padding="10dp"
+        android:text="@string/bottom_choice"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/delete"
@@ -32,7 +36,9 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:background="@drawable/bg_flat_btn"
-        android:padding="5dp"
-        android:text="@string/bottom_delete" />
+        android:padding="10dp"
+        android:text="@string/bottom_delete"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
 </LinearLayout>

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import team.androidreader.mainview.FileListHelper.FileCategory;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
+
 public class FileListModel {
 	
 	public interface FileListChangeListener {
@@ -33,6 +36,9 @@ public class FileListModel {
 	private boolean seletct[];
 	private int selectedNum;
 	private int opeartion = FileListController.DEFAULT;
+	private FileListHelper.FileCategory fileCategory = FileCategory.SDCARD;
+
+
 
 	public FileListModel(List<FileInfo> filelist,String currentDir){
 		this.fileList.clear();
@@ -129,5 +135,13 @@ public class FileListModel {
 	
 	public int getOpeartion() {
 		return opeartion;
+	}
+	
+	public FileListHelper.FileCategory getFileCategory() {
+		return fileCategory;
+	}
+
+	public void setFileCategory(FileListHelper.FileCategory fileCategory) {
+		this.fileCategory = fileCategory;
 	}
 }

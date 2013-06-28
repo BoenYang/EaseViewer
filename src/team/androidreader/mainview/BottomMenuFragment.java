@@ -38,7 +38,7 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_bottommenu, null);
-		waittingDialog = new WaittingDialog(view.getContext());
+		waittingDialog = new WaittingDialog(view.getContext(), R.style.MyDialog);
 		init();
 		return view;
 	}
@@ -68,11 +68,10 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 					MainActivity.fileListModel.getSelectFiles().clear();
 					MainActivity.fileListModel.selectedAll(true);
 					selectAll.setText(R.string.bottom_cancelall);
-					System.out.println(MainActivity.fileListModel.getSelectedNum());
 					selectedAll = true;
 				}
 				break;
-			case R.id.delete:	
+			case R.id.delete:
 				confirm();
 				break;
 			case R.id.choice:
@@ -86,39 +85,39 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 	}
 
 	private void confirm() {
-			AlertDialog.Builder builder = new Builder(
-					view.getContext());
-			builder.setMessage("确认删除？");
+		AlertDialog.Builder builder = new Builder(view.getContext());
+		builder.setMessage("确认删除？");
 
-			builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.cancel();
-					BottomMenuFragment.this.OnProgressStart();
-					waittingDialog.setText(R.string.dialog_waitting_delete);
-				}
-			});
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+				BottomMenuFragment.this.OnProgressStart();
+				waittingDialog.setText(R.string.dialog_waitting_delete);
+			}
+		});
 
-			builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			});
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
 
-			builder.create().show();
+		builder.create().show();
 
 	}
-	
+
 	class DeleteThread implements Runnable {
 
 		@Override
 		public void run() {
 			FileOperationHelper.Delete(MainActivity.fileListModel
 					.getSelectFiles());
-			BottomMenuFragment.this.OnProgressFinished();
+			handler.sendEmptyMessage(0);
+
 		}
 	}
 
@@ -131,19 +130,26 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 
 	@Override
 	public void OnProgressFinished() {
-		handler.sendEmptyMessage(0);
-
+		waittingDialog.cancel();
 	}
 
 	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			waittingDialog.dismiss();
-			List<FileInfo> fileList = FileListHelper.GetSortedFiles(
-					MainActivity.fileListModel.getCurrentDirectory(), false,
-					SortMethod.name);
+			String currDir = MainActivity.fileListModel.getCurrentDirectory();
+			List<FileInfo> fileList = null;
+			if (currDir.equals("")) {
+				fileList = FileListHelper.GetSortedFileByCategory(
+						getActivity(),
+						MainActivity.fileListModel.getFileCategory(), false,
+						SortMethod.name);
+			} else {
+				fileList = FileListHelper.GetSortedFiles(currDir, false,
+						SortMethod.name);
+			}
 			MainActivity.fileListController.handleDirectoryChange(fileList,
-					MainActivity.fileListModel.getCurrentDirectory());
+					currDir);
+			BottomMenuFragment.this.OnProgressFinished();
 		}
 	};
 

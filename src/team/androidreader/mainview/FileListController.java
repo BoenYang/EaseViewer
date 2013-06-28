@@ -20,6 +20,7 @@ public class FileListController {
 		fileListModel.setFileList(fileList);
 		fileListModel.setCurrentDirectory(dir);
 		boolean[] checked = new boolean[fileList.size()];
+		fileListModel.clearSelectFIles();
 		fileListModel.setSeletct(checked);
 	}
 

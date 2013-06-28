@@ -35,8 +35,10 @@
     <string name="titile_select_useraddr">选择发件人</string>
     <string name="select_useraddr_add_btn">添加发件人</string>
     <string name="title_select_recipient">选择收件人</string>
+    <string name="title_send_mail">发送邮件</string>
     <string name="select_recipient_add_btn">添加收件人</string>
     <string name="ok_btn">确定</string>
+    <string name="cancel_btn">取消</string>
     <string name="bottom_selectall">全选</string>
     <string name="bottom_cancelall">全不选</string>
     <string name="bottom_delete">删除</string>
@@ -71,5 +73,10 @@
     <string name="dialog_waitting_generate">正在生成PDF</string>
     <string name="promot_cannot_senddir">对不起，不能发送目录</string>
     <string name="dialog_waitting_loading">正在打开文件</string>
-
+    <string name="dialog_confirm_exit">确认退出编辑？</string>
+    <string name="dialog_confirm_delete">确认删除?</string>
+	<string name="dialog_confirm_edit">放弃编辑？</string>
+	<string name="btn_save">保存</string>
+	<string name="dialog_comfirm_rename">取消重命名?</string>
+	 <string name="title_rename">重命名</string>
 </resources>

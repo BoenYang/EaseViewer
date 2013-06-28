@@ -8,9 +8,21 @@
         android:layout_width="200dp"
         android:layout_height="10dp"
         android:background="@color/holo_blue_dark" />
+    
+    <TextView 
+        android:id="@+id/confirm_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:gravity="center_horizontal"
+        android:text="comfirm exit ?"/>
 
     <Button
-        android:id="@+id/copy"
+        android:id="@+id/confirm_yes"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -19,43 +31,13 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_flat_btn"
         android:padding="10dp"
-        android:text="@string/choice_copy"
+        android:text="@string/ok_btn"
         android:textColor="@android:color/black"
         android:textSize="15sp" >
     </Button>
 
     <Button
-        android:id="@+id/rename"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_flat_btn"
-        android:padding="10dp"
-        android:text="@string/choice_rename"
-        android:textColor="@android:color/black"
-        android:textSize="15sp" >
-    </Button>
-
-    <Button
-        android:id="@+id/move"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/bg_flat_btn"
-        android:padding="10dp"
-        android:text="@string/choice_move"
-        android:textColor="@android:color/black"
-        android:textSize="15sp" >
-    </Button>
-
-    <Button
-        android:id="@+id/send"
+        android:id="@+id/confirm_no"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -64,9 +46,11 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/bg_flat_btn"
         android:padding="10dp"
-        android:text="@string/choice_sendbymail"
+        android:text="@string/cancel_btn"
         android:textColor="@android:color/black"
         android:textSize="15sp" >
     </Button>
+
+
 
 </LinearLayout>

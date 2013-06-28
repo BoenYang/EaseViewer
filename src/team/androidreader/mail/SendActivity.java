@@ -9,9 +9,13 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
+import team.androidreader.dialog.ComfirmDialog;
 import team.androidreader.dialog.WaittingDialog;
+import team.androidreader.mainview.FileInfo;
+import team.androidreader.mainview.MainActivity;
 import team.androidreader.utils.OnProgressListener;
 import team.top.activity.R;
+import android.R.array;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -21,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -37,6 +42,7 @@ public class SendActivity extends Activity implements OnProgressListener {
 	private String userAddress;
 	private Dialog inputDialog;
 	private Button ensure;
+	private Button back;
 	private EditText passwdEditext;
 	private List<String> recipients;
 	private String mailServlet;
@@ -57,8 +63,7 @@ public class SendActivity extends Activity implements OnProgressListener {
 		mailServlet = intent.getStringExtra("servlet");
 		Bundle recipientsBundle = intent.getExtras();
 		recipients = recipientsBundle.getStringArrayList("recipients");
-		waittingDialog = new WaittingDialog(this);
-		
+		waittingDialog = new WaittingDialog(this, R.style.MyDialog);
 		init();
 	}
 
@@ -67,11 +72,13 @@ public class SendActivity extends Activity implements OnProgressListener {
 		body = (EditText) findViewById(R.id.body);
 		attach = (TextView) findViewById(R.id.tvattach);
 		send = (Button) findViewById(R.id.sendmail);
-		inputDialog = new Dialog(SendActivity.this);
-		inputDialog.setTitle(R.string.promot_enter_passwd);
+		back = (Button)findViewById(R.id.back_btn_sendmail);
+		inputDialog = new Dialog(SendActivity.this, R.style.MyDialog);
+		// inputDialog.setTitle(R.string.promot_enter_passwd);
 		inputDialog.setContentView(R.layout.dialog_input);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		passwdEditext = (EditText) inputDialog.findViewById(R.id.useraddress);
+		passwdEditext.setHint(R.string.promot_enter_passwd);
 		passwdEditext.setTransformationMethod(PasswordTransformationMethod
 				.getInstance());
 		send.setOnClickListener(new OnClickListener() {
@@ -109,6 +116,23 @@ public class SendActivity extends Activity implements OnProgressListener {
 
 			}
 		});
+		
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ComfirmDialog comfirmDialog = new ComfirmDialog(SendActivity.this);
+				comfirmDialog.show();
+				comfirmDialog.setConfirmBtn(SendActivity.this);
+				comfirmDialog.setText(R.string.dialog_confirm_edit);
+			}
+		});
+		String attachList = attach.getText().toString();
+		List<FileInfo> fileList = MainActivity.fileListModel.getSelectFiles();
+		for (int i = 0; i < fileList.size(); i++) {
+			attachList += " " + fileList.get(i).fileName + " ";
+		}
+		attach.setText(attachList);
 	}
 
 	private boolean checkNetworkState() {
@@ -152,7 +176,7 @@ public class SendActivity extends Activity implements OnProgressListener {
 			default:
 				break;
 			}
-			
+
 		}
 
 	};
@@ -192,8 +216,19 @@ public class SendActivity extends Activity implements OnProgressListener {
 				e.printStackTrace();
 				handler.sendEmptyMessage(PASSWD_ERROR);
 			}
-		
+
 		}
 
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			ComfirmDialog comfirmDialog = new ComfirmDialog(SendActivity.this);
+			comfirmDialog.show();
+			comfirmDialog.setConfirmBtn(SendActivity.this);
+			comfirmDialog.setText(R.string.dialog_confirm_edit);
+		}
+		return true;
 	}
 }

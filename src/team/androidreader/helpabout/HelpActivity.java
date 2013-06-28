@@ -14,7 +14,6 @@ public class HelpActivity extends Activity {
 
 	Button backButton;
 	LinearLayout title_help;
-	RelativeLayout layout_help;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +21,7 @@ public class HelpActivity extends Activity {
 		setContentView(R.layout.activity_help);
 		backButton = (Button) findViewById(R.id.back_btn_help);
 		title_help = (LinearLayout) findViewById(R.id.title_help);
-		layout_help = (RelativeLayout) findViewById(R.id.layout_help);
-		SetBackgroundImage.setBackGround(HelpActivity.this, title_help,
-				layout_help);
+		SetBackgroundImage.setBackGround(HelpActivity.this, title_help);
 		initListener();
 	}
 

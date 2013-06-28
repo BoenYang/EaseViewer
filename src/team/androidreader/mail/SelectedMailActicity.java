@@ -24,6 +24,7 @@ public class SelectedMailActicity extends Activity {
 
 	private Button addUserAddress;
 	private Button ensure;
+	private Button back;
 	private EditText address;
 	private ListView addressListView;
 	private List<String> addressList;
@@ -54,14 +55,15 @@ public class SelectedMailActicity extends Activity {
 	private void init() {
 		addUserAddress = (Button) findViewById(R.id.adduseraddr);
 		addressListView = (ListView) findViewById(R.id.useraddrlistview);
+		back = (Button)findViewById(R.id.back_btn_selectMail);
 		adapter = new ArrayAdapter<String>(this, R.layout.item_mailaddr,
 				R.id.item_addr, addressList);
 		addressListView.setAdapter(adapter);
-		inputDialog = new Dialog(SelectedMailActicity.this);
-		inputDialog.setTitle(R.string.add_addresser_dialog_title);
+		inputDialog = new Dialog(SelectedMailActicity.this, R.style.MyDialog);
 		inputDialog.setContentView(R.layout.dialog_input);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
+		address.setHint(R.string.add_addresser_dialog_title);
 		ensure.setOnClickListener(new BtnListener());
 		addUserAddress.setOnClickListener(new View.OnClickListener() {
 
@@ -69,6 +71,14 @@ public class SelectedMailActicity extends Activity {
 			public void onClick(View v) {
 				inputDialog.show();
 				address.setText("");
+			}
+		});
+		
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
 			}
 		});
 		addressListView.setOnItemClickListener(new ItemOnClickListener());

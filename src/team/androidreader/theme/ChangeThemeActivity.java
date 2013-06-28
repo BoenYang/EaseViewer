@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 public class ChangeThemeActivity extends Activity {
 	Button black_btn, white_btn;
 	LinearLayout title_theme;
-	RelativeLayout layout_theme;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +19,7 @@ public class ChangeThemeActivity extends Activity {
 		black_btn = (Button) findViewById(R.id.black_btn);
 		white_btn = (Button) findViewById(R.id.white_btn);
 		title_theme = (LinearLayout) findViewById(R.id.title_theme);
-		layout_theme = (RelativeLayout) findViewById(R.id.layout_theme);
-		SetBackgroundImage.setBackGround(ChangeThemeActivity.this, title_theme,
-				layout_theme);
+		SetBackgroundImage.setBackGround(ChangeThemeActivity.this, title_theme);
 		initListener();
 	}
 
@@ -35,7 +32,7 @@ public class ChangeThemeActivity extends Activity {
 				SetBackgroundImage.saveBackground(ChangeThemeActivity.this,
 						"black");
 				SetBackgroundImage.setBackGround(ChangeThemeActivity.this,
-						title_theme, layout_theme);
+						title_theme);
 
 			}
 		});
@@ -47,10 +44,9 @@ public class ChangeThemeActivity extends Activity {
 				SetBackgroundImage.saveBackground(ChangeThemeActivity.this,
 						"white");
 				SetBackgroundImage.setBackGround(ChangeThemeActivity.this,
-						title_theme, layout_theme);
+						title_theme);
 
 			}
 		});
 	}
-
 }

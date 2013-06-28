@@ -20,7 +20,7 @@ public class ChoiceDialog extends Dialog {
 	private Button move;
 
 	public ChoiceDialog(Context context) {
-		super(context);
+		super(context, R.style.MyDialog);
 	}
 
 	@Override
