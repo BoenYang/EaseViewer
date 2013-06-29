@@ -21,7 +21,7 @@ import android.webkit.WebView;
 import android.widget.ZoomButtonsController;
 
 @SuppressLint("HandlerLeak")
-public class ShowOfficeActivity extends Activity implements OnProgressListener{
+public class ShowOfficeActivity extends Activity implements OnProgressListener {
 
 	private WebView webView;
 	private String htmlPath = "";
@@ -30,7 +30,6 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener{
 	private WaittingDialog waittingDialog;
 	private Message msg = new Message();
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,10 +37,10 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener{
 		init();
 		this.OnProgressStart();
 	}
-	
+
 	@SuppressLint("SetJavaScriptEnabled")
-	private void init(){
-		webView = (WebView)findViewById(R.id.officeweb);
+	private void init() {
+		webView = (WebView) findViewById(R.id.officeweb);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
 		webView.getSettings().setBuiltInZoomControls(true);
@@ -177,8 +176,10 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener{
 		Intent intent = getIntent();
 		extension = intent.getStringExtra("extension");
 		path = intent.getStringExtra("path");
-		waittingDialog = new WaittingDialog(ShowOfficeActivity.this);
+		waittingDialog = new WaittingDialog(ShowOfficeActivity.this,
+				R.style.MyDialog);
 		waittingDialog.show();
+		waittingDialog.setText(R.string.dialog_waitting_loading);
 		Thread thread = new Thread(new PraseOfficeThread());
 		thread.start();
 	}

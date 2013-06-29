@@ -22,21 +22,18 @@ public class SetBackgroundImage {
 	 * @param activity
 	 * @param bg_title 在这里传的是LinearLayout
 	 */
-	public static void setBackGround(Activity activity, View bg_title, View bg_activity) {
+	public static void setBackGround(Activity activity, View bg_title) {
 		String bg = getBG(activity);
 		if (bg != null) {
 			if ("white".equals(bg)) {
 				bg_title.setBackgroundResource(R.color.holo_blue_dark);
-				bg_activity.setBackgroundColor(Color.WHITE);
 			}
 			if ("black".equals(bg)) {
 				bg_title.setBackgroundResource(R.color.black_title);
-				bg_activity.setBackgroundResource(R.color.bg_black);
 			}
 		}else{
 			saveBackground(activity,"white");
 			bg_title.setBackgroundResource(R.color.holo_blue_dark);
-			bg_activity.setBackgroundColor(Color.WHITE);
 		}
 	}
 	

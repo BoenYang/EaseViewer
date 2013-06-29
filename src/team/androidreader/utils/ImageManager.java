@@ -6,13 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
-
 import team.androidreader.scanner.DiskLruCache;
-
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -441,26 +435,6 @@ public class ImageManager {
 		} else {
 			imageView.setImageBitmap(bitmap);
 		}
-	}
-
-	/**
-	 * 从网络获取图片字节数组
-	 * 
-	 * @param url
-	 * @return
-	 */
-	private byte[] loadByteArrayFromNetwork(String url) {
-		try {
-
-			HttpGet method = new HttpGet(url);
-			HttpResponse response = myapp.getHttpClient().execute(method);
-			HttpEntity entity = response.getEntity();
-			return EntityUtils.toByteArray(entity);
-
-		} catch (Exception e) {
-			return null;
-		}
-
 	}
 
 	/**

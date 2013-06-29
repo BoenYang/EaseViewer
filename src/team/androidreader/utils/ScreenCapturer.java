@@ -1,5 +1,7 @@
 package team.androidreader.utils;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -22,7 +24,7 @@ public class ScreenCapturer {
 
 		// int titlebarH
 		bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h);
-		return BitmapHelper.writeBitmapToSdcard(bitmap, FileSystem.PRTSCR_DIR,
+		return BitmapHelper.writeBitmapToSdcard(bitmap, saveDir,
 				CompressFormat.JPEG, 100);
 	}
 

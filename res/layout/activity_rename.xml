@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:id="@+id/title_useraddr"
+    
+     <LinearLayout
+        android:id="@+id/title_rename"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:background="@color/holo_blue_dark"
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/back_btn_selectMail"
+            android:id="@+id/back_btn_rename"
             android:layout_width="55dp"
             android:layout_height="45dp"
             android:background="@drawable/button_back" />
@@ -29,44 +28,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="@string/titile_select_useraddr"
+            android:text="@string/title_rename"
             android:textColor="@android:color/white"
             android:textSize="9pt" />
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/useraddrlistview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title_useraddr"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/white"
-        android:cacheColorHint="@android:color/white"
-        android:divider="@drawable/divider_listview"
-        android:dividerHeight="1dp"
-        android:fadeScrollbars="true"
-        android:fastScrollEnabled="true"
-        android:listSelector="#00000000"
-        android:overScrollMode="never"
-        android:scrollbars="none"
-        android:smoothScrollbar="true"
-        android:visibility="visible" />
+    
+    <LinearLayout
+        android:id="@+id/editarea"
+        android:layout_below="@id/title_rename"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/adduseraddr"
+            android:id="@+id/save"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/bg_flat_btn"
             android:padding="10dp"
-            android:text="@string/select_useraddr_add_btn"
+            android:text="@string/btn_save"
             android:textColor="@android:color/black"
             android:textSize="15sp" />
     </LinearLayout>

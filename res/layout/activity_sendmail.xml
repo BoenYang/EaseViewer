@@ -1,47 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
 
-    <TextView
-        android:id="@+id/tvsubject"
+    <LinearLayout
+        android:id="@+id/title_sendmail"
         android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:text="@string/send_subject"
-        android:textSize="20sp" />
+        android:layout_height="45dp"
+        android:background="@color/holo_blue_dark"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/back_btn_sendmail"
+            android:layout_width="55dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_back" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/action_bar_divider"
+            android:focusable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_send_mail"
+            android:textColor="@android:color/white"
+            android:textSize="9pt" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/subject"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/tvsubject" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_sendmail"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rounded_rect"
+        android:hint="@string/send_subject"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/tvboby"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/subject"
-        android:text="@string/send_body"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_below="@id/tvboby"
-        android:text="@string/send_attach"
         android:id="@+id/tvattach"
         android:layout_width="fill_parent"
-        android:layout_height="30dp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subject"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rounded_rect"
+        android:ellipsize="middle"
+        android:padding="10dp"
+        android:singleLine="true"
+        android:text="@string/send_attach" />
 
     <EditText
         android:id="@+id/body"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/tvattach" />
+        android:layout_height="200dp"
+        android:layout_below="@id/tvattach"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rounded_rect"
+        android:gravity="top|left"
+        android:hint="@string/send_body"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/sendmail"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/send_btn" />
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_flat_btn"
+        android:padding="10dp"
+        android:text="@string/send_btn"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 
 </RelativeLayout>

@@ -32,12 +32,13 @@ public class SelectRecipientActivity extends Activity {
 	private ADO ado;
 	private Button addrecipient;
 	private Button ok;
+	private Button back;
 	private Dialog inputDialog;
 	private Button ensure;
 	private EditText address;
 	private List<Boolean> selected = new ArrayList<Boolean>();
 	private List<String> selectedRecipient = new ArrayList<String>();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,72 +55,94 @@ public class SelectRecipientActivity extends Activity {
 	}
 
 	private void init() {
-		addrecipient = (Button)findViewById(R.id.addrecipient);
-		ok = (Button)findViewById(R.id.ok);
+		addrecipient = (Button) findViewById(R.id.addrecipient);
+		ok = (Button) findViewById(R.id.ok);
+		back = (Button)findViewById(R.id.back_btn_selectrecipient);
 		repipientListView = (ListView) findViewById(R.id.recipientaddrlistview);
 		adapter = new RecipientShowAdapter(this);
 		repipientListView.setAdapter(adapter);
-		inputDialog = new Dialog(this);
-		inputDialog.setTitle(R.string.add_recupient_dialog_title);
+		inputDialog = new Dialog(this, R.style.MyDialog);
+		//inputDialog.setTitle(R.string.add_recupient_dialog_title);
 		inputDialog.setContentView(R.layout.dialog_input);
 		address = (EditText) inputDialog.findViewById(R.id.useraddress);
+		address.setHint(R.string.add_recupient_dialog_title);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		ensure.setOnClickListener(new BtnListener());
+
 		addrecipient.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				inputDialog.show();
 				address.setText("");
 			}
 		});
+
 		ok.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				if(selectedRecipient.size() == 0){
-					Toast.makeText(SelectRecipientActivity.this, R.string.promot_select_recipient, Toast.LENGTH_SHORT).show();
-					return ;
+				if (selectedRecipient.size() == 0) {
+					Toast.makeText(SelectRecipientActivity.this,
+							R.string.promot_select_recipient,
+							Toast.LENGTH_SHORT).show();
+					return;
 				}
 				Intent intent = new Intent();
-				intent.setClass(SelectRecipientActivity.this, SendActivity.class);
+				intent.setClass(SelectRecipientActivity.this,
+						SendActivity.class);
 				intent.putExtra("useraddress", userAddr);
 				intent.putExtra("servlet", mailServlet);
 				Bundle bundle = new Bundle();
-				bundle.putStringArrayList("recipients", (ArrayList<String>)selectedRecipient);
+				bundle.putStringArrayList("recipients",
+						(ArrayList<String>) selectedRecipient);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
+		
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 		ensure.setOnClickListener(new BtnListener());
 	}
-	
+
 	class BtnListener implements OnClickListener {
 
 		@Override
 		public void onClick(View v) {
 			String temp = address.getText().toString();
-			
-			if(!temp.matches(SelectedMailActicity.FORMAT)){
-				Toast.makeText(SelectRecipientActivity.this, R.string.mail_format_incorrect, Toast.LENGTH_SHORT).show();
-				return ;
+
+			if (!temp.matches(SelectedMailActicity.FORMAT)) {
+				Toast.makeText(SelectRecipientActivity.this,
+						R.string.mail_format_incorrect, Toast.LENGTH_SHORT)
+						.show();
+				return;
 			}
-			String mail = temp.substring(temp.indexOf('@')+1,temp.lastIndexOf('.'));
-			if(!SelectedMailActicity.supportMail.containsKey(mail.toLowerCase())){
-				Toast.makeText(SelectRecipientActivity.this, R.string.not_support, Toast.LENGTH_SHORT).show();
-				return ;
+			String mail = temp.substring(temp.indexOf('@') + 1,
+					temp.lastIndexOf('.'));
+			if (!SelectedMailActicity.supportMail.containsKey(mail
+					.toLowerCase())) {
+				Toast.makeText(SelectRecipientActivity.this,
+						R.string.not_support, Toast.LENGTH_SHORT).show();
+				return;
 			}
-			if(!ado.addRecipientMail(temp)){
-				Toast.makeText(SelectRecipientActivity.this, R.string.write_failed, Toast.LENGTH_SHORT).show();
-				return ;
+			if (!ado.addRecipientMail(temp)) {
+				Toast.makeText(SelectRecipientActivity.this,
+						R.string.write_failed, Toast.LENGTH_SHORT).show();
+				return;
 			}
 			inputDialog.cancel();
-			recipientList.add(0,temp);
-			selected.add(0,false);
+			recipientList.add(0, temp);
+			selected.add(0, false);
 			adapter.notifyDataSetChanged();
 		}
 	}
-	
+
 	class RecipientShowAdapter extends BaseAdapter {
 		private LayoutInflater layoutInflater;
 		private ViewHolder viewHolder;
@@ -162,7 +185,8 @@ public class SelectRecipientActivity extends Activity {
 			if (convertView != null) {
 				viewHolder = (ViewHolder) convertView.getTag();
 			} else {
-				convertView = layoutInflater.inflate(R.layout.item_recipientaddr, null);
+				convertView = layoutInflater.inflate(
+						R.layout.item_recipientaddr, null);
 				viewHolder = new ViewHolder();
 				viewHolder.mail = (TextView) convertView
 						.findViewById(R.id.item_recipientaddr);
@@ -171,13 +195,12 @@ public class SelectRecipientActivity extends Activity {
 				convertView.setTag(viewHolder);
 			}
 			viewHolder.mail.setText(recipientList.get(position));
-			viewHolder.checkBox
-				.setChecked(selected.get(position));
+			viewHolder.checkBox.setChecked(selected.get(position));
 			viewHolder.checkBox.setOnClickListener(new CheckBoxOnClickListener(
 					position));
 			return convertView;
 		}
-		
+
 		class CheckBoxOnClickListener implements View.OnClickListener {
 
 			private int position;

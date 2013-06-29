@@ -12,10 +12,8 @@ public class ADO {
 
 	private ADOHelper adoHelper;
 	private SQLiteDatabase db;
-	private Context context;
 
 	public ADO(Context context) {
-		this.context = context;
 		adoHelper = new ADOHelper(context);
 	}
 

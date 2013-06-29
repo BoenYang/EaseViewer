@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.R.interpolator;
+import team.androidreader.mainview.FileListHelper.FileCategory;
+import team.androidreader.mainview.FileSortHelper.SortMethod;
 
 public class FileListModel {
 	
@@ -17,7 +18,7 @@ public class FileListModel {
 	}
 
 	public interface onSelectedAllListener{
-		public void onSelectedAll();
+		public void onSelectedAll(boolean flag);
 	}
 	
 	public interface onOperationModelChangListener{
@@ -35,7 +36,8 @@ public class FileListModel {
 	private boolean seletct[];
 	private int selectedNum;
 	private int opeartion = FileListController.DEFAULT;
-	
+	private FileListHelper.FileCategory fileCategory = FileCategory.SDCARD;
+
 
 
 	public FileListModel(List<FileInfo> filelist,String currentDir){
@@ -117,7 +119,13 @@ public class FileListModel {
 
 	public void selectedAll(boolean flag){
 		Arrays.fill(seletct, flag);
-		onSelectedAllListener.onSelectedAll();
+		if(flag){
+			selectFiles.addAll(fileList);
+			setSelectedNum(fileList.size());
+		}else{
+			clearSelectFIles();
+		}
+		onSelectedAllListener.onSelectedAll(flag);
 	}
 	
 	public void setModel(int model){
@@ -127,5 +135,13 @@ public class FileListModel {
 	
 	public int getOpeartion() {
 		return opeartion;
+	}
+	
+	public FileListHelper.FileCategory getFileCategory() {
+		return fileCategory;
+	}
+
+	public void setFileCategory(FileListHelper.FileCategory fileCategory) {
+		this.fileCategory = fileCategory;
 	}
 }

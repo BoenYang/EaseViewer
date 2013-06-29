@@ -2,10 +2,17 @@ package team.androidreader.mainview;
 
 import java.util.List;
 
+import team.androidreader.dialog.WaittingDialog;
 import team.androidreader.mainview.FileSortHelper.SortMethod;
 import team.androidreader.utils.FileOperationHelper;
+import team.androidreader.utils.OnProgressListener;
 import team.top.activity.R;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +20,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class BottomMenuFragment extends Fragment {
+public class BottomMenuFragment extends Fragment implements OnProgressListener {
 
 	private View view;
 	private Button delete;
 	private Button choice;
-	private Button selectAll;
-	private boolean selectedAll = false;
+	public static Button selectAll;
+	public static boolean selectedAll = false;
+	private WaittingDialog waittingDialog;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -30,6 +38,7 @@ public class BottomMenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_bottommenu, null);
+		waittingDialog = new WaittingDialog(view.getContext(), R.style.MyDialog);
 		init();
 		return view;
 	}
@@ -50,27 +59,20 @@ public class BottomMenuFragment extends Fragment {
 			int id = v.getId();
 			switch (id) {
 			case R.id.selectall:
-				if(selectedAll){
+				if (selectedAll) {
 					MainActivity.fileListModel.selectedAll(false);
-					selectAll.setText("selectedall");
-					MainActivity.fileListModel.setSelectedNum(0);
+					selectAll.setText(R.string.bottom_selectall);
+					MainActivity.fileListModel.clearSelectFIles();
 					selectedAll = false;
-				}else{
+				} else {
+					MainActivity.fileListModel.getSelectFiles().clear();
 					MainActivity.fileListModel.selectedAll(true);
-					selectAll.setText("cancelall");
+					selectAll.setText(R.string.bottom_cancelall);
 					selectedAll = true;
 				}
 				break;
 			case R.id.delete:
-				FileSortHelper fileSortHelper = new FileSortHelper();
-				fileSortHelper.setSortMethog(SortMethod.name);
-				FileOperationHelper.Delete(MainActivity.fileListModel
-						.getSelectFiles());
-				List<FileInfo> fileList = FileListHelper.GetSortedFiles(
-						MainActivity.fileListModel.getCurrentDirectory(),
-						false, SortMethod.name);
-				MainActivity.fileListController.handleDirectoryChange(fileList,
-						MainActivity.fileListModel.getCurrentDirectory());
+				confirm();
 				break;
 			case R.id.choice:
 				ChoiceDialog choiceDialog = new ChoiceDialog(view.getContext());
@@ -81,4 +83,74 @@ public class BottomMenuFragment extends Fragment {
 			}
 		}
 	}
+
+	private void confirm() {
+		AlertDialog.Builder builder = new Builder(view.getContext());
+		builder.setMessage("确认删除？");
+
+		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+				BottomMenuFragment.this.OnProgressStart();
+				waittingDialog.setText(R.string.dialog_waitting_delete);
+			}
+		});
+
+		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+
+		builder.create().show();
+
+	}
+
+	class DeleteThread implements Runnable {
+
+		@Override
+		public void run() {
+			FileOperationHelper.Delete(MainActivity.fileListModel
+					.getSelectFiles());
+			handler.sendEmptyMessage(0);
+
+		}
+	}
+
+	@Override
+	public void OnProgressStart() {
+		waittingDialog.show();
+		Thread thread = new Thread(new DeleteThread());
+		thread.start();
+	}
+
+	@Override
+	public void OnProgressFinished() {
+		waittingDialog.cancel();
+	}
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			String currDir = MainActivity.fileListModel.getCurrentDirectory();
+			List<FileInfo> fileList = null;
+			if (currDir.equals("")) {
+				fileList = FileListHelper.GetSortedFileByCategory(
+						getActivity(),
+						MainActivity.fileListModel.getFileCategory(), false,
+						SortMethod.name);
+			} else {
+				fileList = FileListHelper.GetSortedFiles(currDir, false,
+						SortMethod.name);
+			}
+			MainActivity.fileListController.handleDirectoryChange(fileList,
+					currDir);
+			BottomMenuFragment.this.OnProgressFinished();
+		}
+	};
+
 }

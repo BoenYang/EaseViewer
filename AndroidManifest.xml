@@ -5,32 +5,39 @@
     android:versionName="0.1" >
 
     <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="15" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="11" 
+        android:maxSdkVersion="16"/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="team.androidreader.utils.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:logo="@drawable/ic_launcher"
-        android:theme="@style/AppTheme" >
+        android:logo="@drawable/ic_launcher" >
         <activity
-            android:name="team.androidreader.mainview.MainActivity"
-            android:label="@string/app_name" >
+            android:name="team.androidreader.mainview.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="team.androidreader.office.ShowOfficeActivity" >
+        <activity
+            android:name="team.androidreader.mainview.MainActivity"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="team.androidreader.office.ShowOfficeActivity"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -41,7 +48,9 @@
                 <data android:mimeType="application/xls" />
             </intent-filter>
         </activity>
-        <activity android:name="team.androidreader.txt.TextReaderActivity" >
+        <activity
+            android:name="team.androidreader.txt.TextReaderActivity"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -54,25 +63,26 @@
                 <data android:mimeType="application/java" />
             </intent-filter>
         </activity>
-        <activity android:name="team.androidreader.test.TestContentActivity" >
+        <activity
+            android:name="team.androidreader.theme.ChangeThemeActivity"
+            android:theme="@style/AppTheme" >
         </activity>
-        <activity android:name="team.androidreader.mainview.SplashActivity" >
+        <activity
+            android:name="team.androidreader.helpabout.HelpActivity"
+            android:theme="@style/AppTheme" >
         </activity>
-        <activity android:name="team.androidreader.theme.ChangeThemeActivity" >
-        </activity>
-        <activity android:name="team.androidreader.helpabout.HelpActivity" >
-        </activity>
-        <activity android:name="team.androidreader.scanner.ImageToPdfActivity" >
-        </activity>
-        <activity android:name="team.androidreader.scanner.PhotoPreviewActivity" >
-        </activity>
-        <activity android:name="team.androidreader.scanner.Activity_Album" >
+        <activity
+            android:name="team.androidreader.scanner.Activity_Album"
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name="team.androidreader.scanner.Activity_Multichooser"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <activity android:name="team.androidreader.pdf.PdfReaderActivity" >
+        <activity
+            android:name="team.androidreader.pdf.PdfReaderActivity"
+            android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -82,15 +92,30 @@
                 <data android:mimeType="application-pdf/pdf" />
             </intent-filter>
         </activity>
-        <activity android:name="team.androidreader.helpabout.AboutActivity" >
+        <activity
+            android:name="team.androidreader.helpabout.AboutActivity"
+            android:theme="@style/AppTheme" >
         </activity>
-        <activity android:name="team.androidreader.mail.SelectedMailActicity" >
+        <activity
+            android:name="team.androidreader.mail.SelectedMailActicity"
+            android:theme="@style/AppTheme" >
         </activity>
-        <activity android:name="team.androidreader.mail.SelectRecipientActivity" >
+        <activity
+            android:name="team.androidreader.mail.SelectRecipientActivity"
+            android:theme="@style/AppTheme" >
         </activity>
-        <activity android:name="team.androidreader.mail.SendActivity" >
+        <activity
+            android:name="team.androidreader.mail.SendActivity"
+            android:theme="@style/AppTheme" >
         </activity>
-        <service android:name="team.androidreader.mail.MailSendService"></service>
+
+        <service android:name="team.androidreader.mail.MailSendService" >
+        </service>
+
+        <activity
+            android:name="team.androidreader.mainview.RenameActivity"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>

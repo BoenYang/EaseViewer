@@ -16,6 +16,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore.Audio;
+import android.provider.MediaStore.Files;
 import android.provider.MediaStore.Files.FileColumns;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
@@ -175,7 +176,7 @@ public class FileListHelper {
 		case THEME:
 		case ZIP:
 		case APK:
-			// uri = Files.getContentUri(VOLUME);
+			uri = Files.getContentUri(VOLUME);
 			break;
 		case MUSIC:
 			uri = Audio.Media.getContentUri(VOLUME);

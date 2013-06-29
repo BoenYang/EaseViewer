@@ -6,15 +6,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+import team.androidreader.dialog.ComfirmDialog;
 import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,7 +40,6 @@ public class Activity_Multichooser extends Activity {
 	private Button generatePDF;
 	private Button backBtn;
 	LinearLayout title_choosePic;
-	RelativeLayout layout_chooser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +47,13 @@ public class Activity_Multichooser extends Activity {
 		setContentView(R.layout.activity_multichooser);
 		init();
 		SetBackgroundImage.setBackGround(Activity_Multichooser.this,
-				title_choosePic, layout_chooser);
+				title_choosePic);
 		initListener();
 
 	}
 
 	private void init() {
 		title_choosePic = (LinearLayout) findViewById(R.id.title_choosePic);
-		layout_chooser = (RelativeLayout) findViewById(R.id.layout_chooser);
 		backBtn = (Button) findViewById(R.id.back_btn_choosePic);
 		fileName = (EditText) findViewById(R.id.name_pdf);
 		generatePDF = (Button) findViewById(R.id.btn_generate_pdf);
@@ -235,28 +230,10 @@ public class Activity_Multichooser extends Activity {
 	private void exitEdit() {
 		if (dataList.size() > 1
 				|| !"".equals(fileName.getText().toString().trim())) {
-			AlertDialog.Builder builder = new Builder(
-					Activity_Multichooser.this);
-			builder.setMessage("确认退出编辑？");
-
-			builder.setPositiveButton("确认", new OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-					finish();
-				}
-			});
-
-			builder.setNegativeButton("取消", new OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			});
-
-			builder.create().show();
+			ComfirmDialog comfirmDialog = new ComfirmDialog(this);
+			comfirmDialog.show();
+			comfirmDialog.setText(R.string.dialog_confirm_exit);
+			comfirmDialog.setConfirmBtn(this);
 		} else {
 			finish();
 		}
