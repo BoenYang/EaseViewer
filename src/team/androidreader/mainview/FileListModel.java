@@ -26,7 +26,7 @@ public class FileListModel {
 	}
 	
 	private List<FileInfo> fileList = new ArrayList<FileInfo>();
-	private List<FileInfo> selectFiles = new ArrayList<FileInfo>();
+	private static List<FileInfo> selectFiles = new ArrayList<FileInfo>();
 	private String currentDirectory;
 	
 	private FileListChangeListener listener;

@@ -24,8 +24,8 @@
         android:ellipsize="end"
         android:paddingTop="2dp"
         android:singleLine="true"
-        android:textSize="7pt"
         android:textColor="@android:color/black"
+        android:textSize="7pt"
         android:textStyle="bold" />
 
     <TextView
@@ -41,8 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/fileMofidiedDate"
-        android:layout_toRightOf="@id/fileMofidiedDate"
         android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/fileMofidiedDate"
         android:textSize="4pt"
         android:textStyle="normal" />
 

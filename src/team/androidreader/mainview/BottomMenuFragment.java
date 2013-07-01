@@ -9,6 +9,7 @@ import team.androidreader.utils.OnProgressListener;
 import team.top.activity.R;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class BottomMenuFragment extends Fragment implements OnProgressListener {
 
@@ -28,6 +30,7 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 	public static Button selectAll;
 	public static boolean selectedAll = false;
 	private WaittingDialog waittingDialog;
+	Dialog dialog;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -85,28 +88,27 @@ public class BottomMenuFragment extends Fragment implements OnProgressListener {
 	}
 
 	private void confirm() {
-		AlertDialog.Builder builder = new Builder(view.getContext());
-		builder.setMessage("确认删除？");
+		dialog = new Dialog(getActivity(), R.style.MyDialog);
+		dialog.setContentView(R.layout.dialog_confirm);
+		dialog.show();
+		TextView title = (TextView) dialog.findViewById(R.id.confirm_text);
+		title.setText(R.string.dialog_confirm_delete);
 
-		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
+		Button confirm = (Button) dialog.findViewById(R.id.confirm_yes);
+		confirm.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				dialog.dismiss();
 				BottomMenuFragment.this.OnProgressStart();
 				waittingDialog.setText(R.string.dialog_waitting_delete);
 			}
 		});
 
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
+		Button cancel = (Button) dialog.findViewById(R.id.confirm_no);// 注：“View.”别忘了，不然则找不到资源
+		cancel.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
 				dialog.dismiss();
 			}
 		});
-
-		builder.create().show();
 
 	}
 

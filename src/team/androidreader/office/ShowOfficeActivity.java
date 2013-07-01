@@ -28,6 +28,7 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 	private String extension;
 	private String path;
 	private WaittingDialog waittingDialog;
+
 	private Message msg = new Message();
 
 	@Override
@@ -40,6 +41,8 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 
 	@SuppressLint("SetJavaScriptEnabled")
 	private void init() {
+		waittingDialog = new WaittingDialog(ShowOfficeActivity.this,
+				R.style.MyDialog);
 		webView = (WebView) findViewById(R.id.officeweb);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
@@ -176,8 +179,6 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 		Intent intent = getIntent();
 		extension = intent.getStringExtra("extension");
 		path = intent.getStringExtra("path");
-		waittingDialog = new WaittingDialog(ShowOfficeActivity.this,
-				R.style.MyDialog);
 		waittingDialog.show();
 		waittingDialog.setText(R.string.dialog_waitting_loading);
 		Thread thread = new Thread(new PraseOfficeThread());

@@ -3,20 +3,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <LinearLayout
+        android:id="@+id/title_ablum"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/holo_blue_dark"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/back_btn_ablum"
+            android:layout_width="55dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_back" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/action_bar_divider"
+            android:focusable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/title_ablum"
+            android:textColor="@android:color/white"
+            android:textSize="9pt" />
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_alignParentBottom="true"
         android:background="#FFF" >
 
         <Button
             android:id="@+id/ok_button"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="完成(0/8)" />
+            android:background="@drawable/bg_flat_btn"
+            android:padding="10dp"
+            android:layout_margin="5dp"
+            android:text="完成(0/10)"
+            android:textSize="15sp" />
 
         <HorizontalScrollView
             android:id="@+id/scrollview"
@@ -27,7 +62,7 @@
 
             <LinearLayout
                 android:id="@+id/selected_image_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical" >
             </LinearLayout>
@@ -39,10 +74,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/bottom_layout"
+        android:layout_below="@id/title_ablum"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rounded_rect"
         android:horizontalSpacing="2dp"
         android:listSelector="@null"
         android:numColumns="3"

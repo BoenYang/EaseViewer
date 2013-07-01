@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.StrictMode;
 
 public class MailSendService extends Service {
 
@@ -27,7 +28,7 @@ public class MailSendService extends Service {
 	private static Notification notification;
 	private CharSequence from = "邮件正在发送";
 	private static PendingIntent contentIntent;
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate() {
@@ -36,8 +37,15 @@ public class MailSendService extends Service {
 		notification = new Notification(R.drawable.ic_launcher, from,
 				System.currentTimeMillis());
 		Intent intent1 = new Intent();
-		contentIntent = PendingIntent.getActivity(this, 0,
-				intent1, 0);
+		contentIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+				.detectDiskReads().detectDiskWrites().detectNetwork()
+				.penaltyLog().build());
+
+		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+				.detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath()
+				.build());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -51,18 +59,20 @@ public class MailSendService extends Service {
 		passwd = intent.getStringExtra("passwd");
 		servlet = intent.getStringExtra("servlet");
 		attaches = MainActivity.fileListModel.getSelectFiles();
-		
+
 		MailUtil mailUtil = new MailUtil(servlet, 25, userAddrres, passwd);
 		for (String recipient : recipientList) {
-			notification.setLatestEventInfo(this, from, recipient, contentIntent);
+			notification.setLatestEventInfo(this, from, recipient,
+					contentIntent);
 			nm.notify(R.string.app_name, notification);
 			String msg;
-			if(mailUtil.sendEmail(recipient, subject, body, attaches)){
+			if (mailUtil.sendEmail(recipient, subject, body, attaches)) {
 				msg = "发送成功";
-			}else{
+			} else {
 				msg = "发送失败";
 			}
-			notification.setLatestEventInfo(this, from, recipient + " " + msg, contentIntent);
+			notification.setLatestEventInfo(this, from, recipient + " " + msg,
+					contentIntent);
 			nm.notify(R.string.app_name, notification);
 		}
 		notification.setLatestEventInfo(this, "邮件发送完成", "", contentIntent);
