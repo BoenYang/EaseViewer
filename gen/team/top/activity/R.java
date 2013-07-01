@@ -368,6 +368,7 @@ public final class R {
         public static final int promot_cannot_senddir=0x7f070045;
         public static final int promot_enter_passwd=0x7f070036;
         public static final int promot_select_recipient=0x7f070030;
+        public static final int screen_shot_success=0x7f070053;
         public static final int select_recipient_add_btn=0x7f070022;
         public static final int select_useraddr_add_btn=0x7f070020;
         public static final int send_attach=0x7f070039;

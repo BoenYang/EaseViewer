@@ -84,5 +84,6 @@
     <string name="generate_success">File generated at sdcard root!</string>
     <string name="ablum_finish">Finish</string>
     <string name="ablum_only10">Up to 10 photos!</string>
+    <string name="screen_shot_success">Capture success</string>
 
 </resources>

@@ -84,5 +84,6 @@
     <string name="generate_success">文件成功生成在SD卡根目录!</string>
     <string name="ablum_finish">完成</string>
     <string name="ablum_only10">最多10张图片!</string>
+    <string name="screen_shot_success">截图成功</string>
 
 </resources>

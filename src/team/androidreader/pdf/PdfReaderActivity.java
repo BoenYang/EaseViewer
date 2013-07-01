@@ -148,10 +148,11 @@ public class PdfReaderActivity extends Activity implements OnProgressListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 5) {
-			System.out.println("=========================");
-			//need to repair
-//			ScreenCapturer.TakeScreenShot(PdfReaderActivity.this,
-//					FileSystem.PRTSCR_DIR, "SCREEN_SHOT.jpg");
+			ScreenCapturer.TakeScreenShot(PdfReaderActivity.this,
+					FileSystem.PRTSCR_DIR,
+					"PrtSc_" + FileSystem.GetTimeFileName() + ".jpg");
+			Toast.makeText(getApplicationContext(),
+					R.string.screen_shot_success, Toast.LENGTH_SHORT).show();
 		}
 		super.onKeyDown(keyCode, event);
 		return true;
