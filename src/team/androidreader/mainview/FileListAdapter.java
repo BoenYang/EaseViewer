@@ -127,6 +127,7 @@ public class FileListAdapter extends BaseAdapter implements onSelectedAllListene
 		viewHolder.checkBox
 				.setChecked(MainActivity.fileListModel.getSeletct()[position]);
 		if(MainActivity.fileListModel.getOpeartion() != FileListController.DEFAULT){
+			System.out.println("set gone");
 			viewHolder.checkBox.setVisibility(View.GONE);
 		}else{
 			viewHolder.checkBox.setVisibility(View.VISIBLE);

@@ -15,6 +15,7 @@ import team.androidreader.dialog.WaittingDialog;
 import team.androidreader.utils.BitmapHelper;
 import team.androidreader.utils.FileSystem;
 import team.androidreader.utils.OnProgressListener;
+import team.androidreader.utils.ScreenCapturer;
 import team.top.activity.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -25,10 +26,12 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.widget.ListView;
+import android.widget.Toast;
 
 @SuppressLint("HandlerLeak")
-public class PdfReaderActivity extends Activity implements OnProgressListener{
+public class PdfReaderActivity extends Activity implements OnProgressListener {
 
 	private ListView listview;
 	private PdfShowAdapter pdfShowAdapter;
@@ -46,8 +49,8 @@ public class PdfReaderActivity extends Activity implements OnProgressListener{
 		init();
 		this.OnProgressStart();
 	}
-	
-	private void init(){
+
+	private void init() {
 		listview = (ListView) findViewById(R.id.pdfreader_listview);
 		listview.setOnTouchListener(new ZoomListener(listview));
 	}
@@ -77,7 +80,7 @@ public class PdfReaderActivity extends Activity implements OnProgressListener{
 			String saveDir = FileSystem.PDF_CACHE + File.separator + filename;
 			PdfContext pdfContext = new PdfContext();
 			document = (PdfDocument) pdfContext.openDocument(path);
-			
+
 			int num = document.getPageCount();
 
 			for (int i = 0; i < num; i++) {
@@ -129,8 +132,10 @@ public class PdfReaderActivity extends Activity implements OnProgressListener{
 		Intent intent = getIntent();
 		path = intent.getStringExtra("path");
 		filename = FileSystem.GetFileName(path);
-		waittingDialog = new WaittingDialog(PdfReaderActivity.this);
+		waittingDialog = new WaittingDialog(PdfReaderActivity.this,
+				R.style.MyDialog);
 		waittingDialog.show();
+		waittingDialog.setText(R.string.dialog_waitting_loading);
 		Thread thread = new Thread(new ParseThread());
 		thread.start();
 	}
@@ -138,5 +143,18 @@ public class PdfReaderActivity extends Activity implements OnProgressListener{
 	@Override
 	public void OnProgressFinished() {
 		handler.sendMessage(msg);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 5) {
+			ScreenCapturer.TakeScreenShot(PdfReaderActivity.this,
+					FileSystem.PRTSCR_DIR,
+					"PrtSc_" + FileSystem.GetTimeFileName() + ".jpg");
+			Toast.makeText(getApplicationContext(),
+					R.string.screen_shot_success, Toast.LENGTH_SHORT).show();
+		}
+		super.onKeyDown(keyCode, event);
+		return true;
 	}
 }

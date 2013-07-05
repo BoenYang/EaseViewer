@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.ADO;
 import team.top.activity.R;
 import android.app.Activity;
@@ -17,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,6 +35,8 @@ public class SelectedMailActicity extends Activity {
 	public final static String FORMAT = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
 	private ADO ado;
 	public static Map<String, String> supportMail = new HashMap<String, String>();
+	private LinearLayout layout;
+	
 
 	static {
 		supportMail.put("126", "smtp.126.com");
@@ -47,6 +51,8 @@ public class SelectedMailActicity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selectmailaddr);
+		layout = (LinearLayout)findViewById(R.id.title_useraddr);
+		SetBackgroundImage.setBackGround(this, layout);
 		ado = new ADO(this);
 		addressList = ado.queryUserMail();
 		init();

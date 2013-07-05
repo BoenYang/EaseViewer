@@ -5,9 +5,9 @@
     android:versionName="0.1" >
 
     <uses-sdk
+        android:maxSdkVersion="16"
         android:minSdkVersion="11"
-        android:targetSdkVersion="11" 
-        android:maxSdkVersion="16"/>
+        android:targetSdkVersion="11" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,6 +30,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="team.androidreader.mainview.IntroduceActivity"
+            android:theme="@style/FullScreen" >
         </activity>
         <activity
             android:name="team.androidreader.mainview.MainActivity"

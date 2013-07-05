@@ -9,13 +9,13 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 
-import team.androidreader.dialog.ComfirmDialog;
+import team.androidreader.dialog.ConfirmDialog;
 import team.androidreader.dialog.WaittingDialog;
 import team.androidreader.mainview.FileInfo;
 import team.androidreader.mainview.MainActivity;
+import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.OnProgressListener;
 import team.top.activity.R;
-import android.R.array;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,11 +54,14 @@ public class SendActivity extends Activity implements OnProgressListener {
 	private String subContent;
 	private String bodyContent;
 	private WaittingDialog waittingDialog;
+	private LinearLayout layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sendmail);
+		layout = (LinearLayout)findViewById(R.id.title_sendmail);
+		SetBackgroundImage.setBackGround(this, layout);
 		Intent intent = getIntent();
 		userAddress = intent.getStringExtra("useraddress");
 		mailServlet = intent.getStringExtra("servlet");
@@ -74,7 +78,6 @@ public class SendActivity extends Activity implements OnProgressListener {
 		send = (Button) findViewById(R.id.sendmail);
 		back = (Button)findViewById(R.id.back_btn_sendmail);
 		inputDialog = new Dialog(SendActivity.this, R.style.MyDialog);
-		// inputDialog.setTitle(R.string.promot_enter_passwd);
 		inputDialog.setContentView(R.layout.dialog_input);
 		ensure = (Button) inputDialog.findViewById(R.id.ensure);
 		passwdEditext = (EditText) inputDialog.findViewById(R.id.useraddress);
@@ -121,7 +124,7 @@ public class SendActivity extends Activity implements OnProgressListener {
 			
 			@Override
 			public void onClick(View v) {
-				ComfirmDialog comfirmDialog = new ComfirmDialog(SendActivity.this);
+				ConfirmDialog comfirmDialog = new ConfirmDialog(SendActivity.this);
 				comfirmDialog.show();
 				comfirmDialog.setConfirmBtn(SendActivity.this);
 				comfirmDialog.setText(R.string.dialog_confirm_edit);
@@ -183,10 +186,10 @@ public class SendActivity extends Activity implements OnProgressListener {
 
 	@Override
 	public void OnProgressStart() {
-		Thread thread = new Thread(new CheckPasswdThread());
-		thread.start();
 		waittingDialog.show();
 		waittingDialog.setText(R.string.dialog_waitting_check);
+		Thread thread = new Thread(new CheckPasswdThread());
+		thread.start();
 	}
 
 	@Override
@@ -224,7 +227,7 @@ public class SendActivity extends Activity implements OnProgressListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			ComfirmDialog comfirmDialog = new ComfirmDialog(SendActivity.this);
+			ConfirmDialog comfirmDialog = new ConfirmDialog(SendActivity.this);
 			comfirmDialog.show();
 			comfirmDialog.setConfirmBtn(SendActivity.this);
 			comfirmDialog.setText(R.string.dialog_confirm_edit);

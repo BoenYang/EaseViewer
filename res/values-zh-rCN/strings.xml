@@ -75,8 +75,15 @@
     <string name="dialog_waitting_loading">正在打开文件</string>
     <string name="dialog_confirm_exit">确认退出编辑？</string>
     <string name="dialog_confirm_delete">确认删除?</string>
-	<string name="dialog_confirm_edit">放弃编辑？</string>
-	<string name="btn_save">保存</string>
-	<string name="dialog_comfirm_rename">取消重命名?</string>
-	 <string name="title_rename">重命名</string>
+    <string name="dialog_confirm_edit">放弃编辑？</string>
+    <string name="btn_save">保存</string>
+    <string name="dialog_confirm_rename">取消重命名?</string>
+    <string name="title_rename">重命名</string>
+    <string name="title_ablum">图库</string>
+    <string name="dialog_confirm_ablum">退出选择?</string>
+    <string name="generate_success">文件成功生成在SD卡根目录!</string>
+    <string name="ablum_finish">完成</string>
+    <string name="ablum_only10">最多10张图片!</string>
+    <string name="screen_shot_success">截图成功</string>
+
 </resources>

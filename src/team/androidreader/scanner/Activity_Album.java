@@ -4,10 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import team.androidreader.dialog.ConfirmDialog;
 import team.androidreader.utils.ImageManager;
 import team.top.activity.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,12 +30,16 @@ public class Activity_Album extends Activity {
 	private ArrayList<String> dataList = new ArrayList<String>();
 	private HashMap<String, ImageView> hashMap = new HashMap<String, ImageView>();
 	private ArrayList<String> selectedDataList = new ArrayList<String>();
-	private String cameraDir = "/DCIM/";
+	private ArrayList<String> tempList = new ArrayList<String>();
+	private String cameraDir = "/" + Environment.DIRECTORY_DCIM + "/";
 	private ProgressBar progressBar;
 	private Adapter_AlbumGridView gridImageAdapter;
 	private LinearLayout selectedImageLayout;
 	private Button okButton;
 	private HorizontalScrollView scrollview;
+	private Button backButton;
+	private ConfirmDialog confirmDialog;
+	private String finish;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +50,15 @@ public class Activity_Album extends Activity {
 		Bundle bundle = intent.getExtras();
 		selectedDataList = (ArrayList<String>) bundle
 				.getSerializable("dataList");
+		tempList = selectedDataList;
 		init();
 		initListener();
 	}
 
 	private void init() {
-
+		Resources res = getResources();
+		finish = res.getString(R.string.ablum_finish);
+		backButton = (Button) findViewById(R.id.back_btn_ablum);
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
 		progressBar.setVisibility(View.GONE);
 		gridView = (GridView) findViewById(R.id.Grid_album);
@@ -85,7 +94,7 @@ public class Activity_Album extends Activity {
 				}
 			});
 		}
-		okButton.setText("完成(" + selectedDataList.size() + "/10)");
+		okButton.setText(finish + "(" + selectedDataList.size() + "/10)");
 	}
 
 	private void initListener() {
@@ -101,7 +110,7 @@ public class Activity_Album extends Activity {
 							toggleButton.setChecked(false);
 							if (!removePath(path)) {
 								Toast.makeText(Activity_Album.this,
-										"只能选择10张图片", 200).show();
+										R.string.ablum_only10, 200).show();
 							}
 							return;
 						}
@@ -142,7 +151,7 @@ public class Activity_Album extends Activity {
 												removePath(path);
 											}
 										});
-								okButton.setText("完成("
+								okButton.setText(finish + "("
 										+ selectedDataList.size() + "/10)");
 							}
 						} else {
@@ -163,6 +172,15 @@ public class Activity_Album extends Activity {
 				setResult(RESULT_OK, intent);
 				finish();
 
+			}
+		});
+
+		backButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				//need to repair
+				finish();
 			}
 		});
 

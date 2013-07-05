@@ -3,7 +3,7 @@ package team.androidreader.mainview;
 import java.util.ArrayList;
 import java.util.List;
 
-import team.androidreader.dialog.ComfirmDialog;
+import team.androidreader.dialog.ConfirmDialog;
 import team.androidreader.utils.FileOperationHelper;
 import team.top.activity.R;
 import android.app.Activity;
@@ -61,9 +61,9 @@ public class RenameActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				ComfirmDialog comfirmDialog = new ComfirmDialog(RenameActivity.this);
+				ConfirmDialog comfirmDialog = new ConfirmDialog(RenameActivity.this);
 				comfirmDialog.show();
-				comfirmDialog.setText(R.string.dialog_comfirm_rename);
+				comfirmDialog.setText(R.string.dialog_confirm_rename);
 				comfirmDialog.setConfirmBtn(RenameActivity.this);
 			}
 		});
@@ -85,9 +85,9 @@ public class RenameActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK){
-			ComfirmDialog comfirmDialog = new ComfirmDialog(RenameActivity.this);
+			ConfirmDialog comfirmDialog = new ConfirmDialog(RenameActivity.this);
 			comfirmDialog.show();
-			comfirmDialog.setText(R.string.dialog_comfirm_rename);
+			comfirmDialog.setText(R.string.dialog_confirm_rename);
 			comfirmDialog.setConfirmBtn(RenameActivity.this);
 		}
 		return true;

@@ -23,16 +23,17 @@ public class WaittingDialog extends Dialog{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.dialog_waitting);
 		textView = (TextView)findViewById(R.id.textwaitting);
 	}
 	
 	public void setText(String string){
 		textView.setText(string);
+		textView.setVisibility(TextView.VISIBLE);
 	}
 	
 	public void setText(int resId){
 		textView.setText(resId);
+		textView.setVisibility(TextView.VISIBLE);
 	}
 }

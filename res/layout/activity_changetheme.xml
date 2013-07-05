@@ -41,24 +41,27 @@
         android:layout_below="@id/title_theme"
         android:background="@drawable/category_dividing_line" />
 
-    <Button
-        android:id="@+id/black_btn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/divider_theme"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="59dp"
-        android:text="black" />
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rounded_rect"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/white_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/black_btn"
-        android:layout_alignBottom="@+id/black_btn"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="64dp"
-        android:text="white" />
+        <Button
+            android:id="@+id/black_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/theme_black" />
+
+        <Button
+            android:id="@+id/white_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/theme_blue" />
+    </LinearLayout>
 
 </RelativeLayout>

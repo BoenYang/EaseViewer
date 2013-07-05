@@ -25,7 +25,7 @@
     <string name="title_help">Help</string>
     <string name="title_theme">Theme</string>
     <string name="press_again">Press again to exit EaseViewer</string>
-    <string name="nofile">Sorry, no file here...</string>
+    <string name="nofile">Sorry, no file here ...</string>
     <string name="preference_function_intoduce">Introduction</string>
     <string name="preference_advice">Feedback</string>
     <string name="preference_about_team">Github</string>
@@ -39,7 +39,7 @@
     <string name="ok_btn">Confirm</string>
     <string name="cancel_btn">Cancel</string>
     <string name="bottom_selectall">Check all</string>
-    <string name="bottom_cancelall">Uncheck all</string>
+    <string name="bottom_cancelall">Uncheck</string>
     <string name="bottom_delete">Delete</string>
     <string name="bottom_choice">Options</string>
     <string name="choice_copy">Copy</string>
@@ -73,10 +73,17 @@
     <string name="promot_cannot_senddir">Sorry, can\'t send a directory</string>
     <string name="title_send_mail">Send Email</string>
     <string name="dialog_confirm_exit">Quit edit？</string>
+    <string name="dialog_waitting_loading">Opening</string>
     <string name="dialog_confirm_delete">Confirm delete?</string>
     <string name="dialog_confirm_edit">Quit edit？</string>
     <string name="btn_save">Save</string>
-    <string name="dialog_comfirm_rename">Cancel rename?</string>
+    <string name="dialog_confirm_rename">Cancel rename?</string>
     <string name="title_rename">Rename</string>
+    <string name="title_ablum">Ablum</string>
+    <string name="dialog_confirm_ablum">Quit select?</string>
+    <string name="generate_success">File generated at sdcard root!</string>
+    <string name="ablum_finish">Finish</string>
+    <string name="ablum_only10">Up to 10 photos!</string>
+    <string name="screen_shot_success">Capture success</string>
 
 </resources>

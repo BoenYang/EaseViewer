@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ComfirmDialog extends Dialog {
+public class ConfirmDialog extends Dialog {
 
 	private TextView textView;
 	private Activity activity;
 	private Button ok;
 	private Button cancel;
 
-	public ComfirmDialog(Context context) {
+	public ConfirmDialog(Context context) {
 		super(context, R.style.MyDialog);
 	}
 

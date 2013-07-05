@@ -13,12 +13,12 @@
 
         <Button
             android:id="@+id/opeartion"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/button_accept"
+            android:background="@drawable/button_paste"
             android:visibility="invisible" />
 
         <Button

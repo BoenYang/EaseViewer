@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-import team.androidreader.dialog.ComfirmDialog;
+import team.androidreader.dialog.ConfirmDialog;
 import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.FileSystem;
 import team.top.activity.R;
@@ -135,7 +135,7 @@ public class Activity_Multichooser extends Activity {
 					if (dataList.size() > 1) {
 						removeOneData(dataList, "camera_default");
 						try {
-							PngToPdf.convertPngToPdf(dataList,
+							PicToPdf.convertPicToPdf(dataList,
 									FileSystem.SDCARD_PATH + File.separator
 											+ name + ".pdf");
 						} catch (FileNotFoundException e) {
@@ -149,6 +149,9 @@ public class Activity_Multichooser extends Activity {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+						Toast.makeText(getApplicationContext(),
+								R.string.generate_success, Toast.LENGTH_SHORT)
+								.show();
 					} else {
 						Toast.makeText(getApplicationContext(),
 								R.string.null_pic, Toast.LENGTH_SHORT).show();
@@ -230,7 +233,7 @@ public class Activity_Multichooser extends Activity {
 	private void exitEdit() {
 		if (dataList.size() > 1
 				|| !"".equals(fileName.getText().toString().trim())) {
-			ComfirmDialog comfirmDialog = new ComfirmDialog(this);
+			ConfirmDialog comfirmDialog = new ConfirmDialog(this);
 			comfirmDialog.show();
 			comfirmDialog.setText(R.string.dialog_confirm_exit);
 			comfirmDialog.setConfirmBtn(this);

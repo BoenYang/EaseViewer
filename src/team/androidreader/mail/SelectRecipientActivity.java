@@ -3,6 +3,7 @@ package team.androidreader.mail;
 import java.util.ArrayList;
 import java.util.List;
 
+import team.androidreader.theme.SetBackgroundImage;
 import team.androidreader.utils.ADO;
 import team.top.activity.R;
 import android.app.Activity;
@@ -18,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,11 +40,14 @@ public class SelectRecipientActivity extends Activity {
 	private EditText address;
 	private List<Boolean> selected = new ArrayList<Boolean>();
 	private List<String> selectedRecipient = new ArrayList<String>();
+	private LinearLayout layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selectrecipient);
+		layout = (LinearLayout)findViewById(R.id.title_recipientaddr);
+		SetBackgroundImage.setBackGround(this, layout);
 		ado = new ADO(this);
 		recipientList = ado.queryRecipientMail();
 		for (String string : recipientList) {

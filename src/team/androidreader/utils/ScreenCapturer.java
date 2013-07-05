@@ -24,7 +24,7 @@ public class ScreenCapturer {
 
 		// int titlebarH
 		bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h);
-		return BitmapHelper.writeBitmapToSdcard(bitmap, saveDir,
+		return BitmapHelper.writeBitmapToSdcard(bitmap, saveDir + File.separator + saveName,
 				CompressFormat.JPEG, 100);
 	}
 

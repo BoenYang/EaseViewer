@@ -9,6 +9,7 @@ import team.androidreader.dialog.WaittingDialog;
 import team.androidreader.exception.WriteHtmlExcpetion;
 import team.androidreader.utils.FileSystem;
 import team.androidreader.utils.OnProgressListener;
+import team.androidreader.utils.ScreenCapturer;
 import team.top.activity.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -16,8 +17,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 import android.widget.ZoomButtonsController;
 
 @SuppressLint("HandlerLeak")
@@ -28,6 +31,7 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 	private String extension;
 	private String path;
 	private WaittingDialog waittingDialog;
+
 	private Message msg = new Message();
 
 	@Override
@@ -40,6 +44,8 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 
 	@SuppressLint("SetJavaScriptEnabled")
 	private void init() {
+		waittingDialog = new WaittingDialog(ShowOfficeActivity.this,
+				R.style.MyDialog);
 		webView = (WebView) findViewById(R.id.officeweb);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setSupportZoom(true);
@@ -176,8 +182,6 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 		Intent intent = getIntent();
 		extension = intent.getStringExtra("extension");
 		path = intent.getStringExtra("path");
-		waittingDialog = new WaittingDialog(ShowOfficeActivity.this,
-				R.style.MyDialog);
 		waittingDialog.show();
 		waittingDialog.setText(R.string.dialog_waitting_loading);
 		Thread thread = new Thread(new PraseOfficeThread());
@@ -189,4 +193,16 @@ public class ShowOfficeActivity extends Activity implements OnProgressListener {
 		handler.sendMessage(msg);
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 5) {
+			ScreenCapturer.TakeScreenShot(ShowOfficeActivity.this,
+					FileSystem.PRTSCR_DIR,
+					"PrtSc_" + FileSystem.GetTimeFileName() + ".jpg");
+			Toast.makeText(getApplicationContext(),
+					R.string.screen_shot_success, Toast.LENGTH_SHORT).show();
+		}
+		super.onKeyDown(keyCode, event);
+		return true;
+	}
 }
