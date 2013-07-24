@@ -306,6 +306,7 @@ public final class R {
         public static final int action_settings=0x7f070004;
         public static final int add_addresser_dialog_title=0x7f070032;
         public static final int add_recupient_dialog_title=0x7f070031;
+        public static final int advice_waitting=0x7f070054;
         public static final int app_info=0x7f070001;
         public static final int app_name=0x7f070000;
         public static final int app_version=0x7f070002;
